@@ -1,0 +1,188 @@
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass{article}
+
+\usepackage{fancyhdr} % Required for custom headers
+\usepackage{lastpage} % Required to determine the last page for the footer
+\usepackage{extramarks} % Required for headers and footers
+\usepackage{graphicx} % Required to insert images
+\usepackage{mathtools, bm}
+\usepackage{amssymb, bm}
+\usepackage{graphicx}
+\usepackage{algorithmic}
+
+% Margins
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+
+\linespread{1.1} % Line spacing
+
+% Set up the header and footer
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName} % Top left header
+\chead{\hmwkClass\ (\hmwkClassInstructor\ \hmwkClassTime): \hmwkTitle} % Top center header
+\rhead{\firstxmark} % Top right header
+\lfoot{\lastxmark} % Bottom left footer
+\cfoot{} % Bottom center footer
+\rfoot{Page\ \thepage\ of\ \pageref{LastPage}} % Bottom right footer
+\renewcommand\headrulewidth{0.4pt} % Size of the header rule
+\renewcommand\footrulewidth{0.4pt} % Size of the footer rule
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT STRUCTURE COMMANDS
+%	Skip this unless you know what you're doing
+%----------------------------------------------------------------------------------------
+
+% Header and footer for when a page split occurs within a problem environment
+
+
+% Header and footer for when a page split occurs between problem environments
+   
+%----------------------------------------------------------------------------------------
+%	NAME AND CLASS SECTION
+%----------------------------------------------------------------------------------------
+\newcommand{\logoepfl}{
+  \begin{center}
+    \includegraphics[width=4cm]{epfl.jpg}
+  \end{center}
+  \vspace{0.3cm}
+  \hrule
+}
+
+
+\newcommand{\hmwkTitle}{Decentralized Data Sharing System based on Secure Multiparty Computation} % Assignment title
+\newcommand{\hmwkDueDate}{Autumn 2017} % Due date
+\newcommand{\hmwkClass}{IN, LCA1} % Course/class
+\newcommand{\hmwkClassTime}{} % Class/lecture time
+\newcommand{\hmwkClassInstructor}{D.Froelicher, J.Troncoso-Pastoriza} % Teacher/lecturer
+\newcommand{\hmwkAuthorName}{Max Premi} % Your name
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+\title{
+\logoepfl
+\vspace{2in}
+\textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+\normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\
+\vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+\author{\textbf{\hmwkAuthorName}}
+\vspace{3in}
+}
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle
+
+\newpage
+\section*{Abstract}
+\addcontentsline{toc}{section}{Abstract}
+Unlynx and Prio are two privacy-preserving data sharing systems, with each it's way to encode, decode and aggregate datas. While Unlynx uses homomorphic encryption based on Elliptic Curves and zero knowledge proofs, Prio uses Affine-aggregatable encodings and \textit{secret-shared non-interactive proofs}(SNIP's), which perform much better in term of computation time.\\
+However, privacy is assured in Prio if at least one client is trusted, and it then assure provides robustness and scalability, whereas Unlynx assure all this thanks to a collective authority, with several other mechanics such as Noise addition. In both case the number of servers should be significantly smaller than the number of client.\\
+This paper presents the implementation of Prio system into unlynx, and the comparison between both system, as well with a new proof system for Unlynx based on a an efficient protocol for set membership and range proofs.
+%----------------------------------------------------------------------------------------
+%	TABLE OF CONTENTS
+%----------------------------------------------------------------------------------------
+
+\newpage
+\tableofcontents
+\newpage
+
+
+%----------------------------------------------------------------------------------------
+%	BEGIN OF REPORT
+%----------------------------------------------------------------------------------------
+
+\section*{Introduction}
+\addcontentsline{toc}{section}{Introduction}
+Nowadays, tons of data are generated around of us and about us, and used to compute statistics.  Even if these statistics are colleted with the goal of learning usefull aggregate informations about the users/population, it might collect and store private data from client.\\
+The need of collecting data and sharing them in a privacy-preserving way has become crucial in this context. A lot of techniques have been develloped through the years, by major technology companies such as Google [references], but also researcher in Universities [references].\\
+\begin{itemize}
+\item \textbf{Put some example applications}\\
+\end{itemize}
+However, by gaining \textit{privacy}, these protocols sacrifice \textit{robustness} and \textit{scalability},\\
+\begin{itemize}
+\item \textbf{Explain the link between the two and why}
+\end{itemize}
+, leading to the use of technical agreements rather than technical solutions.\\
+In this paper, we present two systems and the result of the merging of those.
+
+\section*{Unlynx Actual System}
+\begin{itemize}
+\item How does unlynx work (with a figure) (system of client, queries and servers)
+\item How Aggregation is done
+\item How proof is done
+
+\end{itemize}
+
+\section*{Prio Aggregation System}
+\begin{itemize}
+\item How does Prio work (same as before)
+\item How does Aggregation is done
+\item New proof system SNIPs
+\end{itemize}
+
+\section*{Prio Proof System}
+\begin{itemize}
+
+
+\item Client evaluation
+\item Consistency checking at the server
+\item Polynomial identity test
+\item Multiplication of shares
+\item Output verification
+
+\end{itemize}
+
+\section*{Implementation}
+\begin{itemize}
+
+\item what is implemented in a little more detailled
+\item optimization apported by code from github and not aborded in details
+
+
+\end{itemize}
+\section*{Performance evaluation}
+
+Explain a little more about comparison and test settings
+
+
+\begin{itemize}
+
+
+\item Scaling with number of server
+\item Scaling with number of client
+\item Scaling with fairly high number of both 
+\item Time and Bandwidth dilemna
+
+\end{itemize}
+\section*{El Gamal range input checking}
+\begin{itemize}
+
+\item TO be seen
+\end{itemize}
+\appendix
+\newpage
+
+\newpage
+\section*{Conclusion}
+\addcontentsline{toc}{section}{Conclusion}
+
+\newpage
+\section*{References}
+\addcontentsline{toc}{section}{References}
+
+
+\end{document}
