@@ -119,14 +119,28 @@ However, by gaining \textit{privacy}, these protocols sacrifice \textit{robustne
 , leading to the use of technical agreements rather than technical solutions.\\
 In this paper, we present two systems and the result of the merging of those.
 
-\section*{Unlynx Actual System}
+\section*{Contributions}
+\section*{Background}
+
+\section{Unlynx Actual System}
 \begin{itemize}
 \item How does unlynx work (with a figure) (system of client, queries and servers)
 \item How Aggregation is done
 \item How proof is done
-
 \end{itemize}
+\subsection{Model}
+Unlynx is a privacy-preserving data sharing system developed by LCA1 in collaboration with DeDiS.\\
+It consists of a collective authority (CA) formed by a number $m$ of server $S_1,...S_m$,and $n$ data providers $DP_1,...DP_n$. These DPs combined represent a distributed databased that is used to awnser querries make by a querier $Q$. The querier and DPs choose one server of the CA to communicate with and can change this choice at any given time.\\
+\textbf{Functionality} Unly,x should permit SQL queries of the form SELECT SUM(*)/COUNT(*) FROM DP,.... WHERE * AND/OR GROUP BY *.\\
 
+\subsection{Threats}
+\textbf{Collective authority servers} It is assumed an Anytrust model [REF]. It does not requires any particular server to be trusted or to be honest-but-curious. The moment it exists one server that is not malicious, functionality, security and privacy are guaranteed.\\
+\textbf{Data providers} are assumed to be honest-but-curious. The system does not protect against malicious DPs sending false infomations, but a solution will be discuss  in Section [INPUT RANGE VALID SECTION].\\
+\textbf{Queriers} are assumed to be malicious, and can collude between themselves or with a subset of the CA servers.\\
+It is also assumed tha all network communication is encrypted and authenticated, by using TLS.
+
+\subsection{Pipeline and Aggregation}
+The protocol start when a querier wants to retrieve some information about sensitive data. It sends the query to one of the server of the CA. Upon receiving, the server broadcast this query to the other servers in the collective authority.
 \section*{Prio Aggregation System}
 \begin{itemize}
 \item How does Prio work (same as before)
