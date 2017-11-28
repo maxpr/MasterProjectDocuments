@@ -1,0 +1,10 @@
+- Storage for the Database copy -> ?? (Prio lets an organization compute aggregate data about its clients without ever storing client data in a single vulnerable location. The organization could run all s
+Prio servers itself, which would ensures data privacy against an attacker who compromises up to s−1 servers.)
+
+- Tell more about privacy/robustness trade-off, because no encryption hard to gain robustness.
+
+- Police of the graph too low, Bigger police ( splits into 2 slides maybe to explicit it more clearly)
+
+- Check for adapter before ( with TAs)
+
+- Check for readability before in the room of presentation.
