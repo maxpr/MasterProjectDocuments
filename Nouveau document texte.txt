@@ -1,0 +1,10 @@
+-Use encoding Prio in Unlynx to do more than sum and count
+-Static On Unlynx, Prio is not
+-No encryption stored in DPS, done at result
+
+Compare prio with encoding, and Unlynx without encryption at DPs
+
+
+SNIPS subsection, explain so that you dont need to read paper (maybe example)
+
+Input Validation Subsection

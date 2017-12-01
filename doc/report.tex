@@ -89,13 +89,13 @@
 \newpage
 \section*{Abstract}
 \addcontentsline{toc}{section}{Abstract}
-Unlynx and Prio are two privacy-preserving data sharing systems, with each it's way to encode, decode and aggregate datas. While Unlynx uses homomorphic encryption based on Elliptic Curve ElGamal and zero knowledge proofs, Prio uses Secret-sharing encoding and \textit{secret-shared non-interactive proofs}(SNIP's), which should perform much better than classic zero knowlege proof in term of computation time, by doing a trade-off execution time/bandwidth.\\
+Unlynx and Prio are two privacy-preserving data sharing systems, with each it's way to encode, decode and aggregate datas. While Unlynx uses homomorphic encryption based on Elliptic Curve ElGamal and zero knowledge proofs, Prio uses Secret-sharing encoding and \textit{secret-shared non-interactive proofs}(SNIP's), which is supposed to perform much better than classic zero knowlege proof in term of computation time, by doing a trade-off execution time/bandwidth.\\
 We consider $m$ servers that consitute the collective authority whose goal is to verifiably compute aggregation functions over data send by $n$ data providers.\\
-Moreover, privacy is assured if at least one client is trusted, and it then assure robustness and scalability,  with several other mechanics such as Noise addition for Unlynx while Prio insures robustness if and only if all server are trusted. In both case the number of servers should be significantly smaller than the number of client.\\
-Prio also extends classic private aggregation techniques to enable collection of different class of statistics such as least-square regression.\\
-\textbf{HERE BE MORE PRECISE}
-This paper presents the implementation of Prio aggregation system, as well as an input validation proof for Unlynx Aggregation system, and then compare both of those to see which one scales better.
-%----------------------------------------------------------------------------------------
+Several problems arise when you want to compare Unlynx and Prio. First, server are static in the first one but not in the second, and the threat model are not exactly the same, as you need to trust at least one server in Unlynx, but all in Prio for correctness. Privacy is assured if at least one server is trusted for both sytem. Then, data providers have all their data encrypted, while Prio do not use homomorphic encryption, and do not need to store data at all.\\
+Prio also extends classic private aggregation techniques to enable collection of different class of statistics such as least-square regression, as Unlynx System can only compute sum and count querry over data.\\
+The goal of this project is to, first implement Prio in the Unlynx framework, second to implement input validation for Unlynx, and then modify both protocol to be ran with the least significant difference in term of assumption and model.\\
+Then if possible we want to design a System that implement the best of both sytems. The idea would be to use Prio encoding to do more than just summing and counting, by removing the encryption at the data provider, and doing the computation in local and then transfer to server in an encrypted way.\\
+-------------------------------------------------
 %	TABLE OF CONTENTS
 %----------------------------------------------------------------------------------------
 
@@ -154,6 +154,11 @@ The pipeline is the following: Encryption, Verification Shuffle, Distributed Det
 \\
 \textbf{Proofs} are done with zero-knowledge systems, to preserve privacy. There is one for each state of the pipeline, for example when aggregating, it publishes the ciphertexts, and the result of their aggregation, as the data is encrypted using Elliptic curve ElGamal, it leaks nothing about the data alone, but there is no Input range proof , meaning the DPs can send fraudulous data (by giving a very big number, and as it is encoded we cannot verify it) and make the computation wrong. This input validation proof is implemented and described in section [SECTION]\\
 
+\subsection{Input range validation for ElGamal}
+
+rnoiuezbfnoizenbfoieznofezifnezoin
+
+
 \section{Prio System}
 \begin{itemize}
 \item How does Prio work (same as before)
@@ -191,17 +196,20 @@ do
 
 \end{itemize}
 
-\subsection{Input range validation for ElGamal}
-do
 
-\section*{Implementation}
+\section{Implementation}
+ 
+ 
+ nziefnoezifoezfzoioezifoezifoizen oirfezifnioznfzoei nzoi nfzioe
 \begin{itemize}
 
 \item what is implemented in a little more detailled
 \item optimization apported by code from github and not aborded in details
 
 \end{itemize}
-\section*{Performance evaluation}
+
+
+\section{Performance evaluation}
 
 Explain a little more about comparison and test settings
 
@@ -215,21 +223,22 @@ Explain a little more about comparison and test settings
 \item Time and Bandwidth dilemna
 
 \end{itemize}
-\section*{El Gamal range input checking}
-\begin{itemize}
 
-\item TO be seen
-\end{itemize}
-\appendix
-\newpage
+
+\section{Comparison Theory and Performance}
+Comparison but explaining why it's cannot be perfectlhy matched, because of the differents assumptions.
+
+\section{Future Work}
 
 \newpage
 \section*{Conclusion}
-\addcontentsline{toc}{section}{Conclusion}
+iufznfiozfoezizefez fze
+fezfezfezfezfezfezf
+ezfezfezfzefezfezfezfezfezfzefzefezfezfezfezfezfezfezfz
 
 \newpage
 \section*{References}
-\addcontentsline{toc}{section}{References}
 
+inoinofizefnoezifnezoifnez
 
 \end{document}
