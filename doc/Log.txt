@@ -19,6 +19,8 @@ Week9: Redo the simulation, splitting sum cipher into 2 protocols, verif and agg
 
 Week10: Plotting and prepare for midterm Presentation, mock presentation in front of David and Juan, lot of improvement to the report too.
 
-Week11: Midterm presentation
+Week11: Midterm presentation, Service implementattion
 
-Week12:
+Week12: Transcription protocol for Input range validation, Chek thins on EC ElGamal and all.
+
+Week13
