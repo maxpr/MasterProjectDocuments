@@ -12,7 +12,9 @@
 \usepackage{mathtools, bm}
 \usepackage{amssymb, bm}
 \usepackage{graphicx}
-\usepackage{algorithmic}
+
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
 
 % Margins
 \topmargin=-0.45in
@@ -162,6 +164,10 @@ It consist of three Algorithm (Encode, Valid, Decode) defined in a field $\mathb
 \item \textbf{Encode($x$)}: maps an input $x in D$ to its encoding in $\mathbb{F}^k$
 \item \textbf{Valid($y$)}: returns true if and only if $y$ is a valid encoding of some item in $D$
 \item \textbf{Decode($\sigma$)}: $\sigma = \sum_{i=1}^{n}{Trunc_{k'}(Encode(x_i))} \in \mathbb{F}^{k'}$ is the input (Trunc takes the $k' \leq k$ components of the encoding), and it outputs the aggregation result $f(x_1,...,x_n)$.
+\subsection*{Bilinear parings over Elliptic Curve}
+Let $G_1$ and $G_T$ be additive group of points of an elliptic curve $G$ over a field $\mathbb{F}$ of order $n$ and with identity $O$. Then the mapping $e: G_1 \times G_1 \rightarrow G_T$ satisfies the following conditions:\\
+For all $R,S \in G_1$ and $x \in \mathbb{F}$, $e(R,S)(x) = e(Rx,S) = e(R,Sx)$\\
+For $B$ the base point, $e(B,B) \neq O$, and the mapping is efficiently computable.
 \end{itemize}
 \section{Unlynx System}
 
@@ -192,7 +198,23 @@ The pipeline is the following: Encryption, Verification Shuffle, Distributed Det
 \subsection{Input range validation for ElGamal}
 
 A problem with the encryption of data is that we can not be sure if the data sent are correct. An example is if we want to aggregate a field were values should be in range $[0,100]$, in the current system if a malicious data provider want to send a value of $15000$ to falsify information, it can do it. This section present an  interactive algorithm based on a classic ElGamal input range validation [REF], and we will discuss its non-interactive form in the section dedicated to implementation.\\
-
+We define the scalar in the elliptic curve over the field $\mathbb{Z_p}$. Also we call $e(.,.)$ the billinear mapping that is describe in the Background section.
+\begin{algorithmic}[1]
+\State \textbf{Common Input:} $B, P, u, l$ and commitment $C$
+\State \textbf{Prover Input:} $\sigma, r$ such that $C = B\sigma + Pr$, $\sigma \in [0,u^l)0$
+\State  \textbf{P $\leftarrow$ V} verifier picks $x \in \mathbb{Z}_p$ defines $y \gets Bx$ and sends $A_i \gets B(x+i)^{-1}$ $ \forall i \in \mathbb{Z}_u$
+\State \textbf{P $\rightarrow$ V} Then prover encode the signature of the value to check in base $u$ with randomly picked $v_j$.\\
+So $\forall j \in \mathbb{Z}_l $ st $ \sigma = \sum_{j}{\sigma_j u^j}$, it picks $v_j \in \mathbb{Z}_p$ and sends $V_j = A_{\sigma_j}v_j$ 
+\State \textbf{P $\rightarrow$ V} prover pick 3 values $s_j,t_j,m_j \in \mathbb{Z}_p $, $\forall j \in \mathbb{Z}_l$ and sends:\\
+$a_j \gets e(V_j,B)(-s_j)+e(B,B)(t_j)$\\
+$D \gets \sum_{j}{(Bu^j s_j + Pm_j)}$
+\State \textbf{P $\leftarrow$ V} Verifier sends a random challenge $c \in \mathbb{Z}_p$
+\State \textbf{P $\rightarrow$ V} prover sends the following value for Verifier to compute verification.\\
+$ \forall j \in \mathbb{Z}_l$, $Z_{\sigma_j} \gets s_j-\sigma_j c$ and $Z_{v_j} \gets t_j-v_j c$\\
+$Z_r = m -rc $, where $m = \sum_{j}{m_j}$
+\State Verifier checks that $D = Cc + PZ_r + \sum_{j}{(Bu^j Z_{\sigma_j}}) $\\
+$a_j = e(V_j,y)c + e(V_j,B)(-Z_{\sigma_j}) + e(B,B)(Z_{v_j})$, $\forall j \in \mathbb{Z}_l$
+\end{algorithmic}
 
 \section{Prio System}
 \subsection{Model}
@@ -247,7 +269,22 @@ If all servers are honest, each will hold a set of shares of the values if the \
  This section will detail what was implemented more throughouly.
 First we will abord the implementation of Prio:
 
-Now we're goin to look at the input range validation implementation:
+Now we're going to look at the input range validation implementation:
+\begin{algorithmic}[1]
+\State \textbf{Common Input:} $B, P, u, l$ and commitment $C$. There will be several bases at the servers, as we will want to test several possible range.
+\State \textbf{Prover Input:} $\sigma, r$ such that $C = B\sigma + Pr$, $\sigma \in [0,u^l)$
+\State  \textbf{Server} picks a $x \in \mathbb{Z}_p$ every $q$ defined request, defines $y \gets Bx$ and compute for the all basis $A_i \gets B(x+i)^{-1}$ $ \forall i \in \mathbb{Z}_u$. It makes the signature public as well as the key $y$.
+\State \textbf{Then Data provider} encodes the signature of the value to check in base $u$ with randomly picked $v_j$.\\
+So $\forall j \in \mathbb{Z}_l $ st $ \sigma = \sum_{j}{\sigma_j u^j}$, it picks $v_j \in \mathbb{Z}_p$ and compute $V_j = A_{\sigma_j}v_j$\\
+It also picks 3 values $s_j,t_j,m_j \in \mathbb{Z}_p $, $\forall j \in \mathbb{Z}_l$ and sends:\\
+First : a public challenge $c$, $Z_r = m-rc$ and $D \gets \sum_{j}{(Bu^j s_j + Pm_j)}$\\
+and then $ \forall j \in \mathbb{Z}_l$\\
+$a_j \gets e(V_j,B)(-s_j)+e(B,B)(t_j)$\\ $Z_{\sigma_j} \gets s_j-\sigma_j c$ and $Z_{v_j} \gets t_j-v_j c$\\
+\State Server checks that $D = Cc + PZ_r + \sum_{j}{(Bu^j Z_{\sigma_j}}) $\\
+$a_j = e(V_j,y)c + e(V_j,B)(-Z_{\sigma_j}) + e(B,B)(Z_{v_j})$, $\forall j \in \mathbb{Z}_l$
+\end{algorithmic}
+
+
 \begin{itemize}
 
 \item what is implemented in a little more detailled
@@ -285,8 +322,25 @@ fezfezfezfezfezfezf
 ezfezfezfzefezfezfezfezfezfzefzefezfezfezfezfezfezfezfz
 
 \newpage
-\section*{References}
-\addcontentsline{toc}{section}{References}
-inoinofizefnoezifnezoifnez
+\begin{thebibliography}{9}
 
+\bibitem{unlynx} 
+David Froelicher, Patricia Egger, João Sa Sousa, Jean Louis Raisaro, Zhicong Huang, Christian Mouchet, Bryan Ford and Jean-Pierre Hubaux.\\
+\textit{UnLynx:} A Decentralized System for Privacy-Conscious Data Sharing. 
+\textit{EPFL}
+ 
+\bibitem{prio} 
+Henry Corrigan-Gibbs and Dan Boneh.\\
+\textit{Prio}: Private, Robust, and Scalable Computation of Aggregate Statistics.
+\textit{Standford University}
+
+
+\bibitem{range} 
+Knuth: Computers and Typesetting,
+\\\texttt{http://www-cs-faculty.stanford.edu/\~{}uno/abcde.html}
+\end{thebibliography}
+
+\bibitem{go}
+\bibitem{dedis}
+\bibitem{}
 \end{document}
