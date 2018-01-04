@@ -93,10 +93,10 @@
 \addcontentsline{toc}{section}{Abstract}
 Unlynx and Prio are two privacy-preserving data sharing systems, with each it's way to encode, decode and aggregate datas. While Unlynx uses homomorphic encryption based on Elliptic Curve ElGamal and zero knowledge proofs, Prio uses Secret-sharing encoding and \textit{secret-shared non-interactive proofs}(SNIP's) to validate the data, which is supposed to perform much better than classic zero knowlege proof in term of computation time, by doing a trade-off execution time/bandwidth.\\
 We consider $m$ servers that consitute the collective authority whose goal is to verifiably compute aggregation functions over data send by $n$ data providers.\\
-Several problems arise when you want to compare Unlynx and Prio. First, server are static in the first one but not in the second, and the threat model are not exactly the same, as you need to trust at least one server in Unlynx, but all in Prio for correctness. Privacy is assured if at least one server is trusted for both sytem. Then for Unlynx, data providers have all their data encrypted, while Prio do not use homomorphic encryption, and do not need to store data at all.\\
-Prio also extends classic private aggregation techniques to enable collection of different class of statistics such as least-square regression, as Unlynx System can only compute sum and count querry over data.\\
+Several problems arise when you want to compare Unlynx and Prio. First, server are static in the first one but not in the second, and the threat model are not exactly the same, as you need to trust at least one server in Unlynx, but all in Prio for correctness. Privacy is assured if at least one server is trusted for both sytem. Then for Unlynx, data providers have all their data encrypted, while Prio do not use homomorphic encryption, and do not need to store data at all. Indeed Unlynx requires the data to be stored encrypted with a collective key, whereas Prio can proceed data decomposed in shares, sent by clients directly.\\
+Prio also extends classic private aggregation techniques to enable collection of different class of statistics such as least-square regression, unlike Unlynx System, that can only compute sum and count querry over data.\\
 The goal of this project is to, first implement Prio in the Unlynx framework, second to implement input validation for Unlynx, and then modify both protocol to be ran with the least significant difference in term of assumption and model.\\
-Then if possible we want to design a System that implement the best of both sytems. The idea would be to use Prio encoding to do more than just summing and counting in Unlynx, by removing the encryption at the data provider, and doing the computation in local and then transfer to server in an encrypted way.\\
+Eventually, if possible, we want to design a System that implement the best of both sytems. The idea would be to use Prio encoding to do more than just summing and counting in Unlynx, by removing the encryption at the data provider, and doing the computation locally and then transfer to server in an encrypted way.\\
 -------------------------------------------------
 %	TABLE OF CONTENTS
 %----------------------------------------------------------------------------------------
@@ -112,23 +112,28 @@ Then if possible we want to design a System that implement the best of both syte
 
 \section*{Introduction}
 \addcontentsline{toc}{section}{Introduction}
-Nowadays, tons of data are generated around us about what we do, and are used to compute statistics. Even if these statistics are colleted with the goal of learning usefull aggregate informations about the users/population, it might end in collecting and storing private data from client.\\
-The need to collect data and to share them in a privacy-preserving way has become crucial in this context.
-We can for example illustrate this with the problem of Cloud leaking that happened several times in the past years.[ref]\\
-Leaking private user data bring important privacy and security risks. They might be discloded, sold for profit or even be used by agencies for targeting and mass surveillance goals.\\
-A lot of techniques have been developed through the years, by major technology companies such as Google [references], but also researcher in Universities [references].\\
+Nowadays, tons of data are generated around us about what we do, and are used to compute statistics, by different parties. Even if these statistics are colleted with the goal of learning usefull aggregate informations about the users/population, for example health or work statistics for a country \cite{swiss}. However it might end in collecting and storing private data from data provider, which poses a serious privacy and security problem.\\
+We can for example illustrate this with the problem of Cloud leaking that happened several times in the past years. \cite{pentagon}, or sensitive health data such as suceptibility to contract diseases, that can be used against one individual. They might even be discloded, sold for profit \cite{sold} or be used by agencies for targeting and mass surveillance goals.
+The need to collect data and to share them in a privacy-preserving way has become crucial in this context, and lot of research has been done on this topic.\\
+A lot of techniques have been developed through the years, by major technology companies such as Apple \cite{apple}, but also researcher in Universities \cite{unlynx,prio}.\\
+First, sytems that use "Randomize response for differential privacy" \cite{randomized}, which change a value with probability $p < 0.5$, and by summing a large number of noisy value, the sum is still a good estimation of the real values.This technique is well scalable and perform nicely, but assure only \textit{weak privacy}.\\
+So encryption system were developped to solve this problem.
 However, by gaining \textit{privacy}, these protocols sacrifice \textit{robustness} and \textit{scalability}, which are two important aspect to keep in mind while designing a decentralized system. Privacy is necessary so that no leak in the sensitive data happend, and robustness characterise the correctness of the computation. The trade-off between both should be reasonable, as we do not want any data to be leaked, and the server has to correctly compute under given circunstunces.\\
-This difficulties lead to the use of technical agreements rather than technical solutions, which is not a robust solution.\\
-Indeed, centralized system are still widely used [ref] as they are way simpler and use a trusted third party. But these trusted parties still are a single point of failure in the system and data provider begin to realize the value of their own data.\\
+This difficulties lead to the use of legal agreements rather than technical solutions, as only a few of the systems have been deployed in the real-world. This agreement is not a robust solution for several reasons.\\
+One of them is centralization. Centralized system are still widely used \cite{dyadic,centralized} because they are way simpler and use a trusted third party. But these trusted parties still are a single point of failure in the system.\\
+Another reason is that data provider have begun to realize the importance and value of their own data.
 This is why decentralized sytems are becoming more popular, and desirable.\\
-In this paper, we present the implementation of Prio into Unlynx, an implementation of Unlynx's input validation and a theoritical comparison and discussion for future possible new sytems.
-
+In this paper, we present the implementation of Prio into Unlynx, an implementation of Unlynx's input validation and a theoritical comparison and discussion for future possible new sytems that combines, if possible, the best part of each paper.
+	
 \section*{Contributions}
 \addcontentsline{toc}{section}{Contributions}
 In this paper, the following contributions are made:\\
-- An implementation of Prio SNIPs system in Unlynx, represented as two new protocols, and a new service. It includes the validation and the aggregation.\\
-- The implementation of a proof for input range validation for Elliptic Curve ElGamal, using biparing on a specific Elliptic Curve.\\
-- An evaluation of both this protocol in terms of privacy and efficiency, with a comparison with the most similar settings.
+- An implementation of Prio SNIPs system in Unlynx, represented as two new protocols, and a new service. It includes the validation and the aggregation. It also contains the different data types supported by Prio.\\
+
+- The implementation of a proof for input range validation for Elliptic Curve ElGamal, using biparing on a specific Elliptic Curve. This allows the server to exclude faulty data sent by possible malicious clients. The range checked is $[0,u^l]$ with $u,l$ taking arbitrary values. \\
+
+- An evaluation of both this protocol in terms of privacy and efficiency, with a comparison with the most similar settings. Then a conclusion on which system suits better the the needs of large scale real world scenario.
+
 \section*{Background}
 \addcontentsline{toc}{section}{Background}
 \subsection*{Collective Authority}
@@ -161,7 +166,7 @@ Given the fact that each data provider $i$ holds a value $x_i \in D$, and the se
 An AFE gives an efficient way to encode data such that it is possible to compute the value of the aggregation function $f(x_1,...,x_n)$ given only the \textit{sum of the encodings} $x_1,....,x_n$.\\
 It consist of three Algorithm (Encode, Valid, Decode) defined in a field $\mathbb{F}$ and two integers $k' \leq k$\\
 \begin{itemize}
-\item \textbf{Encode($x$)}: maps an input $x in D$ to its encoding in $\mathbb{F}^k$
+\item \textbf{Encode($x$)}: maps an input $x \in D$ to its encoding in $\mathbb{F}^k$
 \item \textbf{Valid($y$)}: returns true if and only if $y$ is a valid encoding of some item in $D$
 \item \textbf{Decode($\sigma$)}: $\sigma = \sum_{i=1}^{n}{Trunc_{k'}(Encode(x_i))} \in \mathbb{F}^{k'}$ is the input (Trunc takes the $k' \leq k$ components of the encoding), and it outputs the aggregation result $f(x_1,...,x_n)$.
 \subsection*{Bilinear parings over Elliptic Curve}
@@ -169,17 +174,17 @@ Let $G_1$ and $G_T$ be additive group of points of an elliptic curve $G$ over a 
 For all $R,S \in G_1$ and $x \in \mathbb{F}$, $e(R,S)(x) = e(Rx,S) = e(R,Sx)$\\
 For $B$ the base point, $e(B,B) \neq O$, and the mapping is efficiently computable.
 \end{itemize}
-\section{Unlynx System}
 
+\section{Unlynx System}
 \subsection{Model}
-Unlynx is a privacy-preserving data sharing system developed by LCA1 in collaboration with DeDiS.\\
-It consists of a collective authority (CA) formed by a number $m$ of server $S_1,...,S_m$, and $n$ data providers $DP_1,...DP_n$ containing sensitive data, encrypted using EC ElGamal. These DPs combined represent a distributed database that is used to awnser queries made by a querier $Q$. The querier and DPs choose one server of the CA to communicate with and can change this choice at any given time.\\
+Unlynx \cite{unlynx} is a privacy-preserving data sharing system developed by LCA1 \cite{lca} in collaboration with DeDiS \cite{dedis}.\\
+It consists of a collective authority (CA) formed by a number $m$ of server $S_1,...,S_m$, and $n$ data providers $DP_1,...DP_n$ containing sensitive data, encrypted using EC ElGamal, following the key scheme describe in the \textbf{Background} Section. These DPs combined represent a distributed database that is used to awnser queries made by a querier $Q$. The querier and DPs choose one server of the CA to communicate with and can change this choice at any given time.\\
 \textbf{Functionality}: Unlynx should permit SQL queries of the form SELECT SUM(*)/COUNT(*) FROM DP,.... WHERE * AND/OR GROUP BY *, with any number of * clauses.\\
 \textbf{Privacy and Robustness}: Both are assured if at least one server is trusted, as we use the fact that we are allowed to publish ciphertext and their aggregation to show that the computation at the server are actually correct. It leaks nothing as all data are encrypted.
 
 \subsection{Threats}
-\textbf{Collective authority servers} It is assumed an Anytrust model [REF]. It does not requires any particular server to be trusted or to be honest-but-curious. The moment it exists one server that is not malicious, functionality, security and privacy are guaranteed.\\
-\textbf{Data providers} are assumed to be honest-but-curious. The system does not protect against malicious DPs sending false infomations, but a solution will be discuss  in Section [INPUT RANGE VALID SECTION].\\
+\textbf{Collective authority servers} It is assumed an Anytrust model \cite{anytrust}. It does not requires any particular server to be trusted or to be honest-but-curious. The moment it exists one server that is not malicious, functionality, security and privacy are guaranteed.\\
+\textbf{Data providers} are assumed to be honest-but-curious. The system does not protect against malicious DPs sending false infomations, but a solution will be discuss  in Section the \textbf{Input range validation for Elliptic Curve ElGamal}.\\
 \textbf{Queriers} are assumed to be malicious, and can collude between themselves or with a subset of the CA servers.\\
 It is also assumed tha all network communication is encrypted and authenticated, by using a protocol like TLS for example.
 
@@ -193,12 +198,14 @@ The pipeline is the following: Encryption, Verification Shuffle, Distributed Det
 \caption{Unlynx query processing pipeline}
 \end{figure}
 \\
-\textbf{Proofs} are done thanks to zero-knowledge systems, to preserve privacy. There is one for each state of the pipeline, to illustrate a zero knowledge proof, whule doing the aggregation phase it publishes the ciphertexts, and the result of their aggregation, as the data is encrypted using Elliptic curve ElGamal, it leaks nothing about the data alone, but there is no Input range proof , meaning the DPs can send fraudulous data (by giving a very big number, and as it is encoded we cannot verify it) and make the computation wrong. This input validation proof is implemented and described in section [SECTION]\\
+\textbf{Proofs} are done thanks to zero-knowledge systems, to preserve privacy. There is one for each state of the pipeline, to illustrate a zero knowledge proof, while doing the aggregation phase it publishes the ciphertexts, and the result of their aggregation. As the data is encrypted using Elliptic curve ElGamal, it leaks nothing about the data alone. One of the problem in Unlynx is that it exists no Input range proof for data coming from the data providers, meaning the DPs can send fraudulous data (by giving a very big number or really small) and as data are encrypted we have no way to directly check this. This make the whole result and computation obsolete, and this is why in the basic Threat model, data providers are assumed honest-but-curious. This input validation proof is implemented and described in the following lines.\\
 
-\subsection{Input range validation for ElGamal}
+\subsection{Input range validation for Elliptic Curve ElGamal}
 
-A problem with the encryption of data is that we can not be sure if the data sent are correct. An example is if we want to aggregate a field were values should be in range $[0,100]$, in the current system if a malicious data provider want to send a value of $15000$ to falsify information, it can do it. This section present an  interactive algorithm based on a classic ElGamal input range validation [REF], and we will discuss its non-interactive form in the section dedicated to implementation.\\
-We define the scalar in the elliptic curve over the field $\mathbb{Z_p}$. Also we call $e(.,.)$ the billinear mapping that is describe in the Background section.
+A problem with the encryption of data is that we can not be sure if the data sent are correct. An example is if we want to aggregate a field were values should be in range $[0,100)$, in the current system if a malicious data provider want to send a value of $15000$ to falsify information, it can do it. This section present an  interactive algorithm based on a classic ElGamal input range validation \cite{range}, and we will discuss its non-interactive form in the section dedicated to implementation.\\
+We define the scalar in the elliptic curve over the field $\mathbb{Z_p}$. Also we call $e(.,.)$ the billinear mapping that is describe in the Background section.\\
+This is the algorithm that allows to check the validity of a secret $\sigma$ in a range $ [0,u^l]$. The algortihm can be adapted to check any range $[a,b]$.\\
+\begin{algorithm}
 \begin{algorithmic}[1]
 \State \textbf{Common Input:} $B, P, u, l$ and commitment $C$
 \State \textbf{Prover Input:} $\sigma, r$ such that $C = B\sigma + Pr$, $\sigma \in [0,u^l)0$
@@ -215,6 +222,19 @@ $Z_r = m -rc $, where $m = \sum_{j}{m_j}$
 \State Verifier checks that $D = Cc + PZ_r + \sum_{j}{(Bu^j Z_{\sigma_j}}) $\\
 $a_j = e(V_j,y)c + e(V_j,B)(-Z_{\sigma_j}) + e(B,B)(Z_{v_j})$, $\forall j \in \mathbb{Z}_l$
 \end{algorithmic}
+\end{algorithm}
+This algorithm as been adapted from the original one \cite{range}, used on classic ElGamal encryption. The soundness follows from the unforgeability of the Boneh-Boyen signature. The prover need to compute $5l$ point multiplication in the protocol.\\
+\textbf{Arbitrarty Range}\\
+To handle an arbitrary range $[a,b]$, it is needed to show that $\sigma \in [a,a+u^l]$ AND $ \sigma \in [b-u^l,b]$, this leads to the following formula:\\
+\begin{gather*}
+ \sigma \in [b-u^l,b] \Longleftrightarrow   \sigma - b + u^l \in [0,u^l) \\
+\sigma \in [a,a+u^l] \Longleftrightarrow   \sigma - a  \in [0,u^l)\\
+\end{gather*}
+The only modification necessary in the algortihm is the verifier's check which is now:
+\begin{gather*}
+D = Cc+B(-B+u^l)+P(Z_r)+\sum_j{B(Z_{\sigma_j})}\\
+D= Cc+B(-A)+P(Z_r)+\sum_j{B(Z_{\sigma_j})}
+\end{gather*}
 
 \section{Prio System}
 \subsection{Model}
@@ -247,19 +267,19 @@ In this section, the SNIP protocol will be detailled a litlle more.\\
 \subsubsection{DP evaluation}
 First the DP evaluates the circuit \textbf{Valid} on its input $x$. It construct three polynomials $f,g $ and $h$ which encode respectively the inputs wire and the ouput wire of each of the $M$ multiplication gates in the \textbf{Valid($x$)} circuit.\\
 This step is done by polynomial interpolation to construct $f,g$ and get $h$ by multiplying those.\\
-So polynomials $f,g$ have a degree at most $M-1$ while $h = f . g$ have a degree at most $2M-2$.\\
+So polynomials $f,g$ have a degree at most $M-1$ while $h = f \cdot g$ have a degree at most $2M-2$.\\
 Then the DP splits the polynomial $h$ using additive secre sharing and send the $i$th ($[h]_i$) share to server $i$
 \subsubsection{Consistency checking at the server}
 At this time each server $i$ holds a share $[x]_i$ and $[h]_i$ send by the data provider. From both this values, the servers can reproduce $[f]_i$ and $[g]_i$ without communicating with each others.\\
 Indeed $[x]_i$ is a share of the input, and $[h]_i$ contains a share of each wire value coming out of a multiplication gate. Thus, it can derive all other values via affine operation on the wire.
 \subsubsection{Polynomial identity test}
-Now each server has reconstructed shares $[\hat{f}]_i, [\hat{g}]_i$ from $[h]_i$ and $[x]_i$. It holds that $ \hat{f}. \hat{g} = h$ if and only if the servers collectively hold a set of wire value that, when summed is equal to the internal wire value of the \textbf{Valid($x$)} circuit computation.\\
+Now each server has reconstructed shares $[\hat{f}]_i, [\hat{g}]_i$ from $[h]_i$ and $[x]_i$. It holds that $ \hat{f} \cdot \hat{g} = h$ if and only if the servers collectively hold a set of wire value that, when summed is equal to the internal wire value of the \textbf{Valid($x$)} circuit computation.\\
 All exeute the Schwartz-Zippel randomized polynomial identity test [REF] to check if relation holds and no data have been corrupted or malicious DPs have tried to send wrong data.\\
-The principle is that if $ \hat{f}. \hat{g} \neq h$, then the polinomial $ \hat{f}. \hat{g} - h$ is a non-zero polynomial of degree at most $2M-2$ zeros in $\mathbb{F}$. It can have at most $2M-2$ zeros, so we choose a random $r \in \mathbb{F}$ and evaluate this polynomial, the servers will detect with probability at least $1 - \frac{2M-2}{|F|}$ that $ \hat{f}. \hat{g} \neq h$.\\
-The servers can use a linear operation to get share $\sigma_i = [ \hat{f}(r). \hat{g}(r) - h(r)]_i$. Then publish to ensure that $\sum_{i}{\sigma_i} = 0 \in \mathbb{F}$. If it is not $0$ the servers reject the client submission.
+The principle is that if $ \hat{f} \cdot \hat{g} \neq h$, then the polinomial $ \hat{f} \cdot \hat{g} - h$ is a non-zero polynomial of degree at most $2M-2$ zeros in $\mathbb{F}$. It can have at most $2M-2$ zeros, so we choose a random $r \in \mathbb{F}$ and evaluate this polynomial, the servers will detect with probability at least $1 - \frac{2M-2}{|F|}$ that $ \hat{f} \cdot \hat{g} \neq h$.\\
+The servers can use a linear operation to get share $\sigma_i = [ \hat{f}(r) \cdot \hat{g}(r) - h(r)]_i$. Then publish to ensure that $\sum_{i}{\sigma_i} = 0 \in \mathbb{F}$. If it is not $0$ the servers reject the client submission.
 \subsubsection{Multiplication of shares}
-Finally all servers need to multiply the shares $ [\hat{f}(r)]_i $ and $ [\hat{g}(r)]_i$ to get the share $[\hat{f}(r)]_i .[\hat{g}(r)]_i$ without leaking anything to each other about the values of the two polynomials. It is here that the Beaver MPC enter the computation. Each servers also received from a trusted dealer a one-time-use shares $([a]_i,[b]_i,[c]_i) \in \mathbb{F}^3 $ such that $a . b = c \in \mathbb{F}$. We can from this share, efficiently compute a multiparty multiplication of a pair secret-shared values. This only require each server to broadcast a single message.\\
-The triple is generated by the data provider. The servers will be able to compute correcctly if values are corect. Moreover, even if the data provider send wrong values, the server still catch the cheating client with high probability. Indeed if $a.b \neq c \in \mathbb{F}$ then we can write $a.b = (c + \alpha) \in \mathbb{F}$. We can then run the polynomial identity test with $\hat{f}(r) . \hat{f}(r) - h(r) + \alpha = 0$. The servers will catch a wrong input with probability at least $1 - \frac{2M-2}{|F|}$.
+Finally all servers need to multiply the shares $ [\hat{f}(r)]_i $ and $ [\hat{g}(r)]_i$ to get the share $[\hat{f}(r)]_i \cdot [\hat{g}(r)]_i$ without leaking anything to each other about the values of the two polynomials. It is here that the Beaver MPC enter the computation. Each servers also received from a trusted dealer a one-time-use shares $([a]_i,[b]_i,[c]_i) \in \mathbb{F}^3 $ such that $a \cdot b = c \in \mathbb{F}$. We can from this share, efficiently compute a multiparty multiplication of a pair secret-shared values. This only require each server to broadcast a single message.\\
+The triple is generated by the data provider. The servers will be able to compute correcctly if values are corect. Moreover, even if the data provider send wrong values, the server still catch the cheating client with high probability. Indeed if $a \cdot b \neq c \in \mathbb{F}$ then we can write $a \cdot b = (c + \alpha) \in \mathbb{F}$. We can then run the polynomial identity test with $\hat{f}(r) \cdot \hat{f}(r) - h(r) + \alpha = 0$. The servers will catch a wrong input with probability at least $1 - \frac{2M-2}{|F|}$.
 
 \subsubsection{Output verification}
 If all servers are honest, each will hold a set of shares of the values if the \textbf{Valid} circuit. To confirm that \textbf{Valid($x$)} is indeed $1$ they only need to publish their share of the \textit{output wire}. Then, all server sum up to confirm that its indeed equal to $1$, except with some small failure probability due to the polynomail identity test.
@@ -267,7 +287,13 @@ If all servers are honest, each will hold a set of shares of the values if the \
 
 \section{Implementation}
  This section will detail what was implemented more throughouly.
-First we will abord the implementation of Prio:
+First we will abord the implementation of Prio:\\
+Prio code \cite{priocode} was implemented in Go, with 3 depedencies in C (FLINT, GMP and MPFR) to execute polynomial operations by Henry Corrigan-Gibbs.\\
+This paper contribution is mostly porting code to use the multiparty computation and SNIPs in the Unlynx framework. So most of the code is used directly from the repository, but all the communication server/data provider has been reworked to be compatible with the Tree structure used in Unlynx \cite{unlynxcode}.\\
+To follow the structure, the aggregation and verification protocol were splitted in two different protocols, even if they both work together to get the final result. To be more precise, data from client are send, server do the SNIPs proof, if it is valid, it will aggregate the result of the SNIPs, else it will discard.\\
+Let's describe the easiest protocol, the aggregation:\\
+The protocols are run at each server $j$, and each protocol has received a share $[x_i]_j$ from dataprovider $i$, represented by a \textit{type big.Int} in Go (it can actually be another type but the SNIPS protocol transform all the type in a \textit{big.Int}). The protocol structure is a binary Tree.\\
+When several data have been received, aggregation start by the root protocol, that notify all children that the aggregation will start, and wait for the children to send their local sum. This notification goes down the Tree until there are no more children, and at this point each Leaf $l$ aggregate locally the share by simply summing $\sum_{i}[x_i]_l$, and send the result to their unique parents. On receiving the response from its children, the other nodes aggregates locally their own shares, and 
 
 Now we're going to look at the input range validation implementation:
 \begin{algorithmic}[1]
@@ -336,11 +362,64 @@ Henry Corrigan-Gibbs and Dan Boneh.\\
 
 
 \bibitem{range} 
-Knuth: Computers and Typesetting,
-\\\texttt{http://www-cs-faculty.stanford.edu/\~{}uno/abcde.html}
+Jan Camenisch, Rafik Chaabouni, and abhi shelat\\
+Efficient Protocols for Set Membership and Range Proofs.
+\textit{IBM Research, EPFL, U. of Virginia}
+
+\bibitem{expose}
+Keller,J., Lai,K.R., and Pelroth, N\\
+How many times has your personal information been exposed to hackers ?\\
+\\\texttt{http://www.nytimes.com/interactives/2015/07/29technology/personaltech/what-parts-of-your-information-have-been-exposed-to-hackers-quiz.html}
+
+\bibitem{pentagon}
+Classified Pentagon data leaked on the public cloud, BBC news
+\\\texttt{http://www.bbc.com/news/technology-42166004}
+
+\bibitem{apple}
+Greenberg, A.\\
+Apple's 'differential privacy' is about colleccting your data- but not your data.
+\\\texttt{https://www.wired.com/2016/06/apples-differential-privacy-collection-data/}
+
+\bibitem{swiss}
+Departement federal de l'economie, de la formation et de la recherche DEFR.
+\\\texttt{https://www.amstat.ch}
+
+\bibitem{lca}
+LCA1 laboratory, EPFL.
+
+\bibitem{dedis}
+DeDis laboratory, EPFL.
+
+\bibitem{randomized}
+Warner, S. L.\\
+Randomized response: A survey technique for eliminating evasive bias.\\
+\textit{Journal of the American Statistical Association 60,309 (1965),63-69}
+
+\bibitem{sold}
+Smith, B.\\
+Uber executive suggest digging up dirt on journalits.
+\\\texttt{http://www.buzzfeed.com/bensmith/uber-executive-suggests-digging-up-dirt-on-journalists}
+
+\bibitem{dyadic}
+Dyadic security \texttt{https://www.dyadicsec.com/}
+
+\bibitem{centralized}
+Dan Bogdanov, Sven Laur, and Jan Wilemson.\\
+\textit{Sharemind}: A framework for fast privacy-preserving computations. In \textit{European Symposium on Research in Computer Security}
+
+\bibitem{anytrust}
+David I Wolinsky, Hery Corrigan-Gibbs, Bryan Ford, and Aaron Jonhson.\\
+Scalable anonymous group communication in the anytrust model. In \textit{5th European Workshop on System Security. 2012}
+
+
+\bibitem{priocode}
+Prototype implementation of Prio in Go
+\texttt{https://github.com/henrycg/prio}
+
+\bibitem{unlynxcode}
+Decentralized privacy-preserving data sharing tool : Unlynx\\
+\texttt{https://github.com/lca1/unlynx}
+
 \end{thebibliography}
 
-\bibitem{go}
-\bibitem{dedis}
-\bibitem{}
 \end{document}
