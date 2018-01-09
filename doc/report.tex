@@ -135,13 +135,15 @@ In this paper, the following contributions are made:\\
 
 - An evaluation of both this protocol in terms of privacy and efficiency, with a comparison with the most similar settings. Then a conclusion on which system suits better the the needs of large scale real world scenario.
 
+
 \section*{Background}
 \addcontentsline{toc}{section}{Background}
 \subsection*{Collective Authority}
-Nowadays, applications and systems rely on third party authorities to provide security service. For example the creation of certificate to prove ownership of public key. A collective authority is a set of server that are deployed in a decentralized and distributed way, to support a given number of protocols.\\
-Each of them possesses a private-public key pair $(k_i,K_i)$, where $K_i = k_i B$ with $k_i$ is a scalar and $K_i$ a point. This authority construct a public key $K = \sum_{i=1}^{m}{K_m}$ which is the sum of all servers public key. So to decrypt a message, each server partially decrypt a message encrypted using $K$, thus the collective authority key provides strongest link security.
+Nowadays, applications and systems rely on third party authorities to provide security service. For example the creation of certificate to prove ownership of a public key. A collective authority is a set of server that are deployed in a decentralized and distributed way, to support a given number of protocols.\\
+Each of them possesses a private-public key pair $(k_i,K_i)$, where $K_i = k_i B$ with $k_i$ is a scalar and $K_i$ a point in a given Elliptic Curve. This authority construct a public key $K = \sum_{i=1}^{m}{K_m}$ which is the sum of all the server's public key. So to decrypt a message, each server partially decrypt a message encrypted using $K$, thus the collective authority key provides strongest link security, as no intermediate can decrypt the data without the contribution of all the servers.
 
 \subsection*{ElGamal}
+All scalar are picked in a field $\mathbb{Z}_p$.\\
 For Unlynx, data are encrypted by using Elliptic Curve ElGamal, more precisely, $P$ is a public key, $x$ is a message mapped to a point and $B$ is a bassepoint on the curve $\gamma$. The encryption is the following, with $r$ a random nonce:\\
 $E_P(x) = (rB,x+rP)$. The homomorphic properties states that $\alpha E_P(x_1) + \beta E_P(x_2) = E_P(\alpha x_1+ \beta x_2)$\\
 To decrypt, the owner of the private key $P = pB$ multiplies $rB$ and $p$ to get $rP$ and substract from $x + rP$.\\
@@ -153,18 +155,29 @@ A citcuit $C$ is just a mapping $\mathbb{F}^L \rightarrow \mathbb{F}$, as evalua
 
 \subsection*{Beaver's MPC}
 A Beaver triple is defined as follow:\\
-$(a,b,c) \in \mathbb{F}^3$, chosen at random with the constraint that $a . b = c$
+$(a,b,c) \in \mathbb{F}^3$, chosen at random with the constraint that $a \cdot b = c$.\\
 As we use it in a multiparty computation context, each server $i$ holds a share $([a]_i , [b]_i , [c]_i) \in \mathbb{F}^3$.\\
-Using these shares, the goal is to multiply two number $x$ and $y$ without using them directly. In Prio the goal is to multiply shares $[x]_i$ and $[y]_i$.\\
+Using these shares, the goal is to multiply two number $x$ and $y$ without leaking anything about them. In Prio the goal is to multiply shares $[x]_i$ and $[y]_i$.\\
 To do so the following values are computed:
 $$[d]_i = [x]_i -[a]_i  \quad  ;  \quad  [e]_i = [y]_i - [b]_i$$ 
 Then from this shares, each server can compute $d$ and $e$ and compute this formula:\\
 $$\sigma_i = de/m + d[b]_i +e[a]_i + [c]_i$$
-The sum of these shares yields: $$ \sum_{i} \sigma_i = \sum_{i}{(de/m +d[b]_i + e[a]_i + [c]_i)} $$
+The sum of these shares yields:
+
+\begin{equation}
+\begin{split}
+& \sum_{i} \sigma_i = \sum_{i}{(de/m +d[b]_i + e[a]_i + [c]_i)}\\
+ & = de +db +ei + c\\
+ & = (x-a)(y-b)+ (y-a)b + (z-b)a + c\\
+ & = (x-a)y + (y-b)a + c\\
+ & = xy -ab + c\\
+ & = xy\\
+\end{split}
+\end{equation}
+As $\sum_{i} \sigma_i = xy$, it implies that $\sigma_i = [xy]_i$ 
 
 \subsection*{Affine-aggregatable encodings (AFEs) functions}
-Given the fact that each data provider $i$ holds a value $x_i \in D$, and the server have an aggregation function $f : D^n \rightarrow A$, whose range is a set of aggregates $A$.
-An AFE gives an efficient way to encode data such that it is possible to compute the value of the aggregation function $f(x_1,...,x_n)$ given only the \textit{sum of the encodings} $x_1,....,x_n$.\\
+Given the fact that each data provider $i$ holds a value $x_i \in D$, and the server have an aggregation function $f : D^n \rightarrow A$, whose range is a set of aggregates $A$, an AFE gives an efficient way to encode data such that it is possible to compute the value of the aggregation function $f(x_1,...,x_n)$ given only the \textit{sum of the encodings} $x_1,....,x_n$.\\
 It consist of three Algorithm (Encode, Valid, Decode) defined in a field $\mathbb{F}$ and two integers $k' \leq k$\\
 \begin{itemize}
 \item \textbf{Encode($x$)}: maps an input $x \in D$ to its encoding in $\mathbb{F}^k$
@@ -428,9 +441,11 @@ Departement federal de l'economie, de la formation et de la recherche DEFR.
 
 \bibitem{lca}
 LCA1 laboratory, EPFL.
+\\\texttt{http://lca.epfl.ch/}
 
 \bibitem{dedis}
 DeDis laboratory, EPFL.
+\\\texttt{https://dedis.epfl.ch/}
 
 \bibitem{randomized}
 Warner, S. L.\\
@@ -456,7 +471,7 @@ Scalable anonymous group communication in the anytrust model. In \textit{5th Eur
 
 \bibitem{priocode}
 Prototype implementation of Prio in Go
-\texttt{https://github.com/henrycg/prio}
+\\\texttt{https://github.com/henrycg/prio}
 
 \bibitem{unlynxcode}
 Decentralized privacy-preserving data sharing tool : Unlynx\\
