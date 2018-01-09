@@ -94,9 +94,10 @@
 Unlynx and Prio are two privacy-preserving data sharing systems, with each it's way to encode, decode and aggregate datas. While Unlynx uses homomorphic encryption based on Elliptic Curve ElGamal and zero knowledge proofs, Prio uses Secret-sharing encoding and \textit{secret-shared non-interactive proofs}(SNIP's) to validate the data, which is supposed to perform much better than classic zero knowlege proof in term of computation time, by doing a trade-off execution time/bandwidth.\\
 We consider $m$ servers that consitute the collective authority whose goal is to verifiably compute aggregation functions over data send by $n$ data providers.\\
 Several problems arise when you want to compare Unlynx and Prio. First, server are static in the first one but not in the second, and the threat model are not exactly the same, as you need to trust at least one server in Unlynx, but all in Prio for correctness. Privacy is assured if at least one server is trusted for both sytem. Then for Unlynx, data providers have all their data encrypted, while Prio do not use homomorphic encryption, and do not need to store data at all. Indeed Unlynx requires the data to be stored encrypted with a collective key, whereas Prio can proceed data decomposed in shares, sent by clients directly.\\
-Prio also extends classic private aggregation techniques to enable collection of different class of statistics such as least-square regression, unlike Unlynx System, that can only compute sum and count querry over data.\\
+Prio also extends classic private aggregation techniques to enable collection of different class of statistics such as least-square regression, unlike Unlynx System, that can only compute sum and count query over data.\\
 The goal of this project is to, first implement Prio in the Unlynx framework, second to implement input validation for Unlynx, and then modify both protocol to be ran with the least significant difference in term of assumption and model.\\
-Eventually, if possible, we want to design a System that implement the best of both sytems. The idea would be to use Prio encoding to do more than just summing and counting in Unlynx, by removing the encryption at the data provider, and doing the computation locally and then transfer to server in an encrypted way.\\
+Eventually, if possible, we want to design a system that implement the best of both privacy-preserving data sharing protocols. The idea would be to use Prio encoding to do more than just summing and counting in Unlynx, by removing the encryption at the data provider, and doing the computation locally and then transfer to server in an encrypted way.\\
+
 -------------------------------------------------
 %	TABLE OF CONTENTS
 %----------------------------------------------------------------------------------------
@@ -112,17 +113,17 @@ Eventually, if possible, we want to design a System that implement the best of b
 
 \section*{Introduction}
 \addcontentsline{toc}{section}{Introduction}
-Nowadays, tons of data are generated around us about what we do, and are used to compute statistics, by different parties. Even if these statistics are colleted with the goal of learning usefull aggregate informations about the users/population, for example health or work statistics for a country \cite{swiss}. However it might end in collecting and storing private data from data provider, which poses a serious privacy and security problem.\\
-We can for example illustrate this with the problem of Cloud leaking that happened several times in the past years. \cite{pentagon}, or sensitive health data such as suceptibility to contract diseases, that can be used against one individual. They might even be discloded, sold for profit \cite{sold} or be used by agencies for targeting and mass surveillance goals.
+Nowadays, tons of data are generated around us about what we do, and are used to compute statistics, by different parties. Even if these statistics are colleted with the goal of learning usefull aggregate informations about the users/population, for example health or work statistics for a country \cite{swiss}, it might end in collecting and storing private data from data provider, which poses a serious privacy and security problem.\\
+We can illustrate this example with the numerous problem of Cloud leaking that happened several times in the past years. \cite{pentagon}, or the divulagation of sensitive health data such as suceptibility to contract diseases, that can be used against one individual \cite{sell}. They might even be discloded, sold for profit \cite{sold} or be used by agencies for targeting and mass surveillance goals, as some countries have not highly regulated Data privacy law (we can take the example of the U.S \cite{law}).\\
 The need to collect data and to share them in a privacy-preserving way has become crucial in this context, and lot of research has been done on this topic.\\
 A lot of techniques have been developed through the years, by major technology companies such as Apple \cite{apple}, but also researcher in Universities \cite{unlynx,prio}.\\
-First, sytems that use "Randomize response for differential privacy" \cite{randomized}, which change a value with probability $p < 0.5$, and by summing a large number of noisy value, the sum is still a good estimation of the real values.This technique is well scalable and perform nicely, but assure only \textit{weak privacy}.\\
+First, sytems that use "Randomize response for differential privacy" \cite{randomized} were developped. It changes a value with probability $p < 0.5$, and by summing a large number of noisy value, the aggregation is still a good estimation of the real values. This technique is well scalable and perform nicely, but assure only \textit{weak privacy}.\\
 So encryption system were developped to solve this problem.
-However, by gaining \textit{privacy}, these protocols sacrifice \textit{robustness} and \textit{scalability}, which are two important aspect to keep in mind while designing a decentralized system. Privacy is necessary so that no leak in the sensitive data happend, and robustness characterise the correctness of the computation. The trade-off between both should be reasonable, as we do not want any data to be leaked, and the server has to correctly compute under given circunstunces.\\
+However, by gaining \textit{privacy}, these protocols sacrifice \textit{robustness} and \textit{scalability}, which are two important aspect to keep in mind while designing a decentralized system. Privacy is necessary so that no leak in the sensitive data happens, and robustness characterise the correctness of the computation. The trade-off between both should be reasonable, as we do not want any data to be leaked, and the server has to correctly compute under given circunstunces.\\
 This difficulties lead to the use of legal agreements rather than technical solutions, as only a few of the systems have been deployed in the real-world. This agreement is not a robust solution for several reasons.\\
 One of them is centralization. Centralized system are still widely used \cite{dyadic,centralized} because they are way simpler and use a trusted third party. But these trusted parties still are a single point of failure in the system.\\
 Another reason is that data provider have begun to realize the importance and value of their own data.
-This is why decentralized sytems are becoming more popular, and desirable.\\
+This is why decentralized sytems are becoming more popular, and desirable. We can also illustrate the growth of decentralized systems with the rise of Cryptocurrencies such as Bitcoin \cite{bitcoin}.\\
 In this paper, we present the implementation of Prio into Unlynx, an implementation of Unlynx's input validation and a theoritical comparison and discussion for future possible new sytems that combines, if possible, the best part of each paper.
 	
 \section*{Contributions}
@@ -169,11 +170,13 @@ It consist of three Algorithm (Encode, Valid, Decode) defined in a field $\mathb
 \item \textbf{Encode($x$)}: maps an input $x \in D$ to its encoding in $\mathbb{F}^k$
 \item \textbf{Valid($y$)}: returns true if and only if $y$ is a valid encoding of some item in $D$
 \item \textbf{Decode($\sigma$)}: $\sigma = \sum_{i=1}^{n}{Trunc_{k'}(Encode(x_i))} \in \mathbb{F}^{k'}$ is the input (Trunc takes the $k' \leq k$ components of the encoding), and it outputs the aggregation result $f(x_1,...,x_n)$.
+\end{itemize}
+
 \subsection*{Bilinear parings over Elliptic Curve}
 Let $G_1$ and $G_T$ be additive group of points of an elliptic curve $G$ over a field $\mathbb{F}$ of order $n$ and with identity $O$. Then the mapping $e: G_1 \times G_1 \rightarrow G_T$ satisfies the following conditions:\\
 For all $R,S \in G_1$ and $x \in \mathbb{F}$, $e(R,S)(x) = e(Rx,S) = e(R,Sx)$\\
 For $B$ the base point, $e(B,B) \neq O$, and the mapping is efficiently computable.
-\end{itemize}
+
 
 \section{Unlynx System}
 \subsection{Model}
@@ -203,26 +206,33 @@ The pipeline is the following: Encryption, Verification Shuffle, Distributed Det
 \subsection{Input range validation for Elliptic Curve ElGamal}
 
 A problem with the encryption of data is that we can not be sure if the data sent are correct. An example is if we want to aggregate a field were values should be in range $[0,100)$, in the current system if a malicious data provider want to send a value of $15000$ to falsify information, it can do it. This section present an  interactive algorithm based on a classic ElGamal input range validation \cite{range}, and we will discuss its non-interactive form in the section dedicated to implementation.\\
-We define the scalar in the elliptic curve over the field $\mathbb{Z_p}$. Also we call $e(.,.)$ the billinear mapping that is describe in the Background section.\\
+We define the scalar in the elliptic curve over the field $\mathbb{Z}_p$. Also we call $e()$ the billinear mapping that is describe in the Background section.\\
 This is the algorithm that allows to check the validity of a secret $\sigma$ in a range $ [0,u^l]$. The algortihm can be adapted to check any range $[a,b]$.\\
+
 \begin{algorithm}
+\caption{Interactive Range Validation}\label{euclid}
 \begin{algorithmic}[1]
+
+\State For the algorithm scalability the terms \textit{Prover} and \textit{Verifier} are used. In our case it should be clear that the prover is the data provider and the verifier the CA containing all the servers.\\
 \State \textbf{Common Input:} $B, P, u, l$ and commitment $C$
-\State \textbf{Prover Input:} $\sigma, r$ such that $C = B\sigma + Pr$, $\sigma \in [0,u^l)0$
-\State  \textbf{P $\leftarrow$ V} verifier picks $x \in \mathbb{Z}_p$ defines $y \gets Bx$ and sends $A_i \gets B(x+i)^{-1}$ $ \forall i \in \mathbb{Z}_u$
+\State \textbf{Prover Input:} 
+$\sigma, r$ such that $C = \sigma + Pr$, with $\sigma \in [0,u^l)0$\\
+\State  \textbf{P $\leftarrow$ V} verifiers pick $x_i \in \mathbb{Z}_p$ define $y_i \gets Bx_i$\\
+send $A_{i,j} \gets B(x_i+j)^{-1}$ $ \forall j \in \mathbb{Z}_u$ and $ i \in \{0,...,m\}$\\
 \State \textbf{P $\rightarrow$ V} Then prover encode the signature of the value to check in base $u$ with randomly picked $v_j$.\\
-So $\forall j \in \mathbb{Z}_l $ st $ \sigma = \sum_{j}{\sigma_j u^j}$, it picks $v_j \in \mathbb{Z}_p$ and sends $V_j = A_{\sigma_j}v_j$ 
+So $\forall j \in \mathbb{Z}_l $ such that $ \sigma = \sum_{j}{\sigma_j u^j}$, it picks $v_j \in \mathbb{Z}_p$ and sends $V_{i,j} = A_{i,\sigma_j}v_j$ back to server $i$\\
 \State \textbf{P $\rightarrow$ V} prover pick 3 values $s_j,t_j,m_j \in \mathbb{Z}_p $, $\forall j \in \mathbb{Z}_l$ and sends:\\
-$a_j \gets e(V_j,B)(-s_j)+e(B,B)(t_j)$\\
-$D \gets \sum_{j}{(Bu^j s_j + Pm_j)}$
-\State \textbf{P $\leftarrow$ V} Verifier sends a random challenge $c \in \mathbb{Z}_p$
-\State \textbf{P $\rightarrow$ V} prover sends the following value for Verifier to compute verification.\\
+$a_{i,j} \gets e(V_{i,j},B)(-s_j)+e(B,B)(t_j)$\\
+$D \gets \sum_{j}{(u^j s_j + Pm_j)}$\\
+\State \textbf{P $\leftarrow$ V} Verifier sends a random challenge $c \in \mathbb{Z}_p$\\
+\State \textbf{P $\rightarrow$ V} Prover sends the following value for Verifiers to compute verification.\\
 $ \forall j \in \mathbb{Z}_l$, $Z_{\sigma_j} \gets s_j-\sigma_j c$ and $Z_{v_j} \gets t_j-v_j c$\\
-$Z_r = m -rc $, where $m = \sum_{j}{m_j}$
-\State Verifier checks that $D = Cc + PZ_r + \sum_{j}{(Bu^j Z_{\sigma_j}}) $\\
-$a_j = e(V_j,y)c + e(V_j,B)(-Z_{\sigma_j}) + e(B,B)(Z_{v_j})$, $\forall j \in \mathbb{Z}_l$
+$Z_r = m -rc $, where $m = \sum_{j}{m_j}$\\
+\State \textbf{Verifier} $i$ check that $D = Cc + PZ_r + \sum_{j}{(Bu^j Z_{\sigma_j}}) $\\
+$a_{i,j} = e(V_{i,j},y)c + e(V_{i,j},B)(-Z_{\sigma_j}) + e(B,B)(Z_{v_j})$, $\forall j \in \mathbb{Z}_l$
 \end{algorithmic}
 \end{algorithm}
+
 This algorithm as been adapted from the original one \cite{range}, used on classic ElGamal encryption. The soundness follows from the unforgeability of the Boneh-Boyen signature. The prover need to compute $5l$ point multiplication in the protocol.\\
 \textbf{Arbitrarty Range}\\
 To handle an arbitrary range $[a,b]$, it is needed to show that $\sigma \in [a,a+u^l]$ AND $ \sigma \in [b-u^l,b]$, this leads to the following formula:\\
@@ -238,11 +248,13 @@ D= Cc+B(-A)+P(Z_r)+\sum_j{B(Z_{\sigma_j})}
 
 \section{Prio System}
 \subsection{Model}
-Prio is also a privacy-preserving data sharing system developed Standford University.\\
+Prio \cite{prio}  is also a privacy-preserving data sharing system developed Standford University.\\
 It consists of a collective authority (CA) formed by a number $m$ of server $S_1,...S_m$,and each data provider holds a private value $x_i$ that is sensitive. 
 Unlike Unlynx, Prio does not encrypt private value $x_i$ that why it is a more challenging aggregation in terms of privacy.\\
+The basics of Prio is that each data $x$ is splitted in $m$ shares such that $\sum^m_{k=1}{x_k} = x $ in a defined a finite field $\mathbb{F}$ ie, modulo a prime $p$. This encoding helps keeping privacy, as getting $m-1$ shares doesn't leak anything about $x$ in itself.\\
 Communication is assumed to be done in secure channels as previously described.\\
 \textbf{Functionality}: Prio should permit the collective authority to compute some aggregation function $f(x_1,...x_n)$ over private values of data providers, in a way that leaks as little as possible about these, except what can be inferred from the aggregation itself.\\
+It is also possible to gather more complex statistcs such as variance, standard deviation, frequency count or even sets intersections/unions. All of the function quoted before are only computed from an encoding called AFE
 \textbf{Privacy and Robustness}: Privacy is assured if at least one server is trusted, but robustness is satisfied if and only if all server are trusted, as you cannot be assured that computation at the server are correct.
 
 \subsection{Threats}
@@ -288,28 +300,58 @@ If all servers are honest, each will hold a set of shares of the values if the \
 \section{Implementation}
  This section will detail what was implemented more throughouly.
 First we will abord the implementation of Prio:\\
+
 Prio code \cite{priocode} was implemented in Go, with 3 depedencies in C (FLINT, GMP and MPFR) to execute polynomial operations by Henry Corrigan-Gibbs.\\
 This paper contribution is mostly porting code to use the multiparty computation and SNIPs in the Unlynx framework. So most of the code is used directly from the repository, but all the communication server/data provider has been reworked to be compatible with the Tree structure used in Unlynx \cite{unlynxcode}.\\
-To follow the structure, the aggregation and verification protocol were splitted in two different protocols, even if they both work together to get the final result. To be more precise, data from client are send, server do the SNIPs proof, if it is valid, it will aggregate the result of the SNIPs, else it will discard.\\
+To follow the structure, the aggregation and verification protocol were splitted in two different protocols, even if they both work together to get the final result.\\
+To be more precise, data provider send shares $[x_i]$ and $[h_i]$, servers do the SNIPs proof by evaluating the share on the \textit{Valid()} circuit, do the MPC to fuse each validation of the shares , if it passes it will aggregate the result of the SNIPs, else it will discard.\\
 Let's describe the easiest protocol, the aggregation:\\
-The protocols are run at each server $j$, and each protocol has received a share $[x_i]_j$ from dataprovider $i$, represented by a \textit{type big.Int} in Go (it can actually be another type but the SNIPS protocol transform all the type in a \textit{big.Int}). The protocol structure is a binary Tree.\\
-When several data have been received, aggregation start by the root protocol, that notify all children that the aggregation will start, and wait for the children to send their local sum. This notification goes down the Tree until there are no more children, and at this point each Leaf $l$ aggregate locally the share by simply summing $\sum_{i}[x_i]_l$, and send the result to their unique parents. On receiving the response from its children, the other nodes aggregates locally their own shares, and 
+The protocols are run at each server $j$, and each protocol has received a share $[x_i]_j$ from dataprovider $i$, represented by a \textit{type big.Int} in Go. The protocol structure is a binary Tree.\\
+
+When several data have been received, aggregation start by the root protocol, that notify all children that the aggregation will start, and wait for the children to send their local sum. This notification goes down the Tree until there are no more children, and at this point each leaf $l$ aggregate locally the share by simply summing $\sum_{i}[x_i]_l$, and send the result to their unique parents. On receiving the response from its children, the other nodes aggregates locally their own shares, and send to the parent. This is done until the root as received all the data and aggregate all the data and publish them.\\
+
+However, Prio has a more interesting feature that help aggregating different type of data and doing different aggregation function. Indeed, one can represent the value to aggregate with an AFE, where the AFE will be an array of \textit{big.Int}. This helps computing OR and AND, MIN and MAX and even set intersection/union given only the aggregation of the special AFE encoding for each of this functions.\\
+To illustrate an AFE, let's see the OR. To do OR($x_1,...x_n)$ where $x_i \in \{0,1\} $, $x$ is encoded as followed in $\mathbb{F}_2^{\lambda}$ (for a $\lambda$-bit string):
+\begin{align*}
+    Encode(x)=\left\{
+                \begin{array}{ll}
+                  \lambda		\text{                                          if x = 0}\\
+                  \text{Random element} \in \mathbb{F}^{\lambda}_{2}		\text{											if x = 1}\\
+                \end{array}
+              \right.
+\end{align*}
+The Valid algorithm is always true as long as you have same size encoding. To Decode, we output 0 if and only if the $\lambda$-bit string is composed of $\lambda$ 0. This AFE output the boolean OR-private of the values with probability $p = 1- 2^{-\lambda}$, over the randomness of the encoding.
+
+
 
 Now we're going to look at the input range validation implementation:
-\begin{algorithmic}[1]
-\State \textbf{Common Input:} $B, P, u, l$ and commitment $C$. There will be several bases at the servers, as we will want to test several possible range.
-\State \textbf{Prover Input:} $\sigma, r$ such that $C = B\sigma + Pr$, $\sigma \in [0,u^l)$
-\State  \textbf{Server} picks a $x \in \mathbb{Z}_p$ every $q$ defined request, defines $y \gets Bx$ and compute for the all basis $A_i \gets B(x+i)^{-1}$ $ \forall i \in \mathbb{Z}_u$. It makes the signature public as well as the key $y$.
-\State \textbf{Then Data provider} encodes the signature of the value to check in base $u$ with randomly picked $v_j$.\\
-So $\forall j \in \mathbb{Z}_l $ st $ \sigma = \sum_{j}{\sigma_j u^j}$, it picks $v_j \in \mathbb{Z}_p$ and compute $V_j = A_{\sigma_j}v_j$\\
-It also picks 3 values $s_j,t_j,m_j \in \mathbb{Z}_p $, $\forall j \in \mathbb{Z}_l$ and sends:\\
-First : a public challenge $c$, $Z_r = m-rc$ and $D \gets \sum_{j}{(Bu^j s_j + Pm_j)}$\\
-and then $ \forall j \in \mathbb{Z}_l$\\
-$a_j \gets e(V_j,B)(-s_j)+e(B,B)(t_j)$\\ $Z_{\sigma_j} \gets s_j-\sigma_j c$ and $Z_{v_j} \gets t_j-v_j c$\\
-\State Server checks that $D = Cc + PZ_r + \sum_{j}{(Bu^j Z_{\sigma_j}}) $\\
-$a_j = e(V_j,y)c + e(V_j,B)(-Z_{\sigma_j}) + e(B,B)(Z_{v_j})$, $\forall j \in \mathbb{Z}_l$
-\end{algorithmic}
 
+\begin{algorithm}
+\caption{Non-Interactive Range Validation}\label{euclid}
+\begin{algorithmic}[1]
+\State \textbf{Common Input:} $B, P, u, l$ and commitment $C$.
+\State \textbf{Prover Input:} $\sigma, r$ such that $C = \sigma + Pr$, $\sigma \in [0,u^l)$\\
+
+\State \textbf{Initialization}: All server $i$ in the collective authority compute the following values :\\
+Pick a random $x_i \in \mathbb{Z}_p$\\
+$y_i \gets Bx_i$\\
+$A_{i,j} \gets B(x_i + j)^{-1} $, $\forall i \in \mathbb{Z}_u$\\
+\State  \textbf{Servers} make their signature public as well as the key $y_i$. When a query is issued by a querier $Q$, we now assume that the range are contained in the query and broadcasted by the server as usual to the data provider.\\
+
+\State \textbf{Then Data provider} encodes the signature of the value to check in base $u$ with randomly picked $v_j$.\\
+So $\forall j \in \mathbb{Z}_l $ such that$ \sigma = \sum_{j}{\sigma_j u^j}$, it picks $v_j \in \mathbb{Z}_p$ and compute $V_{i,j} = A_{i,\sigma_j}v_j$\\
+It also picks 3 values $s_j,t_j,m_j \in \mathbb{Z}_p $, $\forall j \in \mathbb{Z}_l$ and sends:\\
+First : a value $c = H(B,C,y_i)$, where $H()$ is a cryptographic hash function.\\  Then: $Z_r = m-rc$ and $D \gets \sum_{j}{(u^j s_j + Pm_j)}$\\
+And eventually $ \forall j \in \mathbb{Z}_l$\\
+$a_{i,j} \gets e(V_{i,j},B)(-s_j)+e(B,B)(t_j)$\\ $Z_{\sigma_j} \gets s_j-\sigma_j c$ and $Z_{v_j} \gets t_j-v_j c$\\
+To be more precise the data provider sends the following values to ALL servers: $ c, Z_r, Z_{v_j}, Z_{\sigma_j}$ with $C$ the encrypted value public, and $D, a_{i,j}$ value published to check proof.\\
+
+\State Server $i$ checks that $D = Cc + PZ_r + \sum_{j}{(u^j Z_{\sigma_j}}) $\\
+$a_{i,j} = e(V_{i,j},y)c + e(V_{i,j},B)(-Z_{\sigma_j}) + e(B,B)(Z_{v_j})$, $\forall j \in \mathbb{Z}_l$ , and publish the result.\\
+
+Then the server responsible for the data provider keep the value if all the published value match the one computed by the data provider.
+\end{algorithmic}
+\end{algorithm}
 
 \begin{itemize}
 
@@ -420,6 +462,22 @@ Prototype implementation of Prio in Go
 Decentralized privacy-preserving data sharing tool : Unlynx\\
 \texttt{https://github.com/lca1/unlynx}
 
+\bibitem{sell}
+The business of Data selling\\
+\texttt{https://www.theguardian.com/technology/2017/jan/10/medical-data-multibillion-dollar-business-report-warns}
+
+\bibitem{law}
+Law on Data protection in the United-States\\
+\texttt{https://content.next.westlaw.com/Document/I02064fbd1cb611e38578f7ccc38dcbee/View/FullText.html?contextData=(sc.Default)\& transitionType=Default\& firstPage=true\& bhcp=1}
+
+
+\bibitem{bitcoin}
+Bitcoin: A Peer-to-Peer Electronic Cash System.\\
+\texttt{https://bitcoin.org/bitcoin.pdf}
+
+
+
 \end{thebibliography}
+
 
 \end{document}
