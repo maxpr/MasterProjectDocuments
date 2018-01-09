@@ -195,26 +195,30 @@ For $B$ the base point, $e(B,B) \neq O$, and the mapping is efficiently computab
 \subsection{Model}
 Unlynx \cite{unlynx} is a privacy-preserving data sharing system developed by LCA1 \cite{lca} in collaboration with DeDiS \cite{dedis}.\\
 It consists of a collective authority (CA) formed by a number $m$ of server $S_1,...,S_m$, and $n$ data providers $DP_1,...DP_n$ containing sensitive data, encrypted using EC ElGamal, following the key scheme describe in the \textbf{Background} Section. These DPs combined represent a distributed database that is used to awnser queries made by a querier $Q$. The querier and DPs choose one server of the CA to communicate with and can change this choice at any given time.\\
-\textbf{Functionality}: Unlynx should permit SQL queries of the form SELECT SUM(*)/COUNT(*) FROM DP,.... WHERE * AND/OR GROUP BY *, with any number of * clauses.\\
-\textbf{Privacy and Robustness}: Both are assured if at least one server is trusted, as we use the fact that we are allowed to publish ciphertext and their aggregation to show that the computation at the server are actually correct. It leaks nothing as all data are encrypted.
+\textbf{Functionality}: Unlynx should permit SQL queries of the form SELECT SUM(*)/COUNT(*) FROM DP,.... WHERE * AND/OR GROUP BY *, with any number of * clauses, but only equality ones.\\
+\textbf{Privacy and Robustness}: Both are assured if at least one server is trusted, as we use the fact that it is allowed to publish ciphertext and their aggregation to show that the computation at the server are actually correct. It leaks nothing as all data are encrypted.\\
+Also the data are never decrypted and a key switch protocol is used to sequentially change the encryption key from the CA's public one, to the querier's $Q$ public one. This way, privacy of data are ensured, as to temper the protocol, it is needed to collude with all server in the CA, which is not possible with the actual threat model.
 
 \subsection{Threats}
 \textbf{Collective authority servers} It is assumed an Anytrust model \cite{anytrust}. It does not requires any particular server to be trusted or to be honest-but-curious. The moment it exists one server that is not malicious, functionality, security and privacy are guaranteed.\\
-\textbf{Data providers} are assumed to be honest-but-curious. The system does not protect against malicious DPs sending false infomations, but a solution will be discuss  in Section the \textbf{Input range validation for Elliptic Curve ElGamal}.\\
+\textbf{Data providers} are assumed to be honest-but-curious. The system does not protect against malicious DPs sending false infomations, but a solution will be discussed  in Section the \textbf{Input range validation for Elliptic Curve ElGamal}.\\
 \textbf{Queriers} are assumed to be malicious, and can collude between themselves or with a subset of the CA servers.\\
 It is also assumed tha all network communication is encrypted and authenticated, by using a protocol like TLS for example.
 
 \subsection{Pipeline and proof}
 The protocol start when a querier wants to retrieve some information about sensitive data. It sends the query to one of the server of the CA. Upon receiving, the server broadcast this query to the other servers in the collective authority.\\
-From here the data are privately and securely processed by the CA, before sending back the result to the querier, encrypter over the public key of the Querrier. During all the steps of the protocol, the server will never get the data in clear.\\
-The pipeline is the following: Encryption, Verification Shuffle, Distributed Deterministig Tag, Collective Aggregation, Distributed Results Obfuscation, Key Switch. At the end of this pipeline, the querier get the data and can decrypt them to get the aggregate statistics he asked for, without any server seeing the data in clear, or knowing from which data provider the data are from.
+From here the data are privately and securely processed by the CA, before sending back the result to the querier, encrypted over the public key of the querier. During all the steps of the protocol, the servers will never see the data in clear.\\
+The pipeline is the following: Encryption, Verification Shuffle, Distributed Deterministig Tag, Collective Aggregation, Distributed Results Obfuscation, Key Switch. At the end of this pipeline, the querier get the data and can decrypt them to get the aggregate statistics he asked for, without any server seeing the data in clear, or knowing from which data provider the data are from.\\
+The steps of the protocol will not be detailled in this paper, but some of them will be used for comparison with Prio and will be disussed in the \textbf{Implementation} section.
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.5]{img/unlynxPip.png}
 \caption{Unlynx query processing pipeline}
 \end{figure}
 \\
-\textbf{Proofs} are done thanks to zero-knowledge systems, to preserve privacy. There is one for each state of the pipeline, to illustrate a zero knowledge proof, while doing the aggregation phase it publishes the ciphertexts, and the result of their aggregation. As the data is encrypted using Elliptic curve ElGamal, it leaks nothing about the data alone. One of the problem in Unlynx is that it exists no Input range proof for data coming from the data providers, meaning the DPs can send fraudulous data (by giving a very big number or really small) and as data are encrypted we have no way to directly check this. This make the whole result and computation obsolete, and this is why in the basic Threat model, data providers are assumed honest-but-curious. This input validation proof is implemented and described in the following lines.\\
+\textbf{Proofs} are done thanks to zero-knowledge systems, to preserve privacy. There is one for each state of the pipeline.\\
+To illustrate one of them, while doing the aggregation phase it publishes the ciphertexts, and the result of their aggregation. As the data is encrypted using Elliptic curve ElGamal, it leaks nothing about the data alone.\\
+However, one of the problem in Unlynx is that it exists no Input range proof for data coming from the data providers, meaning the DPs can send fraudulous data (by giving a very big number or really small) and as data are encrypted we have no way to directly check the actual value sent. This make the whole result and computation obsolete if we assume mailicious DPs, and this is why in the basic Threat model, data providers are assumed honest-but-curious. This input validation proof is implemented and described in the following section.\\
 
 \subsection{Input range validation for Elliptic Curve ElGamal}
 
