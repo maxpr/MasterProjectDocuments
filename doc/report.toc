@@ -10,15 +10,15 @@
 \contentsline {section}{\numberline {2}Prio System}{10}
 \contentsline {subsection}{\numberline {2.1}Model}{10}
 \contentsline {subsection}{\numberline {2.2}Threats}{10}
-\contentsline {subsection}{\numberline {2.3}Pipeline and proof}{10}
+\contentsline {subsection}{\numberline {2.3}Pipeline and proof}{11}
 \contentsline {subsection}{\numberline {2.4}Prio SNIPs}{11}
 \contentsline {subsubsection}{\numberline {2.4.1}DP evaluation}{11}
 \contentsline {subsubsection}{\numberline {2.4.2}Consistency checking at the server}{11}
 \contentsline {subsubsection}{\numberline {2.4.3}Polynomial identity test}{11}
-\contentsline {subsubsection}{\numberline {2.4.4}Multiplication of shares}{11}
-\contentsline {subsubsection}{\numberline {2.4.5}Output verification}{11}
+\contentsline {subsubsection}{\numberline {2.4.4}Multiplication of shares}{12}
+\contentsline {subsubsection}{\numberline {2.4.5}Output verification}{12}
 \contentsline {section}{\numberline {3}Implementation}{12}
-\contentsline {section}{\numberline {4}Performance evaluation}{12}
+\contentsline {section}{\numberline {4}Performance evaluation}{14}
 \contentsline {section}{\numberline {5}Comparison Theory and Performance}{14}
 \contentsline {section}{\numberline {6}Future Work}{14}
 \contentsline {section}{Conclusion}{15}

@@ -265,6 +265,22 @@ D = Cc+B(-B+u^l)+P(Z_r)+\sum_j{B(Z_{\sigma_j})}\\
 D= Cc+B(-A)+P(Z_r)+\sum_j{B(Z_{\sigma_j})}
 \end{gather*}
 
+The completness follows from inspection, while soundness follows from the unforgeability of the Boneh-Boyen signature [REF].
+In addition, a zero-knowledge proof must satisfy another propertie in addition to completeness and soundness. It is that if the statement is true, no verifier learns anything other than the statement is true.
+This can be showed by a \textit{simulator}, that given only the statement to be proved and no access to the prover, it can produce a transcript that "look like" an interaction between a prover and the cheating verifier.\\
+The simulator \textit{Sim} is constructed as follow for a verifier V:
+
+\begin{algorithmic}
+\State 1. \textit{Sim} retrieves $y,\{A_i\}$ from V with $i \in \mathbb{Z}_u$.
+\State 2. \textit{Sim} chooses $\sigma \in [0,u^l)$, $v_j \in \mathbb{Z}_p$ and sends $V_j \gets A_{\sigma_j} v_j$, for each $\sigma_j$ such that $\sigma = \sum_{j}{\sigma_j u^j}$ with $ j \in \mathbb{Z}_l$
+\State 3. \textit{Sim} chooses $s_j,t_j,m_j \in \mathbb{Z}_p$ for each $V_j$ and sends $a_j \gets e(V_j,B)(-s_j) + e(B,B)(t_j)$ for each $j$ and $D \gets $
+\State 4. \textit{Sim} receives $c$ from V.
+\State 5. Eventually \textit{Sim} computes for each $j$, $Z_{\sigma_j} =s_j - \sigma_j c$, $Z_{v_j} = t_j - v_j c$ and also $Z_r = m - rc$, where m is the sum of $m_j$, to V.  
+\end{algorithmic}
+
+In the original paper, it is also discussed set membership that can be more efficient if the range is really small, for example checking that people are in the range of age [18-25] for delivering a discount.
+In this case, the protocol is simpler as range validation is just a special case of set membership. The difference is that the prover sends back only one obfuscated value which is the value supposedly contained in the set.
+
 \section{Prio System}
 \subsection{Model}
 Prio \cite{prio}  is also a privacy-preserving data sharing system developed at Standford University.\\
@@ -345,20 +361,20 @@ The Valid algorithm is always true as long as you have same size encoding. To De
 
 Now we're going to look at the input range validation implementation:
 
-\begin{algorithm}
+\begin{algorithm}[H]
 \caption{Non-Interactive Range Validation}\label{euclid}
 \begin{algorithmic}[1]
-\State \textbf{Common Input:} $B, P, u, l$ and commitment $C$.
-\State \textbf{Prover Input:} $\sigma, r$ such that $C = \sigma + Pr$, $\sigma \in [0,u^l)$\\
+\State \textbf{Common Input:} $B$ the base point in the EC, $P$ the public key used to encode data, $u, l$ 2 integers and commitment $C$.
+\State \textbf{Prover Input:} $\sigma$ the secret integer mapped to a point and $r$ a scalar in the EC such that $C = \sigma + Pr$, $\sigma \in [0,u^l)$\\
 
-\State \textbf{Initialization}: All server $i$ in the collective authority compute the following values :\\
+\State \textbf{Initialization Phase}: Each server $i$ in the collective authority compute the following values :\\
 Pick a random $x_i \in \mathbb{Z}_p$\\
 $y_i \gets Bx_i$\\
-$A_{i,j} \gets B(x_i + j)^{-1} $, $\forall i \in \mathbb{Z}_u$\\
+$A_{i,j} \gets B(x_i + j)^{-1} $, $\forall i \in \mathbb{Z}_u$ and $j \in \{1,...,m\}$\\
 \State  \textbf{Servers} make their signature public as well as the key $y_i$. When a query is issued by a querier $Q$, we now assume that the range are contained in the query and broadcasted by the server as usual to the data provider.\\
 
-\State \textbf{Then Data provider} encodes the signature of the value to check in base $u$ with randomly picked $v_j$.\\
-So $\forall j \in \mathbb{Z}_l $ such that$ \sigma = \sum_{j}{\sigma_j u^j}$, it picks $v_j \in \mathbb{Z}_p$ and compute $V_{i,j} = A_{i,\sigma_j}v_j$\\
+\State \textbf{Online Phase}: Data provider encodes the signature of the value to check in base $u$ with randomly picked $v_j$.\\
+So $\forall j \in \mathbb{Z}_l $ such that $ \sigma = \sum_{j}{\sigma_j u^j}$, it picks $v_j \in \mathbb{Z}_p$ and compute $V_{i,j} = A_{i,\sigma_j}v_j$\\
 It also picks 3 values $s_j,t_j,m_j \in \mathbb{Z}_p $, $\forall j \in \mathbb{Z}_l$ and sends:\\
 First : a value $c = H(B,C,y_i)$, where $H()$ is a cryptographic hash function.\\  Then: $Z_r = m-rc$ and $D \gets \sum_{j}{(u^j s_j + Pm_j)}$\\
 And eventually $ \forall j \in \mathbb{Z}_l$\\
@@ -372,6 +388,7 @@ Then the server responsible for the data provider keep the value if all the publ
 \end{algorithmic}
 \end{algorithm}
 
+At the end of the protocol, all values computed are made public so that anyone can verify that the servers have computed the verification correctly and act accordingly.
 \begin{itemize}
 
 \item what is implemented in a little more detailled
