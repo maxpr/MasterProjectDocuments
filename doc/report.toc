@@ -7,18 +7,18 @@
 \contentsline {subsection}{\numberline {1.2}Threats}{7}
 \contentsline {subsection}{\numberline {1.3}Pipeline and proof}{7}
 \contentsline {subsection}{\numberline {1.4}Input range validation for Elliptic Curve ElGamal}{8}
-\contentsline {section}{\numberline {2}Prio System}{9}
-\contentsline {subsection}{\numberline {2.1}Model}{9}
-\contentsline {subsection}{\numberline {2.2}Threats}{9}
+\contentsline {section}{\numberline {2}Prio System}{10}
+\contentsline {subsection}{\numberline {2.1}Model}{10}
+\contentsline {subsection}{\numberline {2.2}Threats}{10}
 \contentsline {subsection}{\numberline {2.3}Pipeline and proof}{10}
-\contentsline {subsection}{\numberline {2.4}Prio SNIPs}{10}
-\contentsline {subsubsection}{\numberline {2.4.1}DP evaluation}{10}
-\contentsline {subsubsection}{\numberline {2.4.2}Consistency checking at the server}{10}
-\contentsline {subsubsection}{\numberline {2.4.3}Polynomial identity test}{10}
+\contentsline {subsection}{\numberline {2.4}Prio SNIPs}{11}
+\contentsline {subsubsection}{\numberline {2.4.1}DP evaluation}{11}
+\contentsline {subsubsection}{\numberline {2.4.2}Consistency checking at the server}{11}
+\contentsline {subsubsection}{\numberline {2.4.3}Polynomial identity test}{11}
 \contentsline {subsubsection}{\numberline {2.4.4}Multiplication of shares}{11}
 \contentsline {subsubsection}{\numberline {2.4.5}Output verification}{11}
-\contentsline {section}{\numberline {3}Implementation}{11}
-\contentsline {section}{\numberline {4}Performance evaluation}{13}
-\contentsline {section}{\numberline {5}Comparison Theory and Performance}{13}
-\contentsline {section}{\numberline {6}Future Work}{13}
-\contentsline {section}{Conclusion}{14}
+\contentsline {section}{\numberline {3}Implementation}{12}
+\contentsline {section}{\numberline {4}Performance evaluation}{12}
+\contentsline {section}{\numberline {5}Comparison Theory and Performance}{14}
+\contentsline {section}{\numberline {6}Future Work}{14}
+\contentsline {section}{Conclusion}{15}
