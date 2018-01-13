@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.11.8)  12 JAN 2018 21:26
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.11.8)  13 JAN 2018 15:54
 entering extended mode
 **./report.tex
 (report.tex
@@ -416,7 +416,12 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [8]
-Underfull \hbox (badness 10000) in paragraph at lines 255--258
+Underfull \hbox (badness 10000) in paragraph at lines 255--260
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 270--271
 
  []
 
@@ -466,12 +471,17 @@ Underfull \hbox (badness 10000) in paragraph at lines 336--338
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 339--345
+Underfull \hbox (badness 10000) in paragraph at lines 339--344
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 346--347
+Underfull \hbox (badness 10000) in paragraph at lines 345--347
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 348--350
 
  []
 
@@ -482,6 +492,15 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [12]
+Underfull \hbox (badness 10000) in paragraph at lines 366--368
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 369--371
+
+ []
+
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 23.10004pt.
@@ -489,6 +508,20 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [13]
+Underfull \hbox (badness 10000) in paragraph at lines 381--382
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 383--384
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 385--387
+
+ []
+
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 23.10004pt.
@@ -496,6 +529,20 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [14]
+Underfull \hbox (badness 10000) in paragraph at lines 417--418
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 419--421
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 426--429
+
+ []
+
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 23.10004pt.
@@ -503,29 +550,8 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [15]
-Missing character: There is no Ã in font cmr10!
-Missing character: There is no £ in font cmr10!
+Underfull \hbox (badness 10000) in paragraph at lines 450--452
 
-Underfull \hbox (badness 10000) in paragraph at lines 448--451
-
- []
-
-
-Overfull \hbox (275.54424pt too wide) in paragraph at lines 448--451
-\OT1/cmtt/m/n/10 http://www.nytimes.com/interactives/2015/07/29technology/perso
-naltech/what-parts-of-your-information-have-been-exposed-to-hackers-quiz.html 
- []
-
-
-Overfull \hbox (2.54662pt too wide) in paragraph at lines 479--482
-\OT1/cmtt/m/n/10 http://www.buzzfeed.com/bensmith/uber-executive-suggests-diggi
-ng-up-dirt-on-journalists 
- []
-
-
-Overfull \hbox (97.04579pt too wide) in paragraph at lines 504--506
-\OT1/cmtt/m/n/10 https://www.theguardian.com/technology/2017/jan/10/medical-dat
-a-multibillion-dollar-business-report-warns 
  []
 
 
@@ -535,12 +561,46 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [16]
-Overfull \hbox (175.7951pt too wide) in paragraph at lines 508--510
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 23.10004pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[17]
+Missing character: There is no Ã in font cmr10!
+Missing character: There is no £ in font cmr10!
+
+Overfull \hbox (275.54424pt too wide) in paragraph at lines 485--488
+\OT1/cmtt/m/n/10 http://www.nytimes.com/interactives/2015/07/29technology/perso
+naltech/what-parts-of-your-information-have-been-exposed-to-hackers-quiz.html 
+ []
+
+
+Overfull \hbox (2.54662pt too wide) in paragraph at lines 516--519
+\OT1/cmtt/m/n/10 http://www.buzzfeed.com/bensmith/uber-executive-suggests-diggi
+ng-up-dirt-on-journalists 
+ []
+
+
+Overfull \hbox (97.04579pt too wide) in paragraph at lines 541--543
+\OT1/cmtt/m/n/10 https://www.theguardian.com/technology/2017/jan/10/medical-dat
+a-multibillion-dollar-business-report-warns 
+ []
+
+
+Overfull \hbox (175.7951pt too wide) in paragraph at lines 545--547
 \OT1/cmtt/m/n/10 https://content.next.westlaw.com/Document/I02064fbd1cb611e3857
 8f7ccc38dcbee/View/FullText.html?contextData=(sc.Default)&
  []
 
 
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 23.10004pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[18] 
 AED: lastpage setting LastPage
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -548,7 +608,7 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[17] (report.aux)
+[19] (report.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
@@ -556,7 +616,7 @@ LaTeX Warning: There were multiply-defined labels.
 Here is how much of TeX's memory you used:
  3891 strings out of 493334
  53389 string characters out of 3139249
- 125594 words of memory out of 3000000
+ 126594 words of memory out of 3000000
  7325 multiletter control sequences out of 15000+200000
  17881 words of font info for 66 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -578,9 +638,9 @@ blic/amsfonts/cm/cmti10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/ams
 fonts/cm/cmti12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
 /cmtt10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/ms
 bm10.pfb>
-Output written on report.pdf (17 pages, 344506 bytes).
+Output written on report.pdf (19 pages, 353323 bytes).
 PDF statistics:
- 133 PDF objects out of 1000 (max. 8388607)
+ 140 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 

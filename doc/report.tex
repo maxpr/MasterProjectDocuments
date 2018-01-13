@@ -252,8 +252,21 @@ $a_{i,j} = e(V_{i,j},y)c + e(V_{i,j},B)(-Z_{\sigma_j}) + e(B,B)(Z_{v_j})$, $\for
 \end{algorithmic}
 \end{algorithm}
 
-This algorithm has been adapted from the paper on Set membership over ElGamal \cite{range}, used with classic ElGamal encryption. The soundness follows from the unforgeability of the Boneh-Boyen signature [REF] . The prover needs to compute $5l$ point multiplication in the protocol.\\
-\textbf{Arbitrarty Range :}\\
+This algorithm has been adapted from the paper on Set membership over ElGamal \cite{range}, used with classic ElGamal encryption. The prover needs to compute $5l$ point multiplication in the protocol.\\
+The completness follows from inspection, while soundness follows from the unforgeability of the Boneh-Boyen signature [REF].
+In addition, a zero-knowledge proof must satisfy another propertie in addition to completeness and soundness. It is that if the statement is true, no verifier learns anything other than the statement is true.
+This can be showed by a \textit{simulator}, that given only the statement to be proved and no access to the prover, it can produce a transcript that "look like" an interaction between a prover and the cheating verifier.\\
+The simulator \textit{Sim} is constructed as follow for a verifier V:\\
+
+\begin{algorithmic}
+\State 1. \textit{Sim} retrieves $y,\{A_i\}$ from V with $i \in \mathbb{Z}_u$.
+\State 2. \textit{Sim} chooses $\sigma \in [0,u^l)$, $v_j \in \mathbb{Z}_p$ and sends $V_j \gets A_{\sigma_j} v_j$, for each $\sigma_j$ such that $\sigma = \sum_{j}{\sigma_j u^j}$ with $ j \in \mathbb{Z}_l$
+\State 3. \textit{Sim} chooses $s_j,t_j,m_j \in \mathbb{Z}_p$ for each $V_j$ and sends $a_j \gets e(V_j,B)(-s_j) + e(B,B)(t_j)$ for each $j$ and $D \gets $
+\State 4. \textit{Sim} receives $c$ from V.
+\State 5. Eventually \textit{Sim} computes for each $j$, $Z_{\sigma_j} =s_j - \sigma_j c$, $Z_{v_j} = t_j - v_j c$ and also $Z_r = m - rc$, where m is the sum of $m_j$, to V.  
+\end{algorithmic}
+
+\subsubsection*{Arbitrarty Range :}
 To handle an arbitrary range $[a,b]$, it is needed to show that $\sigma \in [a,a+u^l]$ AND $ \sigma \in [b-u^l,b]$, this leads to the following formula:\\
 \begin{gather*}
  \sigma \in [b-u^l,b] \Longleftrightarrow   \sigma - b + u^l \in [0,u^l) \\
@@ -264,19 +277,6 @@ The only modification necessary in the algorithm is the verifier's check which i
 D = Cc+B(-B+u^l)+P(Z_r)+\sum_j{B(Z_{\sigma_j})}\\
 D= Cc+B(-A)+P(Z_r)+\sum_j{B(Z_{\sigma_j})}
 \end{gather*}
-
-The completness follows from inspection, while soundness follows from the unforgeability of the Boneh-Boyen signature [REF].
-In addition, a zero-knowledge proof must satisfy another propertie in addition to completeness and soundness. It is that if the statement is true, no verifier learns anything other than the statement is true.
-This can be showed by a \textit{simulator}, that given only the statement to be proved and no access to the prover, it can produce a transcript that "look like" an interaction between a prover and the cheating verifier.\\
-The simulator \textit{Sim} is constructed as follow for a verifier V:
-
-\begin{algorithmic}
-\State 1. \textit{Sim} retrieves $y,\{A_i\}$ from V with $i \in \mathbb{Z}_u$.
-\State 2. \textit{Sim} chooses $\sigma \in [0,u^l)$, $v_j \in \mathbb{Z}_p$ and sends $V_j \gets A_{\sigma_j} v_j$, for each $\sigma_j$ such that $\sigma = \sum_{j}{\sigma_j u^j}$ with $ j \in \mathbb{Z}_l$
-\State 3. \textit{Sim} chooses $s_j,t_j,m_j \in \mathbb{Z}_p$ for each $V_j$ and sends $a_j \gets e(V_j,B)(-s_j) + e(B,B)(t_j)$ for each $j$ and $D \gets $
-\State 4. \textit{Sim} receives $c$ from V.
-\State 5. Eventually \textit{Sim} computes for each $j$, $Z_{\sigma_j} =s_j - \sigma_j c$, $Z_{v_j} = t_j - v_j c$ and also $Z_r = m - rc$, where m is the sum of $m_j$, to V.  
-\end{algorithmic}
 
 In the original paper, it is also discussed set membership that can be more efficient if the range is really small, for example checking that people are in the range of age [18-25] for delivering a discount.
 In this case, the protocol is simpler as range validation is just a special case of set membership. The difference is that the prover sends back only one obfuscated value which is the value supposedly contained in the set.
@@ -333,19 +333,22 @@ If all servers are honest, each will hold a set of shares of the values if the \
 
 
 \section{Implementation}
- This section will detail what was implemented more throughouly.
-First we will abord the implementation of Prio:\\
+ This section will detail what was implemented more thoroughly.
+First, we will address the implementation of Prio:\\
 
-Prio code \cite{priocode} was implemented in Go, with 3 depedencies in C (FLINT, GMP and MPFR) to execute polynomial operations by Henry Corrigan-Gibbs.\\
+Prio code \cite{priocode} was implemented in Go, with 3 dependencies in C (FLINT, GMP, and MPFR) to execute polynomial operations by Henry Corrigan-Gibbs.\\
 This paper contribution is mostly porting code to use the multiparty computation and SNIPs in the Unlynx framework. So most of the code is used directly from the repository, but all the communication server/data provider has been reworked to be compatible with the Tree structure used in Unlynx \cite{unlynxcode}.\\
-To follow the structure, the aggregation and verification protocol were splitted in two different protocols, even if they both work together to get the final result.\\
+To follow the structure, the aggregation and verification protocols were split into two different protocols, even if they both work together to get the final result.\\
 To be more precise, data provider send shares $[x_i]$ and $[h_i]$, servers do the SNIPs proof by evaluating the share on the \textit{Valid()} circuit, do the MPC to fuse each validation of the shares , if it passes it will aggregate the result of the SNIPs, else it will discard.\\
 Let's describe the easiest protocol, the aggregation:\\
-The protocols are run at each server $j$, and each protocol has received a share $[x_i]_j$ from dataprovider $i$, represented by a \textit{type big.Int} in Go. The protocol structure is a binary Tree.\\
+\subsubsection*{Aggregation}
+The protocols are run at each server $j$, and each protocol has received a share $[x_i]_j$ from data provider $i$ represented by an array \textit{type big.Int} in Go. The protocol structure is a binary Tree.
+This share actually represents the encoding in AFE of the original value which was an integer.\\
 
 When several data have been received, aggregation start by the root protocol, that notify all children that the aggregation will start, and wait for the children to send their local sum. This notification goes down the Tree until there are no more children, and at this point each leaf $l$ aggregate locally the share by simply summing $\sum_{i}[x_i]_l$, and send the result to their unique parents. On receiving the response from its children, the other nodes aggregates locally their own shares, and send to the parent. This is done until the root as received all the data and aggregate all the data and publish them.\\
+The only optimization made is the transfer of shares between server. The structure transforms these shares into a byte array and uses the method of big int to set it directly back from byte array to a big integer. This is made because the transfer functions are most efficient with bytes.\\
 
-However, Prio has a more interesting feature that help aggregating different type of data and doing different aggregation function. Indeed, one can represent the value to aggregate with an AFE, where the AFE will be an array of \textit{big.Int}. This helps computing OR and AND, MIN and MAX and even set intersection/union given only the aggregation of the special AFE encoding for each of this functions.\\
+However, Prio has a more interesting feature that helps aggregating different type of data and doing different aggregation function. Indeed, one can represent the value to aggregate with an AFE, where the AFE will be an array of \textit{big.Int}. This helps computing OR and AND, MIN and MAX and even set intersection/union given only the aggregation of the special AFE encoding for each of this functions.\\
 To illustrate an AFE, let's see the OR. To do OR($x_1,...x_n)$ where $x_i \in \{0,1\} $, $x$ is encoded as followed in $\mathbb{F}_2^{\lambda}$ (for a $\lambda$-bit string):
 \begin{align*}
     Encode(x)=\left\{
@@ -357,10 +360,33 @@ To illustrate an AFE, let's see the OR. To do OR($x_1,...x_n)$ where $x_i \in \{
 \end{align*}
 The Valid algorithm is always true as long as you have same size encoding. To Decode, we output 0 if and only if the $\lambda$-bit string is composed of $\lambda$ 0. This AFE output the boolean OR-private of the values with probability $p = 1- 2^{-\lambda}$, over the randomness of the encoding.
 
+As seen previously, we can compute a function thanks to the sum of the AFE encoding. So the only modifications that should be made is the input data and the way the final result is computed at the root ( it's the Decode algorithm). No modification to the protocol should be made in order to compute different statistics.
+
+\subsubsection*{Verification}
+The verification protocol is the part where the multiparty computation is done. The data provider runs a function to create requests for the servers from 3 parameters: \textit{Its secret data, the number of servers, and the index of the leader for the request}.\\
+This will create a request for each server, by creating a \textbf{Valid} circuit, evaluating the secret on it and constructing the polynomial. Each request contains a share of the Beaver MPC $[a]_i, [b]_i $ and $ [c]_i$, but more importantly, a share of the secret value $[x]_i$ and one of the polynomial created previously $[h]_i$.\\
+
+The splitting is optimized by Prio, in a way that instead of picking the $s-1$ shares randomly and setting the last one, it uses a pseudo-random generator (such as AES in counter mode). You can then pick the keys and share them instead of sharing the integer directly.
+Then the data provider sends to each server the request it is assigned to. From this point, before stepping into the proof, the protocol needs to initialize some parameters.\\
+
+First, it will reconstruct the \textbf{Valid} circuit from the type and number of bits of the data provider data which is public.  Two structure called \textit{Checker} and \textit{CheckerPrecomp} implemented in the Prio code are re-used from the original implementation. They are initialized with the circuit computed previously and the leader index. The leader is the server that will return the proof result, and that coordinate the prooving protocol.
+The protocol starts by assigning a request to the Checker structure and reconstituting the polynomial shares $[f]_i $ and $[g]_i$ for server $i$. It then evaluates the expression $[d]_i $ and $[e]_i$ from the MPC protocol described in a previous section. Then they all broadcast these shares, and reconstruct $d$ and $e$.
+An optimization was also already done in Prio, which is verification without interpolation. The point $r$ to do the polynomial test is fixed beforehand, this way any server can interpolate and evaluate in one single step.\\
+Then the goal is to check that the evaluation of $\hat{f}(r) \cdot \hat{g}(r) -\hat{h}(r) = 0$ at each server. These values are all sent to the root that checks that the sum is 0.
+In the same ways as before all communication are made in bytes, and channels are used to solve waiting for result problem.\\
+At the end, the protocol returns the original shares to aggregate, that is the output of the circuit evaluate on shares, if the test is true, or empty shares if the protocol fails.
 
 
-Now we're going to look at the input range validation implementation:
+\subsubsection*{Input Range}
+Now we're going to look at the input range validation implementation:\\
 
+First and foremost, pairing over elliptic curve is not supported by all the curve. So we used a pairing already implemented by DeDis in the paper dfinity repository [REF].  This is based on a Barreto-Naehrig curve implementation produced by dfinity [REF], that uses some libraries in C++ depicted in the GitHub description. We then use this curve for the whole Unlynx protocol. This is experimetal, as security should be studied again with this new parameter.\\
+
+Then, we need to prove to a single server that a secret $\sigma$ lies in a given range. Now in a distributed service, all server of the CA should be able to check the result. For correctness, we also want that all servers participating in the computation, as there is a generation of signature from a private key, that should not be given to any DP for the soundness of the protocol. Unlike Prio, the threat model cites that no server need to be trusted or honest-but-curious, but there must exist one server that is not malicious.\\
+We cannot make the computation of the key with a sequential protocol, as they will all have the same private key and if one divulgates it, the soundness of the protocol does not hold. \\
+
+So the difficulty resides in the fact that we should compute signature in a private way, without revealing a unique collective private key to the server. So each server will have a private key, and from this point, two choices can be made. The first one is the computation of signature in a sequential way (in the same way as the key switch protocol does), and have a final public key and the same signature for each server. The second one is that each server has its own signature and does the proof, the protocol passes if and only if all server found that the secret $\sigma$ indeed lies in the given range.\\
+Because of the uncertainty of the sequential creation of the Boneh signature and the resources it would need to prove correctness, the second approach was chosen.
 \begin{algorithm}[H]
 \caption{Non-Interactive Range Validation}\label{euclid}
 \begin{algorithmic}[1]
@@ -388,19 +414,25 @@ Then the server responsible for the data provider keep the value if all the publ
 \end{algorithmic}
 \end{algorithm}
 
-At the end of the protocol, all values computed are made public so that anyone can verify that the servers have computed the verification correctly and act accordingly.
-\begin{itemize}
+At the end of the protocol, all values computed are made public so that anyone can verify that the servers have computed the verification correctly and act accordingly.\\
 
-\item what is implemented in a little more detailled
-\item optimization apported by code from github and not aborded in details
+The completness follows from inspection. The soundness is still based on the Boneh signature.\\
+The zero-knowledge was the satisfied in the interactive version of this protocol. As we use the Fiat-Shamir heuristic [REF] to transform the protocol into a  non-interactive one, the zero-knowledge property is still assumed to hold.\\
 
-\end{itemize}
+Let's now look at the communication complexity.
+The signature and public key sending are not counted as a part of the protocol, as it can be reused.\\
+The prover sends $l$ blinded values $V_j$ to each verifier, as well as $l$ $Z_{\sigma_j}$ and $Z_{v_j}$, a challenge $c$
+\subsubsection*{Optimizations}
+The input range implementation can be furthered optimized and we will discuss the possible improvements in this sub-section as well as what was implemented in the actual framework.\\
+First of all, the service implemented consists of 3 steps: Range verification, Aggregation, and Key switch. This is the best approximation of service to compare with the Prio verification and aggregation, with the least differences.\\
+This service is in no case optimized, it serves as a comparison, so a lot of values are hardcoded such as the number of client submission to wait for before aggregation or the keys for encryption are chosen beforehand randomly.\\
 
+One thing is that each server received a different structure containing all parameters to validate including $C, c, \{V\}, \{Z_v\} ,\{ Z_{\sigma}\}, D $ and $a$. We could improve the protocol to compute only once the $D$ and $Z_r$, and pick for a single value the same $m_j, t_j$ and $s_j$ at prover.\\
+This would lead to a small reduction in computation time in prover side, and some bandwidth reduction for servers.
 
 \section{Performance evaluation}
 
-Explain a little more about comparison and test settings
-
+NEED TO COMPUTE THE DIFFERENT RESULTS.
 
 \begin{itemize}
 
@@ -414,9 +446,15 @@ Explain a little more about comparison and test settings
 
 
 \section{Comparison Theory and Performance}
-Comparison but explaining why it's cannot be perfectlhy matched, because of the differents assumptions.
+As explained previously, the service implemented for Unlynx range proof consists of 3 steps: Range verification, Aggregation, and Key switch. This is the best approximation of service to compare with the Prio verification and aggregation, with the least significant differences.\\
+The key switch used is not the optimal one as it does not use the byte structure to communicate, due to a problem on the new Elliptic curve used.\\
+
+The threat models are almost the same (the small difference is still in the collective authority, where the one for Unlynx is more relaxed) and we study the time it takes for an aggregation.\\
+To be more precise in Prio, we measure the time, for different clients, it takes to verify all submissions, aggregate and publish the computed aggregate function.
+While in Unlynx, the measured time is the sum of the verification, the aggregation of cipher and the key switch, as you need to turn back the aggregate data to readable data for the querier. 
 
 \section{Future Work}
+Depends on RESULT.
 
 \newpage
 \section*{Conclusion}
@@ -446,7 +484,7 @@ Efficient Protocols for Set Membership and Range Proofs.
 
 \bibitem{expose}
 Keller,J., Lai,K.R., and Pelroth, N\\
-How many times has your personal information been exposed to hackers ?\\
+How many times has your personal information been exposed to hackers ?
 \\\texttt{http://www.nytimes.com/interactives/2015/07/29technology/personaltech/what-parts-of-your-information-have-been-exposed-to-hackers-quiz.html}
 
 \bibitem{pentagon}
