@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.11.8)  15 JAN 2018 22:05
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.11.8)  16 JAN 2018 15:20
 entering extended mode
 **./report.tex
 (report.tex
@@ -261,6 +261,9 @@ LaTeX Warning: Label `euclid' multiply defined.
 
 LaTeX Warning: Label `my-label' multiply defined.
 
+
+LaTeX Warning: Label `my-label' multiply defined.
+
 )
 \openout1 = `report.aux'.
 
@@ -425,6 +428,10 @@ File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 191.
 
+Underfull \hbox (badness 10000) in paragraph at lines 203--204
+
+ []
+
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 23.10004pt.
@@ -435,20 +442,15 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
 File: img/unlynxPip.png Graphic file (type png)
 
 <use img/unlynxPip.png>
-Package pdftex.def Info: img/unlynxPip.png used on input line 223.
+Package pdftex.def Info: img/unlynxPip.png used on input line 225.
 (pdftex.def)             Requested size: 327.84904pt x 178.03972pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 217--230
+Underfull \hbox (badness 10000) in paragraph at lines 219--232
 
  []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 233--236
-
- []
 
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -457,6 +459,10 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [7]
+Underfull \hbox (badness 10000) in paragraph at lines 235--238
+
+ []
+
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 23.10004pt.
@@ -464,12 +470,12 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [8 <./img/unlynxPip.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 262--267
+Underfull \hbox (badness 10000) in paragraph at lines 264--269
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 277--278
+Underfull \hbox (badness 10000) in paragraph at lines 279--280
 
  []
 
@@ -480,19 +486,19 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [9]
-Overfull \hbox (0.38316pt too wide) in paragraph at lines 293--301
+Underfull \hbox (badness 10000) in paragraph at lines 294--295
+
+ []
+
+
+Overfull \hbox (0.38316pt too wide) in paragraph at lines 297--305
 \OT1/cmr/bx/n/10 Functionality\OT1/cmr/m/n/10 : Prio should per-mit the col-lec
 -tive au-thor-ity to com-pute some ag-gre-ga-tion func-tion $\OML/cmm/m/it/10 f
 \OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x[]; :::x[]\OT1/cmr/m/n/10 )$
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 303--306
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 308--312
+Underfull \hbox (badness 10000) in paragraph at lines 307--310
 
  []
 
@@ -503,7 +509,12 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [10]
-Underfull \hbox (badness 10000) in paragraph at lines 319--321
+Underfull \hbox (badness 10000) in paragraph at lines 312--316
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 323--325
 
  []
 
@@ -514,22 +525,17 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [11]
-Underfull \hbox (badness 10000) in paragraph at lines 343--345
+Underfull \hbox (badness 10000) in paragraph at lines 347--349
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 346--351
+Underfull \hbox (badness 10000) in paragraph at lines 350--355
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 352--354
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 355--357
+Underfull \hbox (badness 10000) in paragraph at lines 356--358
 
  []
 
@@ -540,12 +546,17 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [12]
-Underfull \hbox (badness 10000) in paragraph at lines 373--375
+Underfull \hbox (badness 10000) in paragraph at lines 359--361
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 376--378
+Underfull \hbox (badness 10000) in paragraph at lines 377--379
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 380--382
 
  []
 
@@ -556,17 +567,12 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [13]
-Underfull \hbox (badness 10000) in paragraph at lines 388--389
+Underfull \hbox (badness 10000) in paragraph at lines 392--393
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 390--391
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 392--394
+Underfull \hbox (badness 10000) in paragraph at lines 394--395
 
  []
 
@@ -577,17 +583,17 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [14]
-Underfull \hbox (badness 10000) in paragraph at lines 424--425
+Underfull \hbox (badness 10000) in paragraph at lines 431--432
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 426--428
+Underfull \hbox (badness 10000) in paragraph at lines 433--435
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 433--436
+Underfull \hbox (badness 10000) in paragraph at lines 441--444
 
  []
 
@@ -598,17 +604,17 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [15]
-Underfull \hbox (badness 10000) in paragraph at lines 456--458
+Underfull \hbox (badness 10000) in paragraph at lines 464--466
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 459--462
+Underfull \hbox (badness 10000) in paragraph at lines 467--470
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 463--464
+Underfull \hbox (badness 10000) in paragraph at lines 471--472
 
  []
 
@@ -619,12 +625,17 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [16]
-Underfull \hbox (badness 10000) in paragraph at lines 483--485
+Underfull \hbox (badness 10000) in paragraph at lines 493--495
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 486--508
+Underfull \hbox (badness 10000) in paragraph at lines 496--515
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 519--538
 
  []
 
@@ -642,28 +653,35 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [18]
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 23.10004pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[19]
 Missing character: There is no Ã in font cmr10!
 Missing character: There is no £ in font cmr10!
 
-Overfull \hbox (275.54424pt too wide) in paragraph at lines 539--542
+Overfull \hbox (275.54424pt too wide) in paragraph at lines 571--574
 \OT1/cmtt/m/n/10 http://www.nytimes.com/interactives/2015/07/29technology/perso
 naltech/what-parts-of-your-information-have-been-exposed-to-hackers-quiz.html 
  []
 
 
-Overfull \hbox (2.54662pt too wide) in paragraph at lines 570--573
+Overfull \hbox (2.54662pt too wide) in paragraph at lines 602--605
 \OT1/cmtt/m/n/10 http://www.buzzfeed.com/bensmith/uber-executive-suggests-diggi
 ng-up-dirt-on-journalists 
  []
 
 
-Overfull \hbox (97.04579pt too wide) in paragraph at lines 595--597
+Overfull \hbox (97.04579pt too wide) in paragraph at lines 627--629
 \OT1/cmtt/m/n/10 https://www.theguardian.com/technology/2017/jan/10/medical-dat
 a-multibillion-dollar-business-report-warns 
  []
 
 
-Overfull \hbox (175.7951pt too wide) in paragraph at lines 599--601
+Overfull \hbox (175.7951pt too wide) in paragraph at lines 631--633
 \OT1/cmtt/m/n/10 https://content.next.westlaw.com/Document/I02064fbd1cb611e3857
 8f7ccc38dcbee/View/FullText.html?contextData=(sc.Default)&
  []
@@ -674,7 +692,13 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[19] 
+[20]
+Underfull \hbox (badness 10000) in paragraph at lines 661--663
+[]\OT1/cmr/m/n/10 Fiat-Shamir heuris-tic to trans-form in-ter-ac-tive proof of 
+knowl-edge to non-interactive.
+ []
+
+
 AED: lastpage setting LastPage
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -682,16 +706,16 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[20] (report.aux)
+[21] (report.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 4467 strings out of 493334
- 60088 string characters out of 3139249
- 141143 words of memory out of 3000000
- 7884 multiletter control sequences out of 15000+200000
+ 4475 strings out of 493334
+ 60175 string characters out of 3139249
+ 146171 words of memory out of 3000000
+ 7892 multiletter control sequences out of 15000+200000
  17881 words of font info for 66 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  41i,18n,43p,691b,306s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -712,9 +736,9 @@ blic/amsfonts/cm/cmti10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/ams
 fonts/cm/cmti12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
 /cmtt10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/ms
 bm10.pfb>
-Output written on report.pdf (20 pages, 359848 bytes).
+Output written on report.pdf (21 pages, 365115 bytes).
 PDF statistics:
- 143 PDF objects out of 1000 (max. 8388607)
+ 146 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 

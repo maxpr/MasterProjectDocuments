@@ -93,7 +93,7 @@
 \newpage
 \section*{Abstract}
 \addcontentsline{toc}{section}{Abstract}
-Unlynx and Prio are two privacy-preserving data sharing systems, with each its way to encode/encrypt, decode/decrypt and aggregate data. While Unlynx \cite{unlynx} uses homomorphic encryption based on Elliptic Curve ElGamal and zero-knowledge proofs, Prio \cite{prio} uses Secret-sharing encoding and \textit{secret-shared non-interactive proofs}(SNIP's) to validate the data, which are supposed to perform better than classic zero-knowledge proofs [REF] in term of computation time, by relying a trade-off execution time/bandwidth.\\
+Unlynx and Prio are two privacy-preserving data sharing systems, with each its way to encode/encrypt, decode/decrypt and aggregate data. While Unlynx \cite{unlynx} uses homomorphic encryption based on Elliptic Curve ElGamal and zero-knowledge proofs, Prio \cite{prio} uses Secret-sharing encoding and \textit{secret-shared non-interactive proofs}(SNIP's) to validate the data, which are supposed to perform better than classic zero-knowledge proofs \cite{proof1,proof2} in term of computation time, by relying a trade-off execution time/bandwidth.\\
 In this report, we compare both Unlynx and Prio in order to find a solution allying the best of both protocols.\\
 We consider $m$ servers that constitute the collective authority whose goal is to verifiably compute aggregation functions over data send by $n$ data providers.\\
 Several problems arise when comparing Unlynx and Prio. First, the collective authority is almost static in the first one but not in the second, and the threat model is not exactly the same, as you need to trust at least one server in Unlynx, but all in Prio to ensure correctness. Privacy is assured if at least one server is trusted for both systems. Then for Unlynx, data providers have all their data encrypted, while Prio does not use homomorphic encryption, and leaves the data storage and protection to the DPs. Indeed Unlynx requires the data to be stored encrypted with a collective key, whereas Prio can proceed data decomposed in shares, sent by clients directly.\\
@@ -147,19 +147,19 @@ This section is used to introduce some needed knowledge. \textit{Collective Auth
 Finally, Bilinear pairing over Elliptic Curve is used in Unlynx's input range validation.\\
 
 \subsection*{Collective Authority}
-Nowadays, applications and systems rely on third-party authorities to provide security service. For example the creation of certificate to prove ownership of a public key. A collective authority is a set of servers that are deployed in a decentralized and distributed way, to support a given number of protocols.\\
-Each of them possesses a private-public key pair $(k_i,K_i)$, where $K_i = k_i B$ with $k_i$ is a scalar and $K_i$ a point in a given Elliptic Curve. This authority constructs a public key $K = \sum_{i=1}^{m}{K_m}$ which is the sum of all the server's public key. So to decrypt a message, each server partially decrypt a message encrypted using $K$, thus the collective authority key provides strongest link security, as no intermediate can decrypt the data without the contribution of all the servers.
+Nowadays, applications and systems rely on third-party authorities to provide security services. For example the creation of certificate to prove ownership of a public key. A collective authority is a set of servers that are deployed in a decentralized and distributed way, to support a given number of protocols.\\
+Each of them possesses a private-public key pair $(k_i,K_i)$, where $K_i = k_i B$ with $k_i$ a scalar and $K_i$ a point in a given Elliptic Curve. This authority constructs a public key $K = \sum_{i=1}^{m}{K_i}$ which is the sum of all the server's public key. So to decrypt a message, each server $i$ partially decrypts a message encrypted using $k_{i}$. Thus the collective authority key provides strongest link security, as no intermediate can decrypt the data without the contribution of all the servers.
 
 \subsection*{ElGamal}
-All scalar are picked in a field $\mathbb{Z}_p$.\\
+All scalars are picked in a field $\mathbb{Z}_p$.\\
 For Unlynx, data are encrypted by using Elliptic Curve ElGamal, more precisely, $P$ is a public key, $x$ is a message mapped to a point and $B$ is a base point on the curve $\gamma$. The encryption is the following, with $r$ a random nonce:\\
 $E_P(x) = (rB,x+rP)$. The homomorphic properties states that $\alpha E_P(x_1) + \beta E_P(x_2) = E_P(\alpha x_1+ \beta x_2)$\\
-To decrypt, the owner of the private key $P = pB$ multiplies $rB$ and $p$ to get $rP$ and substract from $x + rP$.\\
+To decrypt, the owner of the private key $P = pB$ multiplies $rB$ and $p$ to get $rP$ and substract it from $x + rP$ to recover $x$.\\
 
 \subsection*{Arithmetic Circuits}
 An arithmetic circuit $C$ over a finite field $\mathbb{F}$ takes as input a vector $x = (x^{(1)},...x^{(L)}) \in \mathbb{F}^L $. It is represented as an acyclic graph with each vertex either be an \textit{input}, \textit{output} or a \textit{gate}.\\
-There are only two types of gates, addition and multiplication ones, all in finite field $\mathbb{F}$.\\
-A citcuit $C$ is just a mapping $\mathbb{F}^L \rightarrow \mathbb{F}$, as evaluatig is a walk thourght the circuit from inputs to outputs.
+There are only two types of gates, addition and multiplication, all in finite field $\mathbb{F}$.\\
+A circuit $C$ is just a mapping $\mathbb{F}^L \rightarrow \mathbb{F}$, as evaluating is a walk thourght the circuit from inputs to outputs.
 
 \subsection*{Beaver's MPC}
 A Beaver triple is defined as follow:\\
@@ -200,8 +200,10 @@ For $B$ the base point, $e(B,B) \neq O$, and the mapping is efficiently computab
 
 
 \section{Unlynx System}
+This section presents Unlynx \cite{unlynx} system in general. It goes through the model design, the assumptions made about the parties taking part in the general protocol, and a detailed pipeline of which protocols are executed to achieve the goal of the system. It also describes lightly which kind of proof is done at each step.\\
+
 \subsection{System Model}
-Unlynx \cite{unlynx} is a privacy-preserving data sharing system developed by LCA1 \cite{lca} in collaboration with DeDiS \cite{dedis}.\\
+Unlynx is a privacy-preserving data sharing system developed by LCA1 \cite{lca} in collaboration with DeDiS \cite{dedis}.\\
 It consists of a collective authority (CA) formed by a number $m$ of server $S_1,...,S_m$, and $n$ data providers $DP_1,...DP_n$ containing sensitive data, encrypted using EC ElGamal by following the key scheme describes in the \textbf{Background} Section. These DPs combined represent a distributed database that is used to answer queries made by a querier $Q$. The querier and DPs choose one server of the CA to communicate with and can change this choice at any given time.\\
 \textbf{Functionality}: Unlynx should permit SQL queries of the form SELECT SUM(*)/COUNT(*) FROM DP,.... WHERE * AND/OR GROUP BY *, with any number of * clauses, but only equality ones.\\
 \textbf{Privacy and Robustness}: Both are assured if at least one server is trusted, as we use the fact that it is allowed to publish ciphertexts and their aggregation to show that the computation at the servers is actually correct. It leaks nothing as all data are encrypted.\\
@@ -260,7 +262,7 @@ $a_{i,j} = e(V_{i,j},y)c + e(V_{i,j},B)(-Z_{\sigma_j}) + e(B,B)(Z_{v_j})$, $\for
 \end{algorithm}
 
 This algorithm has been adapted from the paper on Set membership over ElGamal \cite{range}, used with classic ElGamal encryption. The prover needs to compute $5l$ point multiplications in the protocol.\\
-The completness follows from inspection, while soundness follows from the unforgeability of the Boneh-Boyen signature [REF].
+The completness follows from inspection, while soundness follows from the unforgeability of the Boneh-Boyen signature \cite{boneh}.\\
 In addition, a zero-knowledge proof must satisfy another property in addition to completeness and soundness. It is that if the statement is true, no verifier learns anything else than the statement is true.
 This can be showed by a \textit{simulator}, that given only the statement to be proved and no access to the prover, it can produce a transcript that "looks like" an interaction between a prover and the cheating verifier.\\
 The simulator \textit{Sim} is constructed as follow for a verifier V:\\
@@ -289,6 +291,8 @@ In the original paper, it is also discussed set membership that can be more effi
 In this case, the protocol is simpler as range validation is just a special case of set membership. The difference is that the prover sends back only one obfuscated value which is the value supposedly contained in the set.
 
 \section{Prio System}
+This section presents Prio system in general, the same way we did for Unlynx. It goes through the model design, the assumptions made about the parties taking part in the general protocol, and a detailed pipeline of which protocols are executed to achieve the goal of the system. It also describes more precisely how the Input range validation works for Prio.\\
+
 \subsection{System Model}
 Prio \cite{prio}  is also a privacy-preserving data sharing system developed at Standford University.\\
 It consists of a collective authority (CA) formed by a number $m$ of server $S_1,...S_m$, and each data provider holds a private value $x_i$ that is sensitive. 
@@ -328,7 +332,7 @@ At this time each server $i$ holds the shares $[x]_i$ and $[h]_i$ sent by the da
 Indeed $[x]_i$ is a share of the input, and $[h]_i$ contains a share of each wire value coming out of a multiplication gate. Thus, it can derive all other values via affine operations on the wire.
 \subsubsection{Polynomial identity test}
 Now each server has reconstructed shares $[\hat{f}]_i, [\hat{g}]_i$ from $[h]_i$ and $[x]_i$. It holds that $ \hat{f} \cdot \hat{g} = h$ if and only if the servers collectively hold a set of wire values that, when summed is equal to the internal wire value of the \textbf{Valid($x$)} circuit computation.\\
-All execute the Schwartz-Zippel randomized polynomial identity test [REF] to check if relation holds and no data have been corrupted or malicious DPs have tried to send wrong data.\\
+All execute the Schwartz-Zippel randomized polynomial identity test \cite{polyverif} to check if relation holds and no data have been corrupted or malicious DPs have tried to send wrong data.\\
 The principle is that if $ \hat{f} \cdot \hat{g} \neq h$, then the polinomial $ \hat{f} \cdot \hat{g} - h$ is a non-zero polynomial of degree at most $2M-2$ zeros in $\mathbb{F}$. It can have at most $2M-2$ zeros, so we choose a random $r \in \mathbb{F}$ and evaluate this polynomial, the servers will detect with probability at least $1 - \frac{2M-2}{|F|}$ that $ \hat{f} \cdot \hat{g} \neq h$.\\
 The servers can use a linear operation to get share $\sigma_i = [ \hat{f}(r) \cdot \hat{g}(r) - h(r)]_i$. Then publish to ensure that $\sum_{i}{\sigma_i} = 0 \in \mathbb{F}$. If it is not $0$ the servers reject the client submission.
 \subsubsection{Multiplication of shares}
@@ -340,7 +344,7 @@ If all servers are honests, each will hold a set of shares of the \textbf{Valid}
 
 
 \section{Implementation}
- This section will detail what was implemented more thoroughly.
+This section will detail what was implemented more thoroughly. The code deployed, but also the theoretical work done to design some algorithms.
 First, we will address the implementation of Prio:\\
 
 Prio code \cite{priocode} was implemented in Go, with 3 dependencies in C (FLINT, GMP, and MPFR) to execute polynomial operations and designed by Henry Corrigan-Gibbs.\\
@@ -387,13 +391,16 @@ At the end, the protocol returns the original shares to aggregate, that is the o
 \subsubsection*{Input Range}
 Now we're going to look at the input range validation implementation for EC ElGamal:\\
 
-First and foremost, pairing over elliptic curve is not supported by all the curve. So we used a pairing already implemented by DeDis in the paper dfinity repository [REF].  This is based on a Barreto-Naehrig curve implementation produced by dfinity [REF], that uses some libraries in C++ depicted in the GitHub description. We then use this curve for the whole Unlynx protocol. This is experimetal, as security should be studied again with this new parameter.\\
+First and foremost, pairing over elliptic curve is not supported by all the curves So we used a pairing already implemented by DeDiS in the paper dfinity repository \cite{dfinitydedis}.  This is based on a Barreto-Naehrig curve implementation produced by dfinity \cite{dfinity}, that uses some libraries in C++ depicted in the GitHub description. We then use this curve for the whole Unlynx protocol. This is experimental, as security should be studied again with this new parameter.\\
 
-Then, we need to prove to a single server that a secret $\sigma$ lies in a given range. Now in a distributed service, all server of the CA should be able to check the result. For correctness, we also want that all servers participating in the computation, as there is a generation of signature from a private key, that should not be given to any DP for the soundness of the protocol. Unlike Prio, the threat model cites that no server need to be trusted or honest-but-curious, but there must exist one server that is not malicious.\\
-We cannot make the computation of the key with a sequential protocol, as they will all have the same private key and if one divulgates it, the soundness of the protocol does not hold. \\
+Then, we need to prove to a single server that a secret $\sigma$ lies in a given range. 
+The Range proof validation protocol assumes that the verifiers sign each element of the base $u$ with a key that has to remain secret. Indeed for the soundness of the protocol, i.e. if the statement is false no cheating prover can convince the honest verifier that it is true, except with a small probability, we don't want the prover to be able to forge signatures.
+With Boneh-Boyen signature, as long as the key remains secret, this property holds.\\
+For the Anytrust model considered here, we cannot make the computation of the key with a sequential protocol, as they will all have the same private key and if one divulgates it, the soundness of the protocol does not hold. \\
+ The first one is the computation of signature in a sequential way (in the same way as the key switch protocol does), with each server having their own private key, and contributing to the final signature. Every step should be verified with zero-knowledge proof, and at the end, the final server broadcasts the signatures computed, and the public key constructed to verify those. This way, no server can leak the private key because it is not constructed, but all server have the same signatures. \\
+The second one is that each server has its own private key and computes the signatures. All server will verify an input from a data provider and the protocol passes if and only if all server found that the secret $\sigma$ indeed lies in the given range. This ensures that at least one proof has been done on a secret key that remained secret.\\
+The collective construction of signatures would be a better choice, but it needs the computation of an inverse collectively. Because of the uncertainty of this approach, the second approach was chosen.
 
-So the difficulty resides in the fact that we should compute signature in a private way, without revealing a unique collective private key to the server. So each server will have a private key, and from this point, two choices can be made. The first one is the computation of signature in a sequential way (in the same way as the key switch protocol does), and have a final public key and the same signature for each server. The second one is that each server has its own signature and does the proof, the protocol passes if and only if all server found that the secret $\sigma$ indeed lies in the given range.\\
-Because of the uncertainty of the sequential creation of the Boneh signature and the resources it would need to prove correctness, the second approach was chosen.
 \begin{algorithm}[H]
 \caption{Non-Interactive Range Validation}\label{euclid}
 \begin{algorithmic}[1]
@@ -417,20 +424,21 @@ To be more precise the data provider sends the following values to ALL servers: 
 \State Server $i$ checks that $D = Cc + PZ_r + \sum_{j}{(u^j Z_{\sigma_j}}) $\\
 $a_{i,j} = e(V_{i,j},y)c + e(V_{i,j},B)(-Z_{\sigma_j}) + e(B,B)(Z_{v_j})$, $\forall j \in \mathbb{Z}_l$ , and publish the result.\\
 
-Then the server responsible for the data provider keep the value if all the published value match the one computed by the data provider.
+Then the server responsible for the data provider keeps the value if all the published value match the one computed by the data provider.
 \end{algorithmic}
 \end{algorithm}
 
 At the end of the protocol, all values computed are made public so that anyone can verify that the servers have computed the verification correctly and act accordingly.\\
 
 The completness follows from inspection. The soundness is still based on the Boneh signature.\\
-The zero-knowledge was the satisfied in the interactive version of this protocol. As we use the Fiat-Shamir heuristic [REF] to transform the protocol into a  non-interactive one, the zero-knowledge property is still assumed to hold.\\
+The zero-knowledge was satisfied in the interactive version of this protocol. As we use the Fiat-Shamir heuristic \cite{fiatshamir} to transform the protocol into a  non-interactive one, the zero-knowledge property is still assumed to hold.\\
 
 Let's now look at the communication complexity.
-The signature and public key sending are not counted as a part of the protocol, as it can be reused.\\
-The prover sends $l$ blinded values $V_j$ to each verifier, as well as $l$ $Z_{\sigma_j}$ and $Z_{v_j}$, a challenge $c$
+The initialization phase, which includes signature and public key sending, is not counted as a part of the protocol, as it is executed once in the beginning and reused afterwards.\\
+The prover sends $l$ blinded values $V_j$ to each verifier, as well as $l$ $Z_{\sigma_j}$ and $Z_{v_j}$, a challenge $c$, a value $Z_r$
+
 \subsubsection*{Optimizations}
-The input range implementation can be furthered optimized and we will discuss the possible improvements in this sub-section as well as what was implemented in the actual framework.\\
+The input range implementation can be further optimized and we discuss the possible improvements in this sub-section as well as what was implemented in the actual framework.\\
 First of all, the service implemented consists of 3 steps: Range verification, Aggregation, and Key switch. This is the best approximation of service to compare with the Prio verification and aggregation, with the least differences.\\
 This service is in no case optimized, it serves as a comparison, so a lot of values are hardcoded such as the number of client submission to wait for before aggregation or the keys for encryption are chosen beforehand randomly.\\
 
@@ -456,7 +464,7 @@ NEED TO COMPUTE THE DIFFERENT RESULTS.
 As explained previously, the service implemented for Unlynx range proof consists of 3 steps: Range verification, Aggregation, and Key switch. This is the best approximation of service to compare with the Prio verification and aggregation, with the least significant differences.\\
 The key switch used is not the optimal one as it does not use the byte structure to communicate, due to a problem on the new Elliptic curve used.\\
 
-The threat models are almost the same (the small difference is still in the collective authority, where the one for Unlynx is more relaxed) and we study the time it takes for an aggregation.\\
+The threat models are almost the same (the small difference is still in the collective authority, where you don't need to trust anyone for Unlynx) and we study the time it takes for an aggregation.\\
 To be more precise in Prio, we measure the time, for different clients, it takes to verify all submissions, aggregate and publish the computed aggregate function.
 While in Unlynx, the measured time is the sum of the verification, the aggregation of cipher and the key switch, as you need to turn back the aggregate data to readable data for the querier.\\
 
@@ -476,6 +484,8 @@ For Prio here is a table with some time and size measurement for 1 client input 
 {\color[HTML]{FFFFFF} \begin{tabular}[c]{@{}c@{}}Size of messages sent in broadcast phase of the protocol by 1 server\\ /Total size of all message exchanged in broadcast\\ (in bytes)\end{tabular}} & 32 / 96                                          & 64/320                                            & 144/1440                                          \\ \hline
 {\color[HTML]{FFFFFF} \begin{tabular}[c]{@{}c@{}}Size of message sent by 1 server to root for final phase \\ / Total size of messages sent to root for final phase\\ (in bytes)\end{tabular}}        & 8 / 16                                           & 8 / 32                                            & 8 / 72                                            \\ \hline
 {\color[HTML]{FFFFFF} \begin{tabular}[c]{@{}c@{}}Total time to execute the verification at the servers in function of circuit size\\ (6bits/32bits/64bits)\end{tabular}}                             & 8.07 ms/ 11.95 ms/ 19.57 ms                      & \multicolumn{1}{l|}{20.19ms / 35.95ms/ 46.80ms}   & \multicolumn{1}{l|}{67.85ms/85.72ms/115.1ms}      \\ \hline
+{\color[HTML]{FFFFFF} \begin{tabular}[c]{@{}c@{}}Aggregation time for all server in function of data size in bits\\
+(6/32/64)\end{tabular}}                                       & 2.32ms / 2.76ms / 3.1ms                   & 10.47ms / 11.06ms / 11.78ms                   & 29.37ms / 35.32ms / 37.93ms    \\ \hline          
 \end{tabular}
 }
 \end{table}
@@ -484,9 +494,6 @@ We can state that the execution time grows linearly with circuit size, and it is
 Moreover, the number of sent data is pretty low for small size data, and grows sub linearly with the size, in bits, of the data picked.\\
 
 For Unlynx with range proof, assuming the same threat model as the orginal work we have the following:\\
-% Please add the following required packages to your document preamble:
-% \usepackage[table,xcdraw]{xcolor}
-% If you use beamer only pass "xcolor=table" option, i.e. \documentclass[xcolor=table]{beamer}
 \begin{table}[H]
 \centering
 \caption{Unlynx range proof measurement}
@@ -498,14 +505,39 @@ For Unlynx with range proof, assuming the same threat model as the orginal work 
 \multicolumn{1}{|l|}{\cellcolor[HTML]{656565}{\color[HTML]{FFFFFF} \# Server}}                                                                                     & \cellcolor[HTML]{656565}{\color[HTML]{FFFFFF} 3} & \cellcolor[HTML]{656565}{\color[HTML]{FFFFFF} 5} & \cellcolor[HTML]{656565}{\color[HTML]{FFFFFF} 10} \\ \hline
 {\color[HTML]{FFFFFF} \begin{tabular}[c]{@{}c@{}}Time for initialization of Signature at 1 Server\\ in function of base u\\ (2/4/8)\end{tabular}}                  & 0.93ms/1.20ms/1.97ms                             & 0.93ms/1.20ms/1.97ms                             & 0.93ms/1.20ms/1.97ms                              \\ \hline
 {\color[HTML]{FFFFFF} \begin{tabular}[c]{@{}c@{}}Size of Signature in function of base u at 1 Server\\ (2/4/8)\end{tabular}}                                       & 64 bytes /112 bytes /208 bytes                   & 64 bytes /112 bytes /208 bytes                   & 64 bytes /112 bytes /208 bytes                    \\ \hline
-{\color[HTML]{FFFFFF} \begin{tabular}[c]{@{}c@{}}Time at Data provider to compute proof value\\ from signature in function of exponent l\\ (6/10/20)\end{tabular}} & 19.41ms/31.75ms/59.27ms                          & 19.41ms/31.75ms/59.27ms                          & 19.41ms/31.75ms/59.27ms                           \\ \hline
-{\color[HTML]{FFFFFF} \begin{tabular}[c]{@{}c@{}}Total size of message send by Data provider\\  to all server in function of l\\ (6/10/20)\end{tabular}}           & 1088 bytes/ 1760 bytes/ 3440 bytes               & 1760 bytes/2880 bytes/5680 bytes                 & 3440 bytes/ 5680 bytes /11280 bytes               \\ \hline
-{\color[HTML]{FFFFFF} \begin{tabular}[c]{@{}c@{}}Computation time at 1 server for proof publication\\ in function of l\\ (6/10/20)\end{tabular}}                   & 25.02ms/39.16ms/81.18ms                          & 25.02ms/39.16ms/81.18ms                          & 25.02ms/39.16ms/81.18ms                           \\ \hline
+{\color[HTML]{FFFFFF} \begin{tabular}[c]{@{}c@{}}Time at Data provider to compute proof value\\ from signature in function of exponent l\\ (6/10/20)\end{tabular}} & 19.41*3 ms/31.75*3 ms/59.27*3 ms                          & 97.05ms/158.75ms/296.35ms                          & 194.1ms/317.5ms/592.7ms                           \\ \hline
+{\color[HTML]{FFFFFF} \begin{tabular}[c]{@{}c@{}}Total size of message send by Data provider\\  to all server in function of l\\ (6/10/20)\end{tabular}}           & 1520 bytes/ 2480 bytes/ 4880 bytes               & 2480 bytes/ 4080 bytes/ 8080 bytes                 & 4880 bytes/ 8080 bytes/ 16080 bytes               \\ \hline
+{\color[HTML]{FFFFFF} \begin{tabular}[c]{@{}c@{}}Computation time at 1 server for proof verification\\ in function of l\\ (6/10/20)\end{tabular}}                   & 25.02ms/39.16ms/81.18ms                          & 25.02ms/39.16ms/81.18ms                          & 25.02ms/39.16ms/81.18ms                           \\ \hline
 {\color[HTML]{FFFFFF} Aggregation time}                                                                                                                            & 4.67ms                                           & 8.43ms                                           & 31.38ms                                           \\ \hline
 {\color[HTML]{FFFFFF} Key switch time}                                                                                                                             & 19.34ms                                          & 37.97ms                                          & 97.28ms                                           \\ \hline
 \end{tabular}
 }
 \end{table}
+[TO FILL]
+
+
+We also want to compare Prio and Unlynx with the exact same Threat Model, and in this case, the DP sends its data to the server it is connected to, and this server is the only one that does the verification of the proof for this DP. This solution gives us the following table:\\
+\begin{table}[H]
+\centering
+\caption{Unlynx range proof measurement}
+\label{my-label}
+\resizebox{\columnwidth}{!}{
+\begin{tabular}{|
+>{\columncolor[HTML]{656565}}c |c|c|c|}
+\hline
+\multicolumn{1}{|l|}{\cellcolor[HTML]{656565}{\color[HTML]{FFFFFF} \# Server}}                                                                                     & \cellcolor[HTML]{656565}{\color[HTML]{FFFFFF} 3} & \cellcolor[HTML]{656565}{\color[HTML]{FFFFFF} 5} & \cellcolor[HTML]{656565}{\color[HTML]{FFFFFF} 10} \\ \hline
+{\color[HTML]{FFFFFF} \begin{tabular}[c]{@{}c@{}}Time for initialization of Signature at 1 Server\\ in function of base u\\ (2/4/8)\end{tabular}}                  & 0.93ms/1.20ms/1.97ms                             & 0.93ms/1.20ms/1.97ms                             & 0.93ms/1.20ms/1.97ms                              \\ \hline
+{\color[HTML]{FFFFFF} \begin{tabular}[c]{@{}c@{}}Size of Signature in function of base u at 1 Server\\ (2/4/8)\end{tabular}}                                       & 64 bytes /112 bytes /208 bytes                   & 64 bytes /112 bytes /208 bytes                   & 64 bytes /112 bytes /208 bytes                    \\ \hline
+{\color[HTML]{FFFFFF} \begin{tabular}[c]{@{}c@{}}Time at Data provider to compute proof value\\ from signature in function of exponent l\\ (6/10/20)\end{tabular}} & 19.41ms/31.75ms/59.27ms                          & 19.41ms/31.75ms/59.27ms                          & 19.41ms/31.75ms/59.27ms                          \\ \hline
+{\color[HTML]{FFFFFF} \begin{tabular}[c]{@{}c@{}}Total size of message send by Data provider\\  to its server in function of l\\ (6/10/20)\end{tabular}}           & 560 bytes/ 880 bytes/ 1680 bytes               & 560 bytes/ 880 bytes/ 1680 bytes                 & 560 bytes/ 880 bytes/ 1680 bytes               \\ \hline
+{\color[HTML]{FFFFFF} \begin{tabular}[c]{@{}c@{}}Computation time at 1 server for proof verification\\ in function of l\\ (6/10/20)\end{tabular}}                   & 25.02ms/39.16ms/81.18ms                          & 25.02ms/39.16ms/81.18ms                          & 25.02ms/39.16ms/81.18ms                           \\ \hline
+{\color[HTML]{FFFFFF} Aggregation time}                                                                                                                            & 4.67ms                                           & 8.43ms                                           & 31.38ms                                           \\ \hline
+{\color[HTML]{FFFFFF} Key switch time}                                                                                                                             & 19.34ms                                          & 37.97ms                                          & 97.28ms                                           \\ \hline
+\end{tabular}
+}
+\end{table}
+
+
 \section{Future Work}
 Depends on RESULT.
 
@@ -604,8 +636,30 @@ Law on Data protection in the United-States\\
 Bitcoin: A Peer-to-Peer Electronic Cash System.\\
 \texttt{https://bitcoin.org/bitcoin.pdf}
 
+\bibitem{proof1}
+C Andrew Neff. Verifiable mixing (shuffling) of ElGamal pairs (2004)
+
+\bibitem{proof2}
+C Andrew Neff. A verificable secret shuffle and its application to e-voting. In \textit{Proceedings ACM-CCS 2001}, pages 116--125, 2001.
+
+\bibitem{boneh}
+Dan Boneh and Xavier Boyen. Short signatures without random oracles. In christian Caching and Jan Camenisch, editors, EUROCRYPT, volume 3027 of \textit{Lecture notes in Computer Science}, pages 56-73. Springer,2004.
+
+\bibitem{polyverif}
+Schwartz, J. T. Fast probabilistic algorithms for verification of polynomial identities. \textit{Journal of the ACM} 27,4 (1980), 701-717.
 
 
+\bibitem{dfinitydedis}
+Paper on dfinity to do DKG with pairing.
+\texttt{https://github.com/dedis/paper\_17\_dfinity}
+
+\bibitem{dfinity}
+dfinity Github repository
+\texttt{https://github.com/dfinity/go-dfinity-crypto}
+
+\bibitem{fiatshamir}
+Fiat-Shamir heuristic to transform interactive proof of knowledge to non-interactive.
+\texttt{https://en.wikipedia.org/wiki/Fiat\%E2\%80\%93Shamir\_heuristic}
 \end{thebibliography}
 
 
