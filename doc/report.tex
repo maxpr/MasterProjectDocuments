@@ -435,7 +435,9 @@ The zero-knowledge was satisfied in the interactive version of this protocol. As
 
 Let's now look at the communication complexity.
 The initialization phase, which includes signature and public key sending, is not counted as a part of the protocol, as it is executed once in the beginning and reused afterwards.\\
-The prover sends $l$ blinded values $V_j$ to each verifier, as well as $l$ $Z_{\sigma_j}$ and $Z_{v_j}$, a challenge $c$, a value $Z_r$
+The prover sends $l$ blinded values $V_j$ to each verifier, as well as $l$ $Z_{\sigma_j}$ and $Z_{v_j}$ but also each $a_j$ computed from the blinded signatures, a challenge $c$, a value $Z_r$, and a value $D$.\\
+S
+
 
 \subsubsection*{Optimizations}
 The input range implementation can be further optimized and we discuss the possible improvements in this sub-section as well as what was implemented in the actual framework.\\
