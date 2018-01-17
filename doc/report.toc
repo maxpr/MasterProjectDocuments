@@ -5,20 +5,20 @@
 \contentsline {section}{\numberline {1}Unlynx System}{6}
 \contentsline {subsection}{\numberline {1.1}System Model}{7}
 \contentsline {subsection}{\numberline {1.2}Threat Model}{7}
-\contentsline {subsection}{\numberline {1.3}Pipeline and proof}{7}
+\contentsline {subsection}{\numberline {1.3}Pipeline and proof}{8}
 \contentsline {subsection}{\numberline {1.4}Input range validation for Elliptic Curve ElGamal}{8}
 \contentsline {section}{\numberline {2}Prio System}{10}
 \contentsline {subsection}{\numberline {2.1}System Model}{10}
-\contentsline {subsection}{\numberline {2.2}Threat Model}{10}
+\contentsline {subsection}{\numberline {2.2}Threat Model}{11}
 \contentsline {subsection}{\numberline {2.3}Pipeline and proof}{11}
-\contentsline {subsection}{\numberline {2.4}Prio range validation (SNIPs)}{11}
-\contentsline {subsubsection}{\numberline {2.4.1}Data provider evaluation}{11}
-\contentsline {subsubsection}{\numberline {2.4.2}Consistency checking at the server}{11}
+\contentsline {subsection}{\numberline {2.4}Prio range validation (SNIPs)}{12}
+\contentsline {subsubsection}{\numberline {2.4.1}Data provider evaluation}{12}
+\contentsline {subsubsection}{\numberline {2.4.2}Consistency checking at the server}{12}
 \contentsline {subsubsection}{\numberline {2.4.3}Polynomial identity test}{12}
 \contentsline {subsubsection}{\numberline {2.4.4}Multiplication of shares}{12}
-\contentsline {subsubsection}{\numberline {2.4.5}Output verification}{12}
-\contentsline {section}{\numberline {3}Implementation}{12}
-\contentsline {section}{\numberline {4}Performance evaluation}{16}
-\contentsline {section}{\numberline {5}Systems' Comparison}{16}
-\contentsline {section}{\numberline {6}Future Work}{18}
-\contentsline {section}{Conclusion}{19}
+\contentsline {subsubsection}{\numberline {2.4.5}Output verification}{13}
+\contentsline {section}{\numberline {3}Implementation}{13}
+\contentsline {section}{\numberline {4}Performance evaluation}{17}
+\contentsline {section}{\numberline {5}Systems' Comparison}{17}
+\contentsline {section}{\numberline {6}Future Work}{19}
+\contentsline {section}{Conclusion}{20}
