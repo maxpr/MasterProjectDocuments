@@ -454,7 +454,10 @@ The zero-knowledge was satisfied in the interactive version of this protocol. As
 Let's now look at the communication complexity.
 The initialization phase, which includes signature and public key sending, is not counted as a part of the protocol, as it is executed once in the beginning and reused afterwards.\\
 The prover sends $l$ blinded values $V_j$ to each verifier, as well as $l$ $Z_{\sigma_j}$ and $Z_{v_j}$ but also each $a_j$ computed from the blinded signatures, a challenge $c$, a value $Z_r$, and a value $D$.\\
-S
+Taking back the mapping $e : G_1 \times G_1 \rightarrow G_T$.\\
+It requires $l \cdot |G_1|$ communication to send $V_j$, $l \cdot |Z_p|$ communication for both $Z_{v_j}$ and $Z_{\sigma_j}$. $a_j$  needs $l \cdot |G_T|$ communication, and the unique items $c,Z_r $ and $D$ require respectively $ |Z_p|, |Z_p| $ and $|G_1|$.\\
+The total communication required for the protocol is:\\
+$Com(P,V) = l \cdot (|G_1| + 2 \cdot |Z_p| + |G_T|) + |G_1| + 2 \cdot |Z_p|$
 
 
 \subsubsection*{Optimizations}
@@ -467,19 +470,48 @@ This would lead to a small reduction in computation time in prover side, and som
 
 \section{Performance evaluation}
 
-NEED TO COMPUTE THE DIFFERENT RESULTS.
+This section presents the time required for the 3 different systems described in the previous section to execute a request. All test were run on VMWare, Ubuntu64 bits v17.10, 6.1 GB RAM, 2 cores Intel I5-4590 @3.3Ghz.\\
+For Prio, 64 bits inputs are used, while we use a range of $[0,16^{16})$ for Unlynx.\\
+We evaluate the computation time in function of the number of servers, with 10 data providers (each having one data point), and the scaling with the number of data providers with 5 fixed servers.\\
 
-\begin{itemize}
+Further in this section, we use the term \textit{trusted Unlynx}. 
+It represents the Unlynx system with the exact same Threat Model as Prio, i.e, we need all the server to be trusted to ensure correctness. The range validation is slightly modified, as the prover (DP) only need to send the proof to the server responsible for the aggregation of its data. This reduces drastically the communication, and the computation time because the server can verify in parallel the data coming from one data provider. In this system, the DP only compute one proof from one set of signature and send it to a single server, which also reduces the computation time at the data provider.\\
+The data are assumed to be evenly distributed to the server in this context.
 
+\subsubsection{Scaling in number of data providers}
+We first present a figure showing a graphic with linear axes. The first column presents Prio protocol, the second one Unlynx with the assumption that we trust all servers, and the last one is the original  Unlynx. The number of server is fixed to 5.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.7]{img/ComparisonlinearDP.png}
+\end{figure}
+The comparison of computation time will be done in the same order as the protocol runs it.\\
+First, an interesting computation time evolution to look at is the \textit{input validation}. In Prio, it grows linearly with a value of 75 ms at 3 servers and 297 ms at 10 servers. For the original Unlynx, it also grows linearly with the number of data providers, but starts at 187ms for 3 servers and hits 625 ms at 10 data providers. Trusted Unlynx beats both those systems with a linear growth in function of the ratio $\frac{\#DP}{\#Servers}$ (if the data are evenly distributed across all DPs). This leads to a time of 62ms for 3 and 5 servers, and 125 ms for 10 servers.
+First, \textit{Initialization phases} for Prio or Unlynx are negligable compared to the other step of the protocol with an execution time inferior to 5 ms.\\
+The \textit{Aggregation} protocol is constant for all protocol with an approximate time of 10 ms.\\
+The difference of Threat model in the Unlynx protocol is accentuated with the DPs proof computation time. In the trusted one it is only 46 ms while in the non trusted, it is increase by a factor 5 (234 ms), which is the number of server.\\
+Indeed in the second case the data provider need to compute the proof for each server.
+At last, the \textit{Key Switch} protocol is constant with 73 ms no matter how many data providers there is.\\
 
-\item Scaling with number of server
-\item Scaling with number of client
-\item Scaling with fairly high number of both 
-\item Time and Bandwidth dilemna
+Overall, when the number of data providers grows big enough, trusted Unlynx is the best protocol in front of Prio. The original Unlynx is way behin with an execution time almost 4 times superior to Prio.\\
+We support our analysis with another figure, that scales the number of data providers to 500. The scale is of execution time is logarithmic, however, trusted Unlynx is the best protocol in term of execution time ahead of Prio, and both of them are way better than Original Unlynx.
 
-\end{itemize}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.7]{img/ComparisonDP.png}
+\end{figure}
+ 
 
+\subsubsection{Scaling in number of data providers}
 
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.7]{img/ComparisonlinearServer.png}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.7]{img/ComparisonServer.png}
+\end{figure}
 \section{Systems' Comparison}
 As explained previously, the service implemented for Unlynx range proof consists of 3 steps: Range verification, Aggregation, and Key switch. This is the best approximation of service to compare with the Prio verification and aggregation, with the least significant differences.\\
 The key switch used is not the optimal one as it does not use the byte structure to communicate, due to a problem on the new Elliptic curve used.\\
@@ -557,6 +589,7 @@ We also want to compare Prio and Unlynx with the exact same Threat Model, and in
 }
 \end{table}
 
+[TO FILL]
 
 \section{Future Work}
 Depends on RESULT.
