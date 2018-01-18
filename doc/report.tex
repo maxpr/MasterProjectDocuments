@@ -216,7 +216,7 @@ This section presents Unlynx \cite{unlynx} system in general. It goes through th
 \subsection{System Model}
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.8]{img/UnlynxFunc.png}
+\includegraphics[scale=0.65]{img/UnlynxFunc.png}
 \end{figure}
 Unlynx is a privacy-preserving data sharing system developed by LCA1 \cite{lca} in collaboration with DeDiS \cite{dedis}.\\
 It consists of a collective authority (CA) formed by $m$ servers $S_1,...,S_m$, and $n$ data providers $DP_1,...DP_n$ containing sensitive data, encrypted using EC ElGamal by following the scheme described in the \textbf{Background} Section. These DPs combined represent a distributed database that is used to answer queries made by a querier $Q$. The querier and DPs choose one server of the CA to communicate with and can change this choice at any given time.\\
@@ -479,7 +479,12 @@ This would lead to a small reduction in computation time in prover side, and som
 
 \section{Performance evaluation}
 
-This section presents the time required for the 3 different systems described in the next lines to execute a request. All test were run on VMWare, Ubuntu64 bits v17.10, 6.1 GB RAM, 2 cores Intel I5-4590 @3.3Ghz.\\
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{img/pipelines.pdf}
+\end{figure}
+
+This section presents the time required for the 3 different systems described in the next lines to execute a request. The figure presents the protocol for each system (both Unlynx have the same pipeline). All test were run on VMWare, Ubuntu64 bits v17.10, 6.1 GB RAM, 2 cores Intel I5-4590 @3.3Ghz.\\
 For Prio, 64 bits inputs are used, while we use a range of $[0,16^{16})$ for Unlynx.\\
 We evaluate the computation time in function of the number of servers, with 10 data providers (each having one data point), and the scaling with the number of data providers with 5 fixed servers.\\
 The 3 systems are defined as follows:
@@ -606,7 +611,10 @@ We also want to compare Prio and Unlynx with the exact same Threat Model, and in
 [TO FILL]
 
 \section{Future Work}
-Depends on RESULT.
+Unlynx's input range validation enables to handle malicious/faulty data providers. However, the best solution implies to trust all server which is not desirable. What could be done is adapt Prio SNIPs protocol so that it can handle ciphertexts instead of simple integers.\\
+Moreover, it would be possibly better than Prio as you could potentially publish the share of a cipher, the same way you publish cipher, to verify computations. This would allow keeping the assumptions about servers in Unlynx. The technical issue would be to look at if it is possible to use arithmetic circuit, MPC, and AFEs with ciphertexts. As ElGamal ciphertexts are homomorphic additive, AFE's and MPC should be doable. Points can also be serialized to an array of bytes and so potentially be taken as input of an arithmetic circuit.\\
+Another alternative would be to compute the signature collectively without revealing the private key to the servers of the CA. This would either lead to research on sequential inverse addition or to new alternatives in terms of signatures functions.
+In any case, the protocol for input range validation does not necessarily need to be run online, as verification can be computed after aggregating and publishing the data. The querier can then check the proof and decide to discard the query if there are too much incorrect data.
 
 \newpage
 \section*{Conclusion}

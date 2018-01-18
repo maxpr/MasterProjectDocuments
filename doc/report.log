@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.11.8)  18 JAN 2018 14:30
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.11.8)  18 JAN 2018 15:18
 entering extended mode
 **./report.tex
 (report.tex
@@ -423,7 +423,7 @@ File: img/UnlynxFunc.png Graphic file (type png)
 
 <use img/UnlynxFunc.png>
 Package pdftex.def Info: img/UnlynxFunc.png used on input line 219.
-(pdftex.def)             Requested size: 307.75017pt x 200.54951pt.
+(pdftex.def)             Requested size: 250.0437pt x 162.94432pt.
  [7 <./img/UnlynxFunc.png>]
 <img/unlynxPip.png, id=43, 655.69969pt x 356.0803pt>
 File: img/unlynxPip.png Graphic file (type png)
@@ -440,12 +440,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 246--248
 
  []
 
-[8 <./img/unlynxPip.png>]
+
 Underfull \hbox (badness 10000) in paragraph at lines 251--254
 
  []
 
-
+[8 <./img/unlynxPip.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 280--285
 
  []
@@ -482,12 +482,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 333--337
 
  []
 
-[11 <./img/prioPip.png>]
+
 Underfull \hbox (badness 10000) in paragraph at lines 344--346
 
  []
 
-[12]
+[11 <./img/prioPip.png>] [12]
 Underfull \hbox (badness 10000) in paragraph at lines 372--373
 
  []
@@ -517,12 +517,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 404--406
 
  []
 
-[14]
+
 Underfull \hbox (badness 10000) in paragraph at lines 419--420
 
  []
 
-
+[14]
 Underfull \hbox (badness 10000) in paragraph at lines 421--422
 
  []
@@ -542,96 +542,104 @@ Underfull \hbox (badness 10000) in paragraph at lines 473--476
 
  []
 
-<img/ComparisonlinearDP.png, id=77, 663.22781pt x 360.59718pt>
+<img/pipelines.pdf, id=77, 963.6pt x 542.025pt>
+File: img/pipelines.pdf Graphic file (type pdf)
+ <use img/pipelines.pdf>
+Package pdftex.def Info: img/pipelines.pdf used on input line 484.
+(pdftex.def)             Requested size: 385.43317pt x 216.80615pt.
+
+[17 <./img/pipelines.pdf>]
+<img/ComparisonlinearDP.png, id=104, 663.22781pt x 360.59718pt>
 File: img/ComparisonlinearDP.png Graphic file (type png)
 
 <use img/ComparisonlinearDP.png>
-Package pdftex.def Info: img/ComparisonlinearDP.png used on input line 499.
+Package pdftex.def Info: img/ComparisonlinearDP.png used on input line 504.
 (pdftex.def)             Requested size: 464.2563pt x 252.4163pt.
- [17]
-Underfull \hbox (badness 10000) in paragraph at lines 501--508
+
+Underfull \hbox (badness 10000) in paragraph at lines 506--513
 
  []
 
-<img/ComparisonDP.png, id=81, 669.2503pt x 359.09157pt>
+[18 <./img/ComparisonlinearDP.png>]
+<img/ComparisonDP.png, id=109, 669.2503pt x 359.09157pt>
 File: img/ComparisonDP.png Graphic file (type png)
 
 <use img/ComparisonDP.png>
-Package pdftex.def Info: img/ComparisonDP.png used on input line 514.
+Package pdftex.def Info: img/ComparisonDP.png used on input line 519.
 (pdftex.def)             Requested size: 468.47202pt x 251.36238pt.
- [18 <./img/ComparisonlinearDP.png>]
-<img/ComparisonlinearServer.png, id=86, 667.74469pt x 369.63094pt>
+
+<img/ComparisonlinearServer.png, id=110, 667.74469pt x 369.63094pt>
 File: img/ComparisonlinearServer.png Graphic file (type png)
 
 <use img/ComparisonlinearServer.png>
-Package pdftex.def Info: img/ComparisonlinearServer.png used on input line 522.
+Package pdftex.def Info: img/ComparisonlinearServer.png used on input line 527.
 
 (pdftex.def)             Requested size: 467.41809pt x 258.73988pt.
-
-<img/ComparisonServer.png, id=87, 679.78969pt x 366.61969pt>
+ [19 <./img/ComparisonDP.png>]
+<img/ComparisonServer.png, id=116, 679.78969pt x 366.61969pt>
 File: img/ComparisonServer.png Graphic file (type png)
 
 <use img/ComparisonServer.png>
-Package pdftex.def Info: img/ComparisonServer.png used on input line 527.
+Package pdftex.def Info: img/ComparisonServer.png used on input line 532.
 (pdftex.def)             Requested size: 475.84953pt x 256.63202pt.
 
-Overfull \hbox (6.09454pt too wide) in paragraph at lines 527--528
+Overfull \hbox (6.09454pt too wide) in paragraph at lines 532--533
  [][] 
  []
 
-[19 <./img/ComparisonDP.png> <./img/ComparisonlinearServer.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 530--532
+
+Underfull \hbox (badness 10000) in paragraph at lines 535--537
+
+ []
+
+[20 <./img/ComparisonlinearServer.png> <./img/ComparisonServer.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 538--541
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 533--536
+Underfull \hbox (badness 10000) in paragraph at lines 542--543
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 537--538
+Underfull \hbox (badness 10000) in paragraph at lines 564--566
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 559--561
-
- []
-
-[20 <./img/ComparisonServer.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 562--581
+Underfull \hbox (badness 10000) in paragraph at lines 567--586
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 585--604
+Underfull \hbox (badness 10000) in paragraph at lines 590--609
 
  []
 
-[21] [22]
+[21] [22] [23]
 Missing character: There is no Ã in font cmr10!
 Missing character: There is no £ in font cmr10!
 
-Overfull \hbox (275.54424pt too wide) in paragraph at lines 638--641
+Overfull \hbox (275.54424pt too wide) in paragraph at lines 646--649
 \OT1/cmtt/m/n/10 http://www.nytimes.com/interactives/2015/07/29technology/perso
 naltech/what-parts-of-your-information-have-been-exposed-to-hackers-quiz.html 
  []
 
 
-Overfull \hbox (2.54662pt too wide) in paragraph at lines 668--671
+Overfull \hbox (2.54662pt too wide) in paragraph at lines 676--679
 \OT1/cmtt/m/n/10 http://www.buzzfeed.com/bensmith/uber-executive-suggests-diggi
 ng-up-dirt-on-journalists 
  []
 
 
-Overfull \hbox (55.80792pt too wide) in paragraph at lines 700--705
+Overfull \hbox (55.80792pt too wide) in paragraph at lines 708--713
 \OT1/cmtt/m/n/8 https://content.next.westlaw.com/Document/I02064fbd1cb611e38578
 f7ccc38dcbee/View/FullText.html?contextData=(sc.Default)&
  []
 
-[23]
-Underfull \hbox (badness 10000) in paragraph at lines 733--735
+[24]
+Underfull \hbox (badness 10000) in paragraph at lines 741--743
 []\OT1/cmr/m/n/10 Fiat-Shamir heuris-tic to trans-form in-ter-ac-tive proof of 
 knowl-edge to non-interactive.
  []
@@ -644,19 +652,19 @@ Missing character: There is no Ã in font cmr10!
 Missing character: There is no ¡ in font cmr10!
 
 AED: lastpage setting LastPage
-[24] (report.aux)
+[25] (report.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 4513 strings out of 493334
- 60995 string characters out of 3139249
- 142222 words of memory out of 3000000
- 7923 multiletter control sequences out of 15000+200000
+ 4518 strings out of 493334
+ 61095 string characters out of 3139249
+ 147222 words of memory out of 3000000
+ 7927 multiletter control sequences out of 15000+200000
  18049 words of font info for 67 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,18n,43p,780b,304s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 41i,18n,43p,780b,320s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Pr
 ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Fi
 les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKT
@@ -675,9 +683,9 @@ fonts/cm/cmti12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
 /cmtt10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt8.p
 fb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
 
-Output written on report.pdf (24 pages, 890720 bytes).
+Output written on report.pdf (25 pages, 1351983 bytes).
 PDF statistics:
- 171 PDF objects out of 1000 (max. 8388607)
+ 199 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 41 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 46 words of extra memory for PDF output out of 10000 (max. 10000000)
 
