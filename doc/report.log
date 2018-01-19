@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.11.8)  18 JAN 2018 15:18
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.11.8)  19 JAN 2018 10:33
 entering extended mode
 **./report.tex
 (report.tex
@@ -428,218 +428,217 @@ Package pdftex.def Info: img/UnlynxFunc.png used on input line 219.
 <img/unlynxPip.png, id=43, 655.69969pt x 356.0803pt>
 File: img/unlynxPip.png Graphic file (type png)
  <use img/unlynxPip.png>
-Package pdftex.def Info: img/unlynxPip.png used on input line 240.
+Package pdftex.def Info: img/unlynxPip.png used on input line 241.
 (pdftex.def)             Requested size: 327.84904pt x 178.03972pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 234--245
+Underfull \hbox (badness 10000) in paragraph at lines 235--246
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 246--248
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 251--254
+Underfull \hbox (badness 10000) in paragraph at lines 247--249
 
  []
 
 [8 <./img/unlynxPip.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 280--285
+Underfull \hbox (badness 10000) in paragraph at lines 252--255
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 281--286
 
  []
 
 [9]
-Underfull \hbox (badness 10000) in paragraph at lines 295--296
+Underfull \hbox (badness 10000) in paragraph at lines 296--297
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 310--311
+Underfull \hbox (badness 10000) in paragraph at lines 311--312
 
  []
 
 <img/prioPip.png, id=53, 747.54282pt x 152.82094pt>
 File: img/prioPip.png Graphic file (type png)
  <use img/prioPip.png>
-Package pdftex.def Info: img/prioPip.png used on input line 323.
+Package pdftex.def Info: img/prioPip.png used on input line 324.
 (pdftex.def)             Requested size: 373.7705pt x 76.41026pt.
 
-Overfull \hbox (0.38316pt too wide) in paragraph at lines 313--324
+Overfull \hbox (0.38316pt too wide) in paragraph at lines 314--326
 \OT1/cmr/bx/n/10 Functionality\OT1/cmr/m/n/10 : Prio should per-mit the col-lec
 -tive au-thor-ity to com-pute some ag-gre-ga-tion func-tion $\OML/cmm/m/it/10 f
 \OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x[]; :::x[]\OT1/cmr/m/n/10 )$
  []
 
 [10]
-Underfull \hbox (badness 10000) in paragraph at lines 327--331
+Underfull \hbox (badness 10000) in paragraph at lines 329--333
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 333--337
+Underfull \hbox (badness 10000) in paragraph at lines 335--339
+
+ []
+
+[11 <./img/prioPip.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 346--348
+
+ []
+
+[12]
+Underfull \hbox (badness 10000) in paragraph at lines 374--375
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 344--346
-
- []
-
-[11 <./img/prioPip.png>] [12]
-Underfull \hbox (badness 10000) in paragraph at lines 372--373
+Underfull \hbox (badness 10000) in paragraph at lines 376--381
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 374--379
+Underfull \hbox (badness 10000) in paragraph at lines 382--384
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 380--382
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 383--385
+Underfull \hbox (badness 10000) in paragraph at lines 385--387
 
  []
 
 [13]
-Underfull \hbox (badness 10000) in paragraph at lines 401--403
-
- []
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 404--406
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 419--420
+Underfull \hbox (badness 10000) in paragraph at lines 407--409
 
  []
 
 [14]
-Underfull \hbox (badness 10000) in paragraph at lines 421--422
+Underfull \hbox (badness 10000) in paragraph at lines 422--423
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 424--425
 
  []
 
 [15]
-Underfull \hbox (badness 10000) in paragraph at lines 458--459
+Underfull \hbox (badness 10000) in paragraph at lines 462--463
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 460--462
+Underfull \hbox (badness 10000) in paragraph at lines 464--466
 
  []
 
 [16]
-Underfull \hbox (badness 10000) in paragraph at lines 473--476
+Underfull \hbox (badness 10000) in paragraph at lines 476--479
 
  []
 
 <img/pipelines.pdf, id=77, 963.6pt x 542.025pt>
 File: img/pipelines.pdf Graphic file (type pdf)
  <use img/pipelines.pdf>
-Package pdftex.def Info: img/pipelines.pdf used on input line 484.
+Package pdftex.def Info: img/pipelines.pdf used on input line 487.
 (pdftex.def)             Requested size: 385.43317pt x 216.80615pt.
 
 [17 <./img/pipelines.pdf>]
-<img/ComparisonlinearDP.png, id=104, 663.22781pt x 360.59718pt>
+<img/ComparisonlinearDP.png, id=104, 505.89pt x 505.89pt>
 File: img/ComparisonlinearDP.png Graphic file (type png)
 
 <use img/ComparisonlinearDP.png>
-Package pdftex.def Info: img/ComparisonlinearDP.png used on input line 504.
-(pdftex.def)             Requested size: 464.2563pt x 252.4163pt.
+Package pdftex.def Info: img/ComparisonlinearDP.png used on input line 509.
+(pdftex.def)             Requested size: 354.12057pt x 354.12057pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 506--513
+Underfull \hbox (badness 10000) in paragraph at lines 512--519
 
  []
 
 [18 <./img/ComparisonlinearDP.png>]
-<img/ComparisonDP.png, id=109, 669.2503pt x 359.09157pt>
+<img/ComparisonDP.png, id=109, 505.89pt x 505.89pt>
 File: img/ComparisonDP.png Graphic file (type png)
+ <use img/ComparisonDP.png>
+Package pdftex.def Info: img/ComparisonDP.png used on input line 525.
+(pdftex.def)             Requested size: 354.12057pt x 354.12057pt.
 
-<use img/ComparisonDP.png>
-Package pdftex.def Info: img/ComparisonDP.png used on input line 519.
-(pdftex.def)             Requested size: 468.47202pt x 251.36238pt.
-
-<img/ComparisonlinearServer.png, id=110, 667.74469pt x 369.63094pt>
+<img/ComparisonlinearServer.png, id=110, 505.89pt x 505.89pt>
 File: img/ComparisonlinearServer.png Graphic file (type png)
 
 <use img/ComparisonlinearServer.png>
-Package pdftex.def Info: img/ComparisonlinearServer.png used on input line 527.
+Package pdftex.def Info: img/ComparisonlinearServer.png used on input line 535.
 
-(pdftex.def)             Requested size: 467.41809pt x 258.73988pt.
+(pdftex.def)             Requested size: 354.12057pt x 354.12057pt.
  [19 <./img/ComparisonDP.png>]
-<img/ComparisonServer.png, id=116, 679.78969pt x 366.61969pt>
+<img/ComparisonServer.png, id=116, 505.89pt x 505.89pt>
 File: img/ComparisonServer.png Graphic file (type png)
 
 <use img/ComparisonServer.png>
-Package pdftex.def Info: img/ComparisonServer.png used on input line 532.
-(pdftex.def)             Requested size: 475.84953pt x 256.63202pt.
-
-Overfull \hbox (6.09454pt too wide) in paragraph at lines 532--533
- [][] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 535--537
-
- []
-
-[20 <./img/ComparisonlinearServer.png> <./img/ComparisonServer.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 538--541
+Package pdftex.def Info: img/ComparisonServer.png used on input line 541.
+(pdftex.def)             Requested size: 354.12057pt x 354.12057pt.
+ [20 <./img/ComparisonlinearServer.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 545--547
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 542--543
+Underfull \hbox (badness 10000) in paragraph at lines 548--551
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 564--566
+Underfull \hbox (badness 10000) in paragraph at lines 552--553
+
+ []
+
+[21 <./img/ComparisonServer.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 574--576
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 567--586
+Underfull \hbox (badness 10000) in paragraph at lines 577--596
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 590--609
+Underfull \hbox (badness 10000) in paragraph at lines 600--619
 
  []
 
-[21] [22] [23]
+[22]
+Underfull \hbox (badness 10000) in paragraph at lines 624--628
+
+ []
+
+[23] [24]
 Missing character: There is no Ã in font cmr10!
 Missing character: There is no £ in font cmr10!
 
-Overfull \hbox (275.54424pt too wide) in paragraph at lines 646--649
+Overfull \hbox (275.54424pt too wide) in paragraph at lines 657--660
 \OT1/cmtt/m/n/10 http://www.nytimes.com/interactives/2015/07/29technology/perso
 naltech/what-parts-of-your-information-have-been-exposed-to-hackers-quiz.html 
  []
 
 
-Overfull \hbox (2.54662pt too wide) in paragraph at lines 676--679
+Overfull \hbox (2.54662pt too wide) in paragraph at lines 687--690
 \OT1/cmtt/m/n/10 http://www.buzzfeed.com/bensmith/uber-executive-suggests-diggi
 ng-up-dirt-on-journalists 
  []
 
 
-Overfull \hbox (55.80792pt too wide) in paragraph at lines 708--713
+Overfull \hbox (55.80792pt too wide) in paragraph at lines 719--724
 \OT1/cmtt/m/n/8 https://content.next.westlaw.com/Document/I02064fbd1cb611e38578
 f7ccc38dcbee/View/FullText.html?contextData=(sc.Default)&
  []
 
-[24]
-Underfull \hbox (badness 10000) in paragraph at lines 741--743
+[25]
+Underfull \hbox (badness 10000) in paragraph at lines 752--754
 []\OT1/cmr/m/n/10 Fiat-Shamir heuris-tic to trans-form in-ter-ac-tive proof of 
 knowl-edge to non-interactive.
  []
@@ -652,7 +651,7 @@ Missing character: There is no Ã in font cmr10!
 Missing character: There is no ¡ in font cmr10!
 
 AED: lastpage setting LastPage
-[25] (report.aux)
+[26] (report.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
@@ -660,11 +659,11 @@ LaTeX Warning: There were multiply-defined labels.
 Here is how much of TeX's memory you used:
  4518 strings out of 493334
  61095 string characters out of 3139249
- 147222 words of memory out of 3000000
+ 146222 words of memory out of 3000000
  7927 multiletter control sequences out of 15000+200000
  18049 words of font info for 67 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,18n,43p,780b,320s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 41i,18n,43p,780b,304s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Pr
 ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Fi
 les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKT
@@ -683,9 +682,9 @@ fonts/cm/cmti12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
 /cmtt10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt8.p
 fb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
 
-Output written on report.pdf (25 pages, 1351983 bytes).
+Output written on report.pdf (26 pages, 1705185 bytes).
 PDF statistics:
- 199 PDF objects out of 1000 (max. 8388607)
+ 202 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  46 words of extra memory for PDF output out of 10000 (max. 10000000)
 
