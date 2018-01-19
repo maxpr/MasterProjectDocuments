@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.11.8)  19 JAN 2018 10:33
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.11.8)  19 JAN 2018 11:43
 entering extended mode
 **./report.tex
 (report.tex
@@ -575,70 +575,85 @@ Package pdftex.def Info: img/ComparisonlinearServer.png used on input line 535.
 
 (pdftex.def)             Requested size: 354.12057pt x 354.12057pt.
  [19 <./img/ComparisonDP.png>]
-<img/ComparisonServer.png, id=116, 505.89pt x 505.89pt>
+Underfull \hbox (badness 10000) in paragraph at lines 538--543
+
+ []
+
+[20 <./img/ComparisonlinearServer.png>]
+<img/ComparisonServer.png, id=120, 505.89pt x 505.89pt>
 File: img/ComparisonServer.png Graphic file (type png)
 
 <use img/ComparisonServer.png>
-Package pdftex.def Info: img/ComparisonServer.png used on input line 541.
+Package pdftex.def Info: img/ComparisonServer.png used on input line 548.
 (pdftex.def)             Requested size: 354.12057pt x 354.12057pt.
- [20 <./img/ComparisonlinearServer.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 545--547
+
+Underfull \hbox (badness 10000) in paragraph at lines 553--555
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 548--551
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 552--553
+Underfull \hbox (badness 10000) in paragraph at lines 556--559
 
  []
 
 [21 <./img/ComparisonServer.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 574--576
+Underfull \hbox (badness 10000) in paragraph at lines 560--561
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 577--596
+Underfull \hbox (badness 10000) in paragraph at lines 582--585
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 600--619
+Underfull \hbox (badness 10000) in paragraph at lines 587--606
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 607--611
 
  []
 
 [22]
-Underfull \hbox (badness 10000) in paragraph at lines 624--628
+Underfull \hbox (badness 10000) in paragraph at lines 612--631
 
  []
 
-[23] [24]
+
+Underfull \hbox (badness 10000) in paragraph at lines 632--634
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 639--643
+
+ []
+
+[23] [24] [25]
 Missing character: There is no Ã in font cmr10!
 Missing character: There is no £ in font cmr10!
 
-Overfull \hbox (275.54424pt too wide) in paragraph at lines 657--660
+Overfull \hbox (275.54424pt too wide) in paragraph at lines 671--674
 \OT1/cmtt/m/n/10 http://www.nytimes.com/interactives/2015/07/29technology/perso
 naltech/what-parts-of-your-information-have-been-exposed-to-hackers-quiz.html 
  []
 
 
-Overfull \hbox (2.54662pt too wide) in paragraph at lines 687--690
+Overfull \hbox (2.54662pt too wide) in paragraph at lines 701--704
 \OT1/cmtt/m/n/10 http://www.buzzfeed.com/bensmith/uber-executive-suggests-diggi
 ng-up-dirt-on-journalists 
  []
 
 
-Overfull \hbox (55.80792pt too wide) in paragraph at lines 719--724
+Overfull \hbox (55.80792pt too wide) in paragraph at lines 733--738
 \OT1/cmtt/m/n/8 https://content.next.westlaw.com/Document/I02064fbd1cb611e38578
 f7ccc38dcbee/View/FullText.html?contextData=(sc.Default)&
  []
 
-[25]
-Underfull \hbox (badness 10000) in paragraph at lines 752--754
+[26]
+Underfull \hbox (badness 10000) in paragraph at lines 766--768
 []\OT1/cmr/m/n/10 Fiat-Shamir heuris-tic to trans-form in-ter-ac-tive proof of 
 knowl-edge to non-interactive.
  []
@@ -651,7 +666,7 @@ Missing character: There is no Ã in font cmr10!
 Missing character: There is no ¡ in font cmr10!
 
 AED: lastpage setting LastPage
-[26] (report.aux)
+[27] (report.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
@@ -659,11 +674,11 @@ LaTeX Warning: There were multiply-defined labels.
 Here is how much of TeX's memory you used:
  4518 strings out of 493334
  61095 string characters out of 3139249
- 146222 words of memory out of 3000000
+ 142222 words of memory out of 3000000
  7927 multiletter control sequences out of 15000+200000
  18049 words of font info for 67 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,18n,43p,780b,304s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 41i,18n,43p,780b,306s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Pr
 ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Fi
 les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKT
@@ -682,9 +697,9 @@ fonts/cm/cmti12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
 /cmtt10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt8.p
 fb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
 
-Output written on report.pdf (26 pages, 1705185 bytes).
+Output written on report.pdf (27 pages, 1710828 bytes).
 PDF statistics:
- 202 PDF objects out of 1000 (max. 8388607)
+ 205 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  46 words of extra memory for PDF output out of 10000 (max. 10000000)
 
