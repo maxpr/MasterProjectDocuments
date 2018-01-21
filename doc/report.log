@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.11.8)  21 JAN 2018 10:02
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.11.8)  21 JAN 2018 10:38
 entering extended mode
 **./report.tex
 (report.tex
@@ -567,26 +567,25 @@ File: img/ComparisonDP.png Graphic file (type png)
 Package pdftex.def Info: img/ComparisonDP.png used on input line 523.
 (pdftex.def)             Requested size: 354.12057pt x 354.12057pt.
 
-<img/ComparisonlinearServer.png, id=110, 505.89pt x 505.89pt>
+[19] <img/ComparisonlinearServer.png, id=114, 505.89pt x 505.89pt>
 File: img/ComparisonlinearServer.png Graphic file (type png)
 
 <use img/ComparisonlinearServer.png>
 Package pdftex.def Info: img/ComparisonlinearServer.png used on input line 533.
 
 (pdftex.def)             Requested size: 354.12057pt x 354.12057pt.
- [19 <./img/ComparisonDP.png>]
+ [20 <./img/ComparisonDP.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 536--541
 
  []
 
-[20 <./img/ComparisonlinearServer.png>]
-<img/ComparisonServer.png, id=120, 505.89pt x 505.89pt>
+<img/ComparisonServer.png, id=119, 505.89pt x 505.89pt>
 File: img/ComparisonServer.png Graphic file (type png)
 
 <use img/ComparisonServer.png>
 Package pdftex.def Info: img/ComparisonServer.png used on input line 546.
 (pdftex.def)             Requested size: 354.12057pt x 354.12057pt.
-
+ [21 <./img/ComparisonlinearServer.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 551--553
 
  []
@@ -596,7 +595,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 554--557
 
  []
 
-[21 <./img/ComparisonServer.png>]
+[22 <./img/ComparisonServer.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 558--559
 
  []
@@ -616,12 +615,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 605--609
 
  []
 
-[22]
+
 Underfull \hbox (badness 10000) in paragraph at lines 610--629
 
  []
 
-
+[23]
 Underfull \hbox (badness 10000) in paragraph at lines 630--632
 
  []
@@ -636,12 +635,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 639--646
 
  []
 
-[23]
+[24]
 Underfull \hbox (badness 10000) in paragraph at lines 647--648
 
  []
 
-[24]
+[25]
 Missing character: There is no Ã in font cmr10!
 Missing character: There is no £ in font cmr10!
 
@@ -662,7 +661,7 @@ Overfull \hbox (55.80792pt too wide) in paragraph at lines 733--738
 f7ccc38dcbee/View/FullText.html?contextData=(sc.Default)&
  []
 
-[25]
+[26]
 Underfull \hbox (badness 10000) in paragraph at lines 766--768
 []\OT1/cmr/m/n/10 Fiat-Shamir heuris-tic to trans-form in-ter-ac-tive proof of 
 knowl-edge to non-interactive.
@@ -676,7 +675,7 @@ Missing character: There is no Ã in font cmr10!
 Missing character: There is no ¡ in font cmr10!
 
 AED: lastpage setting LastPage
-[26] (report.aux)
+[27] (report.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
@@ -684,7 +683,7 @@ LaTeX Warning: There were multiply-defined labels.
 Here is how much of TeX's memory you used:
  4519 strings out of 493334
  61106 string characters out of 3139249
- 143229 words of memory out of 3000000
+ 148229 words of memory out of 3000000
  7928 multiletter control sequences out of 15000+200000
  18049 words of font info for 67 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -707,9 +706,9 @@ fonts/cm/cmti12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
 /cmtt10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt8.p
 fb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
 
-Output written on report.pdf (26 pages, 1711293 bytes).
+Output written on report.pdf (27 pages, 1670266 bytes).
 PDF statistics:
- 202 PDF objects out of 1000 (max. 8388607)
+ 205 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  46 words of extra memory for PDF output out of 10000 (max. 10000000)
 
