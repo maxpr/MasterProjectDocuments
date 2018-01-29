@@ -439,7 +439,7 @@ A third alternative would be that the signatures are collectively constructed; t
 \State \textbf{Initialization Phase}: Each server $i$ in the collective authority compute the following values :\\
 Pick a random $x_i \in \mathbb{Z}_p$\\
 $y_i \gets Bx_i$\\
-$A_{i,j} \gets B(x_i + j)^{-1} $, $\forall i \in \mathbb{Z}_u$ and $j \in \{1,...,m\}$\\
+$A_{i,j} \gets B(x_i + j)^{-1} $, $\forall j \in \mathbb{Z}_u$ and $i \in \{1,...,m\}$\\
 \State  \textbf{Servers} make their signature public as well as the key $y_i$. When a query is issued by a querier $Q$, we now assume that the range are contained in the query and broadcasted by the server as usual to the data provider.\\
 
 \State \textbf{Online Phase}: Data provider encodes the signature of the value to check in base $u$ with randomly picked $v_j$.\\

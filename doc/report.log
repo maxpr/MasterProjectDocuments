@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.11.8)  21 JAN 2018 10:38
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.11.8)  29 JAN 2018 13:52
 entering extended mode
 **./report.tex
 (report.tex
@@ -549,43 +549,60 @@ Package pdftex.def Info: img/pipelines.pdf used on input line 485.
 (pdftex.def)             Requested size: 385.43317pt x 216.80615pt.
 
 [17 <./img/pipelines.pdf>]
-<img/ComparisonlinearDP.png, id=104, 505.89pt x 505.89pt>
+<img/ComparisonlinearDP.png, id=104, 2107.875pt x 2107.875pt>
 File: img/ComparisonlinearDP.png Graphic file (type png)
 
 <use img/ComparisonlinearDP.png>
 Package pdftex.def Info: img/ComparisonlinearDP.png used on input line 507.
-(pdftex.def)             Requested size: 354.12057pt x 354.12057pt.
+(pdftex.def)             Requested size: 1475.50247pt x 1475.50247pt.
 
+Overfull \hbox (1005.74748pt too wide) in paragraph at lines 507--508
+ [][] 
+ []
+
+[18]
+Overfull \vbox (850.217pt too high) has occurred while \output is active []
+
+
+[19 <./img/ComparisonlinearDP.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 510--517
 
  []
 
-[18 <./img/ComparisonlinearDP.png>]
-<img/ComparisonDP.png, id=109, 505.89pt x 505.89pt>
+<img/ComparisonDP.png, id=113, 505.89pt x 505.89pt>
 File: img/ComparisonDP.png Graphic file (type png)
  <use img/ComparisonDP.png>
 Package pdftex.def Info: img/ComparisonDP.png used on input line 523.
 (pdftex.def)             Requested size: 354.12057pt x 354.12057pt.
 
-[19] <img/ComparisonlinearServer.png, id=114, 505.89pt x 505.89pt>
+[20] <img/ComparisonlinearServer.png, id=117, 2107.875pt x 2107.875pt>
 File: img/ComparisonlinearServer.png Graphic file (type png)
 
 <use img/ComparisonlinearServer.png>
 Package pdftex.def Info: img/ComparisonlinearServer.png used on input line 533.
 
-(pdftex.def)             Requested size: 354.12057pt x 354.12057pt.
- [20 <./img/ComparisonDP.png>]
+(pdftex.def)             Requested size: 1475.50247pt x 1475.50247pt.
+
+Overfull \hbox (1005.74748pt too wide) in paragraph at lines 533--534
+ [][] 
+ []
+
+[21 <./img/ComparisonDP.png>]
+Overfull \vbox (850.217pt too high) has occurred while \output is active []
+
+
+[22 <./img/ComparisonlinearServer.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 536--541
 
  []
 
-<img/ComparisonServer.png, id=119, 505.89pt x 505.89pt>
+<img/ComparisonServer.png, id=126, 505.89pt x 505.89pt>
 File: img/ComparisonServer.png Graphic file (type png)
 
 <use img/ComparisonServer.png>
 Package pdftex.def Info: img/ComparisonServer.png used on input line 546.
 (pdftex.def)             Requested size: 354.12057pt x 354.12057pt.
- [21 <./img/ComparisonlinearServer.png>]
+ [23]
 Underfull \hbox (badness 10000) in paragraph at lines 551--553
 
  []
@@ -595,12 +612,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 554--557
 
  []
 
-[22 <./img/ComparisonServer.png>]
+
 Underfull \hbox (badness 10000) in paragraph at lines 558--559
 
  []
 
-
+[24 <./img/ComparisonServer.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 580--583
 
  []
@@ -620,7 +637,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 610--629
 
  []
 
-[23]
+[25]
 Underfull \hbox (badness 10000) in paragraph at lines 630--632
 
  []
@@ -635,12 +652,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 639--646
 
  []
 
-[24]
+[26]
 Underfull \hbox (badness 10000) in paragraph at lines 647--648
 
  []
 
-[25]
+[27]
 Missing character: There is no Ã in font cmr10!
 Missing character: There is no £ in font cmr10!
 
@@ -661,7 +678,7 @@ Overfull \hbox (55.80792pt too wide) in paragraph at lines 733--738
 f7ccc38dcbee/View/FullText.html?contextData=(sc.Default)&
  []
 
-[26]
+[28]
 Underfull \hbox (badness 10000) in paragraph at lines 766--768
 []\OT1/cmr/m/n/10 Fiat-Shamir heuris-tic to trans-form in-ter-ac-tive proof of 
 knowl-edge to non-interactive.
@@ -675,7 +692,7 @@ Missing character: There is no Ã in font cmr10!
 Missing character: There is no ¡ in font cmr10!
 
 AED: lastpage setting LastPage
-[27] (report.aux)
+[29] (report.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
@@ -706,9 +723,9 @@ fonts/cm/cmti12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
 /cmtt10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt8.p
 fb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
 
-Output written on report.pdf (27 pages, 1670266 bytes).
+Output written on report.pdf (29 pages, 1706940 bytes).
 PDF statistics:
- 205 PDF objects out of 1000 (max. 8388607)
+ 211 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  46 words of extra memory for PDF output out of 10000 (max. 10000000)
 

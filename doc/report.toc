@@ -28,6 +28,6 @@
 \contentsline {subsection}{\numberline {6.2}Unlynx system implementation}{14}
 \contentsline {section}{\numberline {7}Performance evaluation}{17}
 \contentsline {subsection}{\numberline {7.1}Scaling in number of data providers}{18}
-\contentsline {subsection}{\numberline {7.2}Scaling in number of servers}{20}
-\contentsline {section}{\numberline {8}Systems' Comparison}{22}
-\contentsline {section}{\numberline {9}Conclusions and Future Work}{24}
+\contentsline {subsection}{\numberline {7.2}Scaling in number of servers}{21}
+\contentsline {section}{\numberline {8}Systems' Comparison}{24}
+\contentsline {section}{\numberline {9}Conclusions and Future Work}{26}
