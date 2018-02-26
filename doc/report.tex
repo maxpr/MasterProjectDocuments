@@ -434,7 +434,7 @@ A third alternative would be that the signatures are collectively constructed; t
 \caption{Non-Interactive Range Validation}\label{euclid}
 \begin{algorithmic}[1]
 \State \textbf{Common Input:} $B$ the base point in the EC, $P$ the public key used to encode data, $u, l$ 2 integers and commitment $C$.
-\State \textbf{Prover Input:} $\sigma$ the secret integer mapped to a point and $r$ a scalar in the EC such that $C = \sigma + Pr$, $\sigma \in [0,u^l)$\\
+\State \textbf{Prover Input:} $\sigma$ the secret integer mapped to a point and $r$ a scalar in the EC such that $C = \sigma \cdot B + Pr$, $\sigma \in [0,u^l)$\\
 
 \State \textbf{Initialization Phase}: Each server $i$ in the collective authority compute the following values :\\
 Pick a random $x_i \in \mathbb{Z}_p$\\
@@ -445,12 +445,12 @@ $A_{i,j} \gets B(x_i + j)^{-1} $, $\forall j \in \mathbb{Z}_u$ and $i \in \{1,..
 \State \textbf{Online Phase}: Data provider encodes the signature of the value to check in base $u$ with randomly picked $v_j$.\\
 So $\forall j \in \mathbb{Z}_l $ such that $ \sigma = \sum_{j}{\sigma_j u^j}$, it picks $v_j \in \mathbb{Z}_p$ and compute $V_{i,j} = A_{i,\sigma_j}v_j$\\
 It also picks 3 values $s_j,t_j,m_j \in \mathbb{Z}_p $, $\forall j \in \mathbb{Z}_l$ and sends:\\
-First : a value $c = H(B,C,y_i)$, where $H()$ is a cryptographic hash function.\\  Then: $Z_r = m-rc$ and $D \gets \sum_{j}{(u^j s_j + Pm_j)}$\\
+First : a value $c = H(B,C,y_i)$, where $H()$ is a cryptographic hash function.\\  Then: $Z_r = m-rc$ and $D \gets \sum_{j}{B(u^j s_j + Pm_j)}$\\
 And eventually $ \forall j \in \mathbb{Z}_l$\\
 $a_{i,j} \gets e(V_{i,j},B)(-s_j)+e(B,B)(t_j)$\\ $Z_{\sigma_j} \gets s_j-\sigma_j c$ and $Z_{v_j} \gets t_j-v_j c$\\
 To be more precise the data provider sends the following values to ALL servers: $ c, Z_r, Z_{v_j}, Z_{\sigma_j}$ with $C$ the encrypted value public, and $D, a_{i,j}$ value published to check proof.\\
 
-\State Server $i$ checks that $D = Cc + PZ_r + \sum_{j}{(u^j Z_{\sigma_j}}) $\\
+\State Server $i$ checks that $D = Cc + PZ_r + \sum_{j}{B(u^j Z_{\sigma_j}}) $\\
 $a_{i,j} = e(V_{i,j},y)c + e(V_{i,j},B)(-Z_{\sigma_j}) + e(B,B)(Z_{v_j})$, $\forall j \in \mathbb{Z}_l$ , and publish the result.\\
 
 Then the server responsible for the data provider keeps the value if all the published value match the one computed by the data provider.
@@ -504,7 +504,7 @@ We first present Figure 5 showing the execution time of the three protocols for 
 The number of servers is fixed to 5.
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.7]{img/ComparisonlinearDP.png}
+\includegraphics[scale=0.15]{img/ComparisonlinearDP.png}
 \caption{Comparison of the 3 systems in function of the number of data providers}
 \end{figure}
 The comparison of computation time will be done in the same order as the protocol runs it.\\
@@ -530,7 +530,7 @@ We now present the execution time of the three protocols for increasing number o
 The number of data providers is fixed to 10.
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.7]{img/ComparisonlinearServer.png}
+\includegraphics[scale=0.15]{img/ComparisonlinearServer.png}
 \caption{Comparison of the 3 systems in function of the number of servers}
 \end{figure}
 First the execution times that do not change (or barely change) in function of the number of servers  are \textit{the Data provider proof computation} for trusted Unlynx system. It is around 50 ms, while it grows linearly in the number of servers in Unlynx amounting to 225 ms and 470 ms with 5 and 10 servers respectively.\\
