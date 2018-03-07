@@ -1,0 +1,33 @@
+\contentsline {section}{Abstract}{2}
+\contentsline {section}{\numberline {1}Introduction}{4}
+\contentsline {section}{\numberline {2}Contributions}{4}
+\contentsline {section}{\numberline {3}Background}{5}
+\contentsline {subsection}{\numberline {3.1}Collective Authority}{5}
+\contentsline {subsection}{\numberline {3.2}ElGamal Encryption}{5}
+\contentsline {subsection}{\numberline {3.3}Arithmetic Circuits}{5}
+\contentsline {subsection}{\numberline {3.4}Beaver's MPC triples}{6}
+\contentsline {subsection}{\numberline {3.5}Affine-aggregatable encodings (AFEs) functions}{6}
+\contentsline {subsection}{\numberline {3.6}Bilinear pairings over Elliptic Curve}{6}
+\contentsline {section}{\numberline {4}Unlynx System}{7}
+\contentsline {subsection}{\numberline {4.1}System Model}{7}
+\contentsline {subsection}{\numberline {4.2}Threat Model}{7}
+\contentsline {subsection}{\numberline {4.3}Pipeline and proof}{8}
+\contentsline {subsection}{\numberline {4.4}Input range validation for Elliptic Curve ElGamal}{9}
+\contentsline {section}{\numberline {5}Prio System}{10}
+\contentsline {subsection}{\numberline {5.1}System Model}{10}
+\contentsline {subsection}{\numberline {5.2}Threat Model}{11}
+\contentsline {subsection}{\numberline {5.3}Pipeline and proof}{11}
+\contentsline {subsection}{\numberline {5.4}Prio range validation (SNIPs)}{12}
+\contentsline {subsubsection}{\numberline {5.4.1}Data provider evaluation}{12}
+\contentsline {subsubsection}{\numberline {5.4.2}Consistency checking at the server}{12}
+\contentsline {subsubsection}{\numberline {5.4.3}Polynomial identity test}{12}
+\contentsline {subsubsection}{\numberline {5.4.4}Multiplication of shares}{12}
+\contentsline {subsubsection}{\numberline {5.4.5}Output verification}{13}
+\contentsline {section}{\numberline {6}Implementation}{13}
+\contentsline {subsection}{\numberline {6.1}Prio implementation}{13}
+\contentsline {subsection}{\numberline {6.2}Unlynx system implementation}{14}
+\contentsline {section}{\numberline {7}Performance evaluation}{17}
+\contentsline {subsection}{\numberline {7.1}Scaling in number of data providers}{18}
+\contentsline {subsection}{\numberline {7.2}Scaling in number of servers}{20}
+\contentsline {section}{\numberline {8}Systems' Comparison}{21}
+\contentsline {section}{\numberline {9}Conclusions and Future Work}{23}
