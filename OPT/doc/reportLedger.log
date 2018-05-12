@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.2.26)  29 APR 2018 12:33
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.2.26)  12 MAY 2018 14:34
 entering extended mode
 **./reportLedger.tex
 (reportLedger.tex
@@ -392,60 +392,109 @@ jpg>] [2] (reportLedger.toc)
 \openout3 = `reportLedger.toc'.
 
  [3]
-Underfull \hbox (badness 10000) in paragraph at lines 131--135
+Underfull \hbox (badness 10000) in paragraph at lines 129--131
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 141--142
+Underfull \hbox (badness 10000) in paragraph at lines 133--134
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 136--137
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 139--140
 
  []
 
 [4]
-<img/lemal.png, id=28, 458.46281pt x 220.57407pt>
+Underfull \hbox (badness 10000) in paragraph at lines 148--152
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 154--158
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 161--162
+
+ []
+
+<img/lemal.png, id=23, 458.46281pt x 220.57407pt>
 File: img/lemal.png Graphic file (type png)
 <use img/lemal.png>
-Package pdftex.def Info: img/lemal.png  used on input line 145.
+Package pdftex.def Info: img/lemal.png  used on input line 165.
 (pdftex.def)             Requested size: 343.84625pt x 165.43013pt.
-Missing character: There is no Ã in font cmr10!
-Missing character: There is no   in font cmr10!
-<img/threatLemal.png, id=30, 460.72125pt x 226.59656pt>
+[5]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 174.
+
+ ("C:\Users\maxpr\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\omscmr.fd"
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 174.
+<img/threatLemal.png, id=33, 460.72125pt x 226.59656pt>
 File: img/threatLemal.png Graphic file (type png)
 <use img/threatLemal.png>
-Package pdftex.def Info: img/threatLemal.png  used on input line 155.
+Package pdftex.def Info: img/threatLemal.png  used on input line 185.
 (pdftex.def)             Requested size: 345.54008pt x 169.94699pt.
- [5 <./img/lemal.png>] [6 <./img/threatLemal.png>]
+ [6 <./img/lemal.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 203--216
 
+ []
+
+[7 <./img/threatLemal.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 221--222
+
+ []
+
+[8]
+Underfull \hbox (badness 10000) in paragraph at lines 241--246
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 248--251
+
+ []
+
+[9] 
 AED: lastpage setting LastPage
-[7] (reportLedger.aux) ) 
+[10] (reportLedger.aux) ) 
 Here is how much of TeX's memory you used:
- 4427 strings out of 493303
- 62608 string characters out of 3129784
- 131844 words of memory out of 3000000
- 7868 multiletter control sequences out of 15000+200000
+ 4444 strings out of 493303
+ 62938 string characters out of 3129784
+ 134846 words of memory out of 3000000
+ 7882 multiletter control sequences out of 15000+200000
  17881 words of font info for 66 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,12n,43p,528b,304s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Users/maxpr/AppData/Local/Programs/MiKTeX 2.9/fonts
-/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/maxpr/AppData/Local/Programs/MiK
-TeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/maxpr/AppData/Local
-/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/maxpr/
-AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:
-/Users/maxpr/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
-mmi7.pfb><C:/Users/maxpr/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/a
-msfonts/cm/cmr10.pfb><C:/Users/maxpr/AppData/Local/Programs/MiKTeX 2.9/fonts/ty
-pe1/public/amsfonts/cm/cmr12.pfb><C:/Users/maxpr/AppData/Local/Programs/MiKTeX 
-2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/maxpr/AppData/Local/Progr
-ams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Users/maxpr/AppData/
-Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/m
-axpr/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pf
-b><C:/Users/maxpr/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts
-/cm/cmti12.pfb><C:/Users/maxpr/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pu
-blic/amsfonts/cm/cmtt10.pfb><C:/Users/maxpr/AppData/Local/Programs/MiKTeX 2.9/f
-onts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on reportLedger.pdf (7 pages, 223997 bytes).
+ 41i,12n,43p,874b,267s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Users/maxpr/AppData/Local/Programs/MiKTeX 2.9/font
+s/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/maxpr/AppData/Local/Programs/Mi
+KTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/maxpr/AppData/Loca
+l/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/maxpr
+/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C
+:/Users/maxpr/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/
+cmmi7.pfb><C:/Users/maxpr/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/
+amsfonts/cm/cmr10.pfb><C:/Users/maxpr/AppData/Local/Programs/MiKTeX 2.9/fonts/t
+ype1/public/amsfonts/cm/cmr12.pfb><C:/Users/maxpr/AppData/Local/Programs/MiKTeX
+ 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/maxpr/AppData/Local/Prog
+rams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Users/maxpr/AppData
+/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/
+maxpr/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.p
+fb><C:/Users/maxpr/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfont
+s/cm/cmti12.pfb><C:/Users/maxpr/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/p
+ublic/amsfonts/cm/cmtt10.pfb><C:/Users/maxpr/AppData/Local/Programs/MiKTeX 2.9/
+fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on reportLedger.pdf (10 pages, 239521 bytes).
 PDF statistics:
- 88 PDF objects out of 1000 (max. 8388607)
+ 97 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  16 words of extra memory for PDF output out of 10000 (max. 10000000)
 

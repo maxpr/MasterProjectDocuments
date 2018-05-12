@@ -91,40 +91,5 @@
 
 \maketitle
 
-\newpage
-\begin{algorithm}[H]
-\caption{Non-Interactive Range Validation}\label{euclid}
-\begin{algorithmic}[1]
-\State \textbf{Common Input:} $B$ the base point in the EC, $P$ the public key used to encode data, $u, l$ 2 integers and commitment $C$.
-\State \textbf{Prover Input:} $\sigma$ the secret integer mapped to a point and $r$ a scalar in the EC such that $C = \sigma \cdot B + Pr$, $\sigma \in [0,u^l)$\\
-
-\State \textbf{Initialization Phase}: Each server $i$ in the collective authority computes the following values :\\
-Pick a random $x_i \in \mathbb{Z}_p$\\
-$y_i \gets Bx_i$\\
-$A_{i,j} \gets B(x_i + j)^{-1} $, $\forall j \in \mathbb{Z}_u$ and $i \in \{1,...,m\}$\\
-\State  \textbf{Servers} make their signature public as well as the public key $y_i$. When a query is issued by a querier $Q$, we now assume that rang is defined in the query and broadcasted by the server, as usual, to the data provider. All computations following up to line 22 are done by the DPs.\\
-
-\State \textbf{Online Phase}: Data provider encodes the signature of the value to check in base $u$ with randomly picked $v_j$.\\
-
-\State Computes value $c = H(B,C,\sum_i{y_i})$, where $H()$ is a cryptographic hash function.
-\For{$\forall j \in \mathbb{Z}_l $ such that $ \sigma = \sum_{j}{\sigma_j u^j}$} 
-\State Picks 3 values $s_j,t_j,m_j \in \mathbb{Z}_p $
-\For{$i \in \{0,...m\}$ (number of servers)}
-\State Picks $v_j \in \mathbb{Z}_p$ and compute $V_{i,j} = A_{i,\sigma_j}v_j$
-\State $a_{i,j} \gets e(V_{i,j},B)(-s_j)+e(B,B)(t_j)$
-\State $Z_{v_j} \gets t_j-v_j c$
-\EndFor
-\State Computes $D = D + B(u^j s_j + Pm_j)$
-\State $Z_{\sigma_j} \gets s_j-\sigma_j c$
-\EndFor
-
-\State Finally, computes $m=\sum{m_j}$ and $Z_r = m-rc$, the final value is $D \gets \sum_{j}{B(u^j s_j + Pm_j)}$\\
-\State The DP sends to each server $S_i$ : $D,Z_r,c,C$ and list of values $a_i,Z_v,Z_{\sigma}$
-
-\State $S_i$ checks that $D = Cc + PZ_r + \sum_{j}{B(u^j Z_{\sigma_j}}) $ and
-$a_{i,j} = e(V_{i,j},y_i)c + e(V_{i,j},B)(-Z_{\sigma_j}) + e(B,B)(Z_{v_j})$, $\forall j \in \mathbb{Z}_l$ , and publish the result.\\
-
-\end{algorithmic}
-\end{algorithm}
 
 \end{document}
