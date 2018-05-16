@@ -14,7 +14,7 @@
 \contentsline {subsection}{\numberline {5.1}System Model}{8}
 \contentsline {subsection}{\numberline {5.2}Threat Model}{9}
 \contentsline {subsection}{\numberline {5.3}Type of Proof}{9}
-\contentsline {subsection}{\numberline {5.4}Operations supported}{9}
+\contentsline {subsection}{\numberline {5.4}Operations supported}{10}
 \contentsline {section}{\numberline {6}Implementation}{10}
 \contentsline {section}{\numberline {7}Performance Evaluation}{10}
 \contentsline {section}{\numberline {8}Conclusion and Future Work}{10}

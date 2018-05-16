@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.2.26)  12 MAY 2018 14:34
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.2.26)  13 MAY 2018 16:32
 entering extended mode
 **./reportLedger.tex
 (reportLedger.tex
@@ -455,16 +455,26 @@ Underfull \hbox (badness 10000) in paragraph at lines 221--222
  []
 
 [8]
-Underfull \hbox (badness 10000) in paragraph at lines 241--246
+Underfull \hbox (badness 10000) in paragraph at lines 243--248
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 248--251
+Underfull \hbox (badness 10000) in paragraph at lines 250--253
 
  []
 
-[9] 
+[9]
+Underfull \hbox (badness 10000) in paragraph at lines 254--255
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 256--257
+
+ []
+
+
 AED: lastpage setting LastPage
 [10] (reportLedger.aux) ) 
 Here is how much of TeX's memory you used:
@@ -474,7 +484,7 @@ Here is how much of TeX's memory you used:
  7882 multiletter control sequences out of 15000+200000
  17881 words of font info for 66 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,12n,43p,874b,267s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 41i,12n,43p,875b,267s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Users/maxpr/AppData/Local/Programs/MiKTeX 2.9/font
 s/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/maxpr/AppData/Local/Programs/Mi
 KTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/maxpr/AppData/Loca
@@ -492,7 +502,7 @@ fb><C:/Users/maxpr/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfont
 s/cm/cmti12.pfb><C:/Users/maxpr/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/p
 ublic/amsfonts/cm/cmtt10.pfb><C:/Users/maxpr/AppData/Local/Programs/MiKTeX 2.9/
 fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on reportLedger.pdf (10 pages, 239521 bytes).
+Output written on reportLedger.pdf (10 pages, 241462 bytes).
 PDF statistics:
  97 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
