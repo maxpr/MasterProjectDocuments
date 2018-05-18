@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.2.26)  13 MAY 2018 16:32
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.2.26)  18 MAY 2018 16:37
 entering extended mode
 **./reportLedger.tex
 (reportLedger.tex
@@ -392,7 +392,7 @@ jpg>] [2] (reportLedger.toc)
 \openout3 = `reportLedger.toc'.
 
  [3]
-Underfull \hbox (badness 10000) in paragraph at lines 129--131
+Underfull \hbox (badness 10000) in paragraph at lines 130--131
 
  []
 
@@ -411,80 +411,105 @@ Underfull \hbox (badness 10000) in paragraph at lines 139--140
 
  []
 
+
+Underfull \hbox (badness 10000) in paragraph at lines 142--143
+
+ []
+
 [4]
-Underfull \hbox (badness 10000) in paragraph at lines 148--152
+Underfull \hbox (badness 10000) in paragraph at lines 151--155
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 154--158
+Underfull \hbox (badness 10000) in paragraph at lines 157--161
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 161--162
+Underfull \hbox (badness 10000) in paragraph at lines 164--165
 
  []
 
 <img/lemal.png, id=23, 458.46281pt x 220.57407pt>
 File: img/lemal.png Graphic file (type png)
 <use img/lemal.png>
-Package pdftex.def Info: img/lemal.png  used on input line 165.
+Package pdftex.def Info: img/lemal.png  used on input line 168.
 (pdftex.def)             Requested size: 343.84625pt x 165.43013pt.
 [5]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 174.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 177.
 
  ("C:\Users\maxpr\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\omscmr.fd"
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 174.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 177.
 <img/threatLemal.png, id=33, 460.72125pt x 226.59656pt>
 File: img/threatLemal.png Graphic file (type png)
 <use img/threatLemal.png>
-Package pdftex.def Info: img/threatLemal.png  used on input line 185.
+Package pdftex.def Info: img/threatLemal.png  used on input line 188.
 (pdftex.def)             Requested size: 345.54008pt x 169.94699pt.
- [6 <./img/lemal.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 203--216
+ [6 <./img/lemal.png>] [7 <./img/threatLemal.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 208--221
 
  []
 
-[7 <./img/threatLemal.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 221--222
+
+Underfull \hbox (badness 10000) in paragraph at lines 226--227
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 228--235
 
  []
 
 [8]
-Underfull \hbox (badness 10000) in paragraph at lines 243--248
+Underfull \hbox (badness 10000) in paragraph at lines 238--241
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 250--253
+Underfull \hbox (badness 10000) in paragraph at lines 252--257
 
  []
 
 [9]
-Underfull \hbox (badness 10000) in paragraph at lines 254--255
+Underfull \hbox (badness 10000) in paragraph at lines 259--262
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 256--257
+Underfull \hbox (badness 10000) in paragraph at lines 263--264
 
  []
 
 
+Underfull \hbox (badness 10000) in paragraph at lines 265--266
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 271--274
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 275--276
+
+ []
+
+[10] 
 AED: lastpage setting LastPage
-[10] (reportLedger.aux) ) 
+[11] (reportLedger.aux) ) 
 Here is how much of TeX's memory you used:
  4444 strings out of 493303
  62938 string characters out of 3129784
- 134846 words of memory out of 3000000
+ 133846 words of memory out of 3000000
  7882 multiletter control sequences out of 15000+200000
  17881 words of font info for 66 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,12n,43p,875b,267s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 41i,12n,43p,685b,267s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Users/maxpr/AppData/Local/Programs/MiKTeX 2.9/font
 s/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/maxpr/AppData/Local/Programs/Mi
 KTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/maxpr/AppData/Loca
@@ -502,9 +527,9 @@ fb><C:/Users/maxpr/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfont
 s/cm/cmti12.pfb><C:/Users/maxpr/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/p
 ublic/amsfonts/cm/cmtt10.pfb><C:/Users/maxpr/AppData/Local/Programs/MiKTeX 2.9/
 fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on reportLedger.pdf (10 pages, 241462 bytes).
+Output written on reportLedger.pdf (11 pages, 245396 bytes).
 PDF statistics:
- 97 PDF objects out of 1000 (max. 8388607)
+ 100 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  16 words of extra memory for PDF output out of 10000 (max. 10000000)
 
