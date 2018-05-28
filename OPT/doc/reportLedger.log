@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.2.26)  18 MAY 2018 16:37
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.2.26)  28 MAY 2018 08:07
 entering extended mode
 **./reportLedger.tex
 (reportLedger.tex
@@ -460,56 +460,106 @@ Underfull \hbox (badness 10000) in paragraph at lines 226--227
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 228--235
+Underfull \hbox (badness 10000) in paragraph at lines 228--230
 
  []
 
 [8]
-Underfull \hbox (badness 10000) in paragraph at lines 238--241
+Underfull \hbox (badness 10000) in paragraph at lines 231--232
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 252--257
+Underfull \hbox (badness 10000) in paragraph at lines 233--237
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 238--242
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 243--248
 
  []
 
 [9]
-Underfull \hbox (badness 10000) in paragraph at lines 259--262
+Underfull \hbox (badness 10000) in paragraph at lines 265--270
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 263--264
+Underfull \hbox (badness 10000) in paragraph at lines 272--275
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 265--266
+Underfull \hbox (badness 10000) in paragraph at lines 277--280
+
+ []
+
+[10]
+Underfull \hbox (badness 10000) in paragraph at lines 282--283
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 271--274
+Underfull \hbox (badness 10000) in paragraph at lines 285--287
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 275--276
+Underfull \hbox (badness 10000) in paragraph at lines 293--296
 
  []
 
-[10] 
+
+Underfull \hbox (badness 10000) in paragraph at lines 297--298
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 300--301
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 302--305
+
+ []
+
+[11]
+Underfull \hbox (badness 10000) in paragraph at lines 306--308
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 314--315
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 316--319
+
+ []
+
+[12]
+Underfull \hbox (badness 10000) in paragraph at lines 368--370
+
+ []
+
+
 AED: lastpage setting LastPage
-[11] (reportLedger.aux) ) 
+[13] (reportLedger.aux) ) 
 Here is how much of TeX's memory you used:
- 4444 strings out of 493303
- 62938 string characters out of 3129784
- 133846 words of memory out of 3000000
- 7882 multiletter control sequences out of 15000+200000
+ 4453 strings out of 493303
+ 63021 string characters out of 3129784
+ 132870 words of memory out of 3000000
+ 7891 multiletter control sequences out of 15000+200000
  17881 words of font info for 66 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,12n,43p,685b,267s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 41i,12n,43p,685b,270s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Users/maxpr/AppData/Local/Programs/MiKTeX 2.9/font
 s/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/maxpr/AppData/Local/Programs/Mi
 KTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/maxpr/AppData/Loca
@@ -527,9 +577,9 @@ fb><C:/Users/maxpr/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfont
 s/cm/cmti12.pfb><C:/Users/maxpr/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/p
 ublic/amsfonts/cm/cmtt10.pfb><C:/Users/maxpr/AppData/Local/Programs/MiKTeX 2.9/
 fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on reportLedger.pdf (11 pages, 245396 bytes).
+Output written on reportLedger.pdf (13 pages, 261355 bytes).
 PDF statistics:
- 100 PDF objects out of 1000 (max. 8388607)
+ 107 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  16 words of extra memory for PDF output out of 10000 (max. 10000000)
 
