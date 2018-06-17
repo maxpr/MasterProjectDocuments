@@ -15,7 +15,7 @@
 \contentsline {section}{\numberline {5}Verifying Node}{9}
 \contentsline {subsection}{\numberline {5.1}System Model}{9}
 \contentsline {subsection}{\numberline {5.2}Threat Model}{10}
-\contentsline {subsection}{\numberline {5.3}Type of Proof}{11}
+\contentsline {subsection}{\numberline {5.3}Types of Proofs}{11}
 \contentsline {subsection}{\numberline {5.4}Supported operations}{11}
 \contentsline {subsubsection}{\numberline {5.4.1}Query and Proof handling}{11}
 \contentsline {subsubsection}{\numberline {5.4.2}Skipchain operations}{11}
@@ -26,9 +26,9 @@
 \contentsline {subsection}{\numberline {6.3}Addition to the Skipchain Service}{13}
 \contentsline {subsection}{\numberline {6.4}API for external Clients}{14}
 \contentsline {section}{\numberline {7}Performance Evaluation}{14}
-\contentsline {subsection}{\numberline {7.1}Scaling in number of Data Providers}{14}
+\contentsline {subsection}{\numberline {7.1}Scaling in number of Data Providers}{15}
 \contentsline {subsection}{\numberline {7.2}Scaling in number of Servers}{16}
-\contentsline {subsection}{\numberline {7.3}Scaling in number of Verifying Nodes}{17}
+\contentsline {subsection}{\numberline {7.3}Scaling in number of Verifying Nodes}{18}
 \contentsline {subsection}{\numberline {7.4}Threshold variation}{19}
 \contentsline {subsection}{\numberline {7.5}Bandwidth}{20}
 \contentsline {section}{\numberline {8}Conclusion and Future Work}{20}
