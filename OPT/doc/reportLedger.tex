@@ -69,7 +69,7 @@
 \newcommand{\hmwkDueDate}{Summer 2018} % Due date
 \newcommand{\hmwkClass}{IN, LCA1} % Course/class
 \newcommand{\hmwkClassTime}{} % Class/lecture time
-\newcommand{\hmwkClassInstructor}{D.Froelicher, J.Troncoso-Pastoriza} % Teacher/lecturer
+\newcommand{\hmwkClassInstructor}{D.Froelicher, J.Troncoso-Pastoriza,  Joao S\'a Sousa} % Teacher/lecturer
 \newcommand{\hmwkAuthorName}{Max Premi} % Your name
 
 %----------------------------------------------------------------------------------------
@@ -94,17 +94,17 @@
 \newpage
 \section*{Abstract}
 \addcontentsline{toc}{section}{Abstract}
-Data sharing systems are becoming more popular these past years, and are used in several domains, such as economics \cite{bitcoin}, software validation \cite{chainiac}, and even in the medical field \cite{health}. They can be used for different purposes and might have goals that vary.\\
-Eliminating single points of failure is one of the central goals of decentralized systems,  but they can provide the following properties: enforce transparency, provide an efficient way to ensure security, force authentication, and keep the privacy of either party's data.\\
-The latter is required to respect privacy laws but introduces overhead such as encryption, verification of computation (\textit{correctness}), and tracking of error (\textit{robustness}).\\
-UnLynx \cite{unlynx} is such a system that uses Elliptic curve ElGamal encryption, zero-knowledge proof, and noise addition, as well as several other protocols to maintain all properties stated above. However, it only supports a small subset of operations (sum, count, average), and it has a strong threat model.\\
-This project is a contribution to the design of a new decentralized system Lemal, supporting a large set of operations (mean, variance, logistic regression,...), while ensuring privacy and security in an efficient way, in addition of universal verifiability of computations and results.
-In this project, we introduce a way to make all the proofs public and verifiable by anyone, through distributed ledger.
+Distributed ledgers are becoming increasingly popular during recent years, and are used in several domains, such as economics \cite{bitcoin}, software validation \cite{chainiac}, and even in the medical field \cite{health}. Such systems can be used as immutable storage to verify that some operations have been correctly done. This scenario is just an example of the possible application of decentralized systems.\\
+Eliminating single points of failure is one of the central goals of distributed ledgers,  and they can provide the following properties: enforce transparency of operations, provide an efficient way to ensure security, force authentication of parties participating in the operations, and keep the privacy of either party's data.\\
+The latter is required to respect privacy laws but introduces some overheads such as encryption, verification of computation (\textit{correctness}), and tracking of error (\textit{robustness}).\\
+UnLynx \cite{unlynx} is such a system that uses Elliptic curve ElGamal encryption, zero-knowledge proofs, and noise addition, as well as several other protocols to maintain all properties stated above. However, it only supports a small subset of operations (sum, count), and it has a strong threat model where computing servers and queriers can be malicious.\\
+This project is a contribution to the design of an improved verison of UnLynx, supporting a large set of operations (mean, variance, logistic regression, among others.), while ensuring privacy and security in an efficient way, in addition of universal verifiability of computations and results.
+In this project, we introduce a way to make all the proofs public and verifiable by anyone, by resorting to distributed ledgers.
 The goal of this project is to:
 \begin{description}
-\item[$\bullet$] First, propose a theoretical system implementation of the Skipchain, to create a Collective Authority of Verifying nodes (VNs) that guarantees correctness and robustness of computation.
-\item[$\bullet$] Then, implement protocols that handle the Skipchain operations, based on the previous implementation done by DeDiS \cite{dedis}.
-\item[$\bullet$] Implement the interface between the Collective Authority doing the computation and the Collective Authority of verifying nodes.
+\item[$\bullet$] First, propose a theoretical system implementation of a blockchain, to create a Collective Authority of Verifying nodes (VNs) that guarantees correctness and robustness of computations.
+\item[$\bullet$] Then, implement protocols that handle the blockchain operations, based on the implementation of Skipchain done by DEDIS \cite{dedis}.
+\item[$\bullet$] Implement the interface between two collective authority, one for doing the computations and another one to verify them.
 \item[$\bullet$] Finally, measure the performance of this system, in terms of bandwidth and computation time.
 \end{description}
 
@@ -115,225 +115,371 @@ The goal of this project is to:
 \newpage
 
 \section{Introduction}
-Blockchain \cite{bitcoin} technology has emerged in 2008 with the Bitcoin creation by Satoshi Nakamoto. It uses distributed and decentralized ledger to create tokens and exchange them in a trusted way with immutability, and avoid double spending problem \cite{spending} thanks to consensus through nodes.\\
+Blockchain \cite{bitcoin} technology has emerged in 2008 with the Bitcoin created by Satoshi Nakamoto. It uses a distributed and decentralized ledger to create tokens and exchange them in a secure way with immutability, and avoid double spending problem \cite{spending} thanks to consensus through nodes.\\
 It has been widely popularized since 2008, and there is a total of 1604 cryptocurrencies \cite{coinmarket} using different techniques of distributed ledger at the time of this report's writing.\\
-However, blockchain applications can be extended to other topics, such as support for correctness and robustness of computations, as well as completely public zero-knowledge proofs.\\
-Indeed, in a data sharing system, one of the biggest challenges is to ensure correctness without centralized authority.\\
-Let's take the example of an identity infrastructure. Nowadays, identity is proved through cards that are issued by a central entity, the government. However, people are developing blockchain application to verify identity without a central authority, to avoid leaking those document, or simply not to leak private information to the state, as well as avoiding falsification of identity.\\ 
+However, blockchain applications can be extended to other applications, such as support for correctness and robustness of computations, as well as immutable and publicly verifiable zero-knowledge proofs.\\
+Indeed, in a data sharing system, one of the biggest challenges is to ensure correctness without a centralized authority.\\
+Let us take the example of an identity infrastructure. Nowadays, identity is proved through cards that are issued by a central entity, e.g., a government. However, people are developing blockchain applications to verify identity without a central authority, to avoid leaking those documents, or simply not to leak private information to the auhtority, as well as avoiding falsification of identity.\\ 
 Some challenges of this application would be to be robust against classical attacks, but also to provide efficient results when asked for an identity and proof that the result was correct (correctness).\\
-Under a weak threat model, it can be assumed that almost all parties are malicious, and it is needed to make a tremendous effort to prove that what has been done is correct. A distributed ledger can easily be used as a decentralized authority that can be consulted at any time to get data that were inserted and cannot be modified. This technique also protect against falsification of identity, if the protocol to insert identity is well made.\\
+Under a strong threat model, it can be assumed that almost all parties are malicious, and it is needed to make a tremendous effort to prove that what all the perfomed operations are correct. A distributed ledger can easily be used as a decentralized authority that can be consulted at any time to get data that are immutably inserted, meaning they cannot be modified or tampered with. This technique also protects against falsification of identity, if the protocol to insert identity is well made.\\
 One of the major challenges is thus to handle the insertion of the data with a correct consensus, as well as the security of the protocol that interacts with the ledger.\\
-In this paper, we present the implementation of Skipchain \cite{chainiac,skipchain} into Lemal's framework, to deal with robustness and correctness of computation done by Lemal system. The chain will store the verification of some of these proofs as well as information to verify all the zero-knowledge proof, without leaking anything more than what the proofs actually leak. Then a performance evaluation is done to look at the efficiency of such an implementation
-
+In this paper, we present the implementation of Skipchain \cite{chainiac,skipchain} into UnLynx framework, to deal with robustness and correctness of computations done by Lemal system. The chain will store the verification of some of these proofs as well as information to verify all the zero-knowledge proofs, without leaking anything more than what the proven fact actually leaks. Then a performance evaluation is done to assess the efficiency of the implemented system.
 
 \section{Contribution}
 In this paper, the following contributions are made:\\
 
 
-- A theoretical explanation of the design that will be used to make the VNs CA and Skipchain secure, as well as robust and correct.\\
+- A theoretical explanation of the design that will be used to make the Verifying Nodes Collective Authority (VNs CA) and Skipchain secure, as well as robust and correct.\\
 
 
-- An implementation of protocols to handle verification of proofs, and local storage of the later by the VNs.\\
+- An implementation of protocols to handle verification of proofs, and local storage of the latter by the VNs.\\
 
 
-- The deployment of a Skipchain using the previous implementation of DeDis as a base, to store information about query verification by the verifying nodes as well as a way to retrieve all proof if one want to verify them.\\
+- The deployment of a Skipchain using the previous implementation of DEDIS as a base, to store information about query verification by the verifying nodes as well as a way to retrieve all proofs if a party wants to verify them.\\
 
 
 - An evaluation of the performance in terms of efficiency and bandwidth, with a comparison to prior systems such as Unlynx.\\
 \section{Background}
-This section introduces some fundamental concepts used throughout the rest of the report. \textit{Collective Authority} that is the base of both system functionality. \textit{ElGamal encryption} is used in Lemal to ensure privacy, while \textit{Skiphain} is used in the verifying node as distributed ledger. This section also introduces some fundamental background about Blockchain, as Skipchain is a structure derived from Blockchain.
+This section introduces some fundamental concepts used throughout the rest of the report. (a) \textit{Collective Authority} that is the base of both system functionality. (b) \textit{ElGamal encryption} is used in Lemal to ensure privacy, while (c) \textit{Skipchain} is used in the verifying node as the underlying distributed ledger. This section also introduces some fundamental background about blockchains from which the skipchain structure is derived.
 
 \subsection{Collective Authority}
-Nowadays, applications and systems rely on third-party authorities to provide security services. For example the creation of certificates to prove ownership of a public key. A collective authority is a set of $m$  servers that are deployed in a decentralized and distributed way, to support a given number of protocols.\\
-Each of them possesses a private-public key pair $(k_i,K_i)$, where $K_i = k_i B$ with $k_i$ a scalar and $K_i$ a point in a given Elliptic Curve. This authority constructs a public key $K = \sum_{i=1}^{m}{K_i}$ which is the sum of all the server's public keys. To decrypt a message, each server $i$ partially decrypts a message encrypted using $k_{i}$. Thus the collective authority key provides strongest link security, as no intermediate can decrypt the data without the contribution of all the servers.
+Nowadays, applications and systems rely on third-party authorities to provide security services. For example, issuing certificates  to prove ownership of a public key. In order to avoid this centralized single point of failure, a collective authority can be set up as a set of $m$  servers that are deployed in a decentralized and distributed way, to support a given number of protocols.\\
+Each of them possesses a private-public key pair $(k_i,K_i)$, where $K_i = k_i B$ with $k_i$ a scalar and $K_i$ a point in a given Elliptic Curve. This authority constructs a public key $K = \sum_{i=1}^{m}{K_i}$ which is the sum of all the server's public keys. To decrypt a message, each server $i$ partially decrypts a message encrypted using $k_{i}$. Thus the collective authority key provides strongest link security, as no individual node can decrypt the data without the contribution of all the servers.
 
 \subsection{ElGamal Encryption}
 All the involved scalars belong to a field $\mathbb{Z}_p$.\\
-For Unlynx, data are encrypted using Elliptic Curve ElGamal, more precisely, $P$ is a public key, $x$ is a message mapped to a point and $B$ is a base point on the curve $\gamma$. The encryption is the following, with $r$ a random nonce:\\
-$E_P(x) = (rB,x+rP)$. The additive homomorphic property states that $\alpha E_P(x_1) + \beta E_P(x_2) = E_P(\alpha x_1+ \beta x_2)$\\
+For UnLynx, data are encrypted using Elliptic Curve ElGamal; more precisely, $P$ is a public key, $x$ is a message mapped to a point and $B$ is a base point on the curve $\gamma$. The encryption is the following, with $r$ a random nonce:\\
+\begin{figure}[H]
+\center
+$E_P(x) = (rB,x+rP)$
+\end{figure}
+The additive homomorphic property of EC-ElGamal states that $\alpha E_P(x_1) + \beta E_P(x_2) = E_P(\alpha x_1+ \beta x_2)$\\
 To decrypt, the owner of the private key $p$ satisfying $P = pB$ multiplies $rB$ and $p$ to get $rP$ and substracts it from $x + rP$ to recover $x$.\\
 
 \subsection{Skipchain and Blockchain}
-A blockchain is a continuously growing list of record (blocks), which are linked and secured using cryptographic functions. A block usually contains a hash of the previous block, a timestamp and data.\\
-It is a public, distributed ledger recording block efficiently and that is verifiable and permanent.\\
-A block is immutable and consensus between nodes is achieved with high Byzantine fault tolerance [REF].\\
-A Skipchain is a mixed between blockchain and skiplist, meaning that the block contains forward and backward links, that can jump more than one block.\\
+A blockchain is a continuously growing list of records (blocks), which are linked and immutably stored using cryptographic functions. Each block usually contains a hash of the previous block, a timestamp and data.\\
+It is a public, distributed ledger, recording blocks efficiently and that is verifiable and permanent.\\
+A block is immutable and consensus between nodes is achieved with high Byzantine fault tolerance \cite{bft}.\\
+A Skipchain is a mixed between blockchain and skiplist \cite{skiplist}, meaning that the block contains forward and backward links, that can jump more than one block.\\
+It enables client to securely traverse timeline in both forward and backward directions, and to efficiently traverse short or long distances by employing multi-hop links.\\
+Backward links are cryptographic hashes of previous blocks, while forward links are cryptographic signatures of future blocks, which ae added retroactively when a future block is inserted.
+
 
 
 \section{Lemal System}
-This section presents Lemal [REF] system in general. It goes through the system design, the assumptions made about the parties taking part in the different protocols, the properties that hold, and an example of a query that the system can handle.\\
+In this section, we present Lemal \cite{lemal} system in general. It goes through the system design, the assumptions made about the parties taking part in the different protocols, the properties that hold, and an example of a query that the system can handle.\\
 \subsection{System Model}
 \begin{figure}[H]
 \center
 \includegraphics[scale=0.75]{img/lemal.png}
 \caption{System model of Lemal}
 \end{figure}
-Lemal is a privacy-preserving data sharing system developed in collaboration with this project by LCA1. It consists of a collective authority (CA) formed by $m$ servers, $S_1,...S_m$ and $n$ data providers $DP_1,...DP_n$ containing sensitive data, encrypted using Elliptic Curve (EC) ElGamal.
-Another collective authority of verifying nodes (VNs) is linked to this system and maintains a distributed ledger. It is described in Section 5. This system as a whole, is used to answer queries made by a querier $Q$, to produce results of some aggregate functions. Each DP chooses one server of the CA to communicate with and can change this at any given time.\\
-\textbf{Functionality}: Lemal permits a large set of SQL queries, like \textit{Where, group by, like, mean, variance, set intersection}, with some machine learning (\textit{linear and logistic regression}) and private recommender system functionality such as \textit{cosine similarity, CBF-Based recommendations, ...}.\\
-For any query, some proofs are randomly verified by each node of the VNs and stored in a Skipchain so that any party can verify what is correct. It is also possible to access all the proof and verify them.\\
+Lemal is a privacy-preserving data sharing system, as an enhancement of UnLynx \cite{unlynx}, and this project is part of its development. It consists of a collective authority (CA) formed by $m$ servers, $S_1,...S_m$ and $n$ data providers $DP_1,...DP_n$ containing sensitive data, encrypted using Elliptic Curve (EC) ElGamal.
+Another collective authority of verifying nodes (VNs) is linked to this system and maintains a distributed ledger. It is described in Section 5. This system as a whole is used to answer queries made by a querier $Q$, to produce results of some aggregate functions. Each DP chooses one server of the CA to communicate with and can change this at any given time.\\
+\textbf{Functionality}: Lemal enables a large set of SQL queries, like \textit{where, group by, like, mean, variance, set intersection}, with some machine learning (\textit{linear and logistic regression}) and private recommender system functionality such as \textit{cosine similarity, CBF-Based recommendations, ...}.\\
+For any query, some zero-knowledge proofs are generated by the CA server. These are used to prove that the servers did the computation correctly, with respect to the privacy of the data, but also with respect to the correctness of the results. They are randomly verified by each node of the VNs and stored in a Skipchain so that any party can verify what is correct. It is also possible to access all the proofs and verify them.\\
 \textbf{The pipeline} of the model is as follow:
 \begin{itemize}
-\item{Data providers send data with/without Range Proofs to CA server and verifying node}
-\item{CA executes collective aggregation protocol and sends the proof to VNs}
-\item{CA executes verifiable shuffling protocol and sends the proof to VNs}
-\item{CA executes key switch protocol and sends the proof to VNs}
-\item{VN did a probabilistic verification upon receiving proofs, the protocol to insert a block containing data to verify the query is launched}
-\item{CA sends to querier its result}
+\item{Data providers send data with/without Range Proofs to the CA servers and verifying node}
+\item{The CA executes a collective aggregation protocol and sends the proof to the VNs}
+\item{The CA executes a verifiable shuffling protocol and sends the proof to the VNs}
+\item{The CA executes a key switch protocol and sends the proof to the VNs}
+\item{This part is the main goal of the project. Each VN verifies each proof with a given probabilty, set in the query. When all proofs have been received, a \textit{block}, which is basically a structure containing information of what have been verified and for which query, is inserted inside the Skipchain}
+\item{The CA sends to querier its result, and the block is in the ledger (if correct)}
 \end{itemize}
 
 \subsection{Threat Model}
+In this section, the assumptions made about the parties taking part in the general protocol are detailed.
 \begin{figure}[H]
 \center
-\includegraphics[scale=0.75]{img/threatLemal.png}
+\includegraphics[scale=0.5]{img/threatLemal.png}
 \caption{Threat model of Lemal}
 \end{figure}
-\textbf{Collective authority servers} It is assumed an Anytrust model [REF]. It does not require a particular server to be trusted or to be honest-but-curious. Whenever one of the servers is not malicious, functionality, security, and privacy are guaranteed.\\
-\textbf{Collective authority verifying nodes} It assumes an Honest majority. Meaning a threshold of more than half of the nodes are honest, and the consensus is done via Byzantine Fault Tolerance (BFT) protocol. This way, a consistent timeline is kept for the chain of blocks, and all data inserted on the chain are verified. Indeed, only one node of the VNs will start the insertion of data (root node), that were collected from all the nodes, in the chain, so there is a verification function running on all node to verify that the root node has not tried to insert malicious data, but the one collected from all the nodes in a previous protocol.
-Here we ensure that the data inserted are coherent between the nodes of the VNs CA, meaning that each node will verify that the data it's sent to the root node is inserted in the block.\\
-This is different from the proof verification system, as this verification of data inside a block can insert proofs that are not correct, to identify the entity from which this proof comes from. It can then be excluded from the system.\\
+\textbf{Collective authority servers} It is assumed an Anytrust model \cite{anytrust}. It does not require a particular server to be trusted or to be honest-but-curious. Whenever one of the servers is not malicious, correctness, security, and privacy are guaranteed.\\
+\textbf{Collective authority verifying nodes} We assume an Honest majority. Meaning a threshold of more than half of the nodes is honest, and the consensus is done via Byzantine Fault Tolerance (BFT) protocol. This way, a consistent timeline is kept for the chain of blocks, and all data inserted on the chain are verified. Indeed, only one node of the VNs will start the insertion of data (root node), that were collected from all the nodes.\\
 \textbf{The Querier, and Data providers} are assumed malicious. They can collude between themselves or with a subset of the CA servers.\\
 It is also assumed that all network communication is encrypted and authenticated by using a protocol such as TLS or SSL.
 \subsection{Properties}
-\textbf{Confidentiality} All data are encrypted using EC ElGamal, no party sees the data in clear, except the Querier that get the aggregate result encrypted under his public key. This property holds as long as one server is honest.\\
+In this section, we present the properties guaranteed by the system. The first subsection brings up the already existing properties coming from UnLynx , while the second one introduces the properties guatanteed by the work done in this project.\\
+
+\subsubsection{Properties guaranteed by UnLynx}
+\textbf{Confidentiality} All data are encrypted using EC ElGamal, no party sees the data in clear, except the Querier that gets the aggregate result encrypted under his/her public key. This property holds as long as one server is not malicious.\\
 \textbf{Privacy} The system ensures \textbf{differential privacy} for any individual sharing its data.\\
 In all cases, the privacy of the querier is not addressed in this system, as we only care for the sensitive data of the DPs.\\
-\textbf{Correctness} At each step of the protocol, zero-knowledge, non-interactive proofs are generated by the CA server or the DPs. These proofs can be used between two steps of the protocol to verify that computation was correctly done, and if it's not it can identify the entity that did not compute correctly.\\
-\textbf{Robustness} is ensured through the distributed ledger. In case of faulty computation, the block contains the verification of proof at each server.
+\subsubsection{Properties guaranteed by Lemal}
+\textbf{Correctness} At each step of the protocol, zero-knowledge, non-interactive proofs are generated by the CA servers or the DPs. These proofs can be used between two steps of the protocol to verify that computation was correctly done, and if it is not the case, any entity can identify a subset of entities responsible for the wrong computation.\\
+\textbf{Robustness} is ensured through the distributed ledger. In case of faulty computation, the block contains the verification of proof at each server, as well as the identity of the issuer of the proof.
 If there is an incoherence in these verifications, the block also contains a way to retrieve all the proof from the VNs CA.\\
-Anyone can verify and identify the server/DP or a set of them that cheated.\\
-This way, one could exclude these malicious parties from the protocol.
+Anyone can verify and identify the server/DP or a set of them that cheated or made the proof incorrect.\\
+This way, these malicious parties can be excluded from the protocol.
 
 \subsection{Query example}
-This subsection details the pipeline of a query process.\\
-First, the querier $Q$ send a query to the CA server. The example taken in this section is "SELECT average(x) FROM y WHERE y.z $< 321$".\\
-This query is received by a server $s$ of the CA and broadcasted to the entire CA. Then each server sends to its DPs, the query. The DPs execute it locally, then send the result encrypted with the CA's public key to each server that sends them the query.\\
-The first proof is sent to each node of the VNs, proving that the cipher resulting from each DP is in a given range.\\
+This subsection exemplifies the pipeline of a query process, to highlight the generated proofs and information sent to the developed skipchain service.\\
+First, the querier $Q$ sends a query to the CA servers. The example taken in this section is "SELECT average(x) FROM y WHERE y.z $< 321$".\\
+This query is received by a server $s$ of the CA and broadcasted to the entire CA. Then each server sends the query to its DPs. The DPs execute the query locally, then send the result encrypted with the CA's public key back to the server.\\
+The first proof is sent to each node of the VNs, proving that the cipher resulting from each DP is in a given range, if a range was specified.\\
 At this point, each server of the CA contains ciphers encrypted with the CA's public key.
-Then, a collective aggregation is done. In the current example, the server will add the ciphers and the root server (the one the querier contacted) will initiate an aggregation protocol, to get all the final result, which is the sum at each server and the number of values. This protocol is done with a tree implementation. Children servers will send their average to their parent, it will aggregate, and the same thing will happen until the top of the tree is reached.\\
+Then, a collective aggregation is carried out. In the current example, the server will add the ciphers and the root server (the one the querier contacted) will initiate an aggregation protocol, to get the final result, which is in this example, the sum of each server's data and the total number of values summed. This protocol is done using a tree implementation. Children servers will send their aggregated values to their parent, who will aggregate them, and the same thing will happen until the top of the tree is reached.\\
 Again, a proof is generated, which is just the ciphers before and after aggregation, and is sent to the VNs.\\
-At this point, there might be differential privacy applied to perturb end-result in order to satisfy privacy. In this example, servers might collectively add several time values that does not make the whole mean varies too much, but it gives privacy on the number of values, and individual result at each server.\\
-This comes from Unlynx with Distributed Results Obfuscation (DRO) step, that enables the CA to collectively and homomorphically add noise, sampled from a probabilistic distribution.
-To do so, a shuffling phase is initiated, where multiple sequences of noise are randomly permutated. This ensures that the noise is randomly chosen for a given query.\\
-This shuffle is also verifiable, a proof is generated at each server when its execution is finished.\\
-Finally, a key switch protocol is engaged. It permits to sequentially add values to the final result to finish with a cipher encrypted under the public key of the querier. To do so, each server adds an element containing a nonce and its public key, with the proof of what it has computed is correct.\\
-Eventually, the root server sends back the result to the querier.\\
+At this point, there might be differential privacy applied to perturb end-result in order to satisfy privacy. In this example, servers might collectively add some noise, that does not make the whole mean varies too much, but that gives privacy on the number of values and individual result at each server.\\
+This comes from UnLynx with Distributed Results Obfuscation (DRO) step, that enables the CA to collectively and homomorphically add noise, sampled from a probabilistic distribution.
+To do so, a shuffling phase is initiated, where multiple sequences of noise values are randomly permutated. This ensures that the noise is randomly chosen for a given query.\\
+This shuffle is also verifiable, a proof is generated at each server when its execution is finished, and sent to the VNs.\\
+Finally, the servers engage in a key switch protocol. It permits to sequentially add values to the final result to obtain an encryption  under the public key of the querier. To do so, each server adds an element containing a nonce and its public key, with the proof of what it has computed is correct. Again, the proofs are sent to the VNs.\\
+To finish the process, the root server sends back the result to the querier.\\
 
 
-Note that we did not include the Verifying nodes process in this query example, but only what it receives, as we detail it further in the following section.
+Note that we did not include the Verifying nodes process in this query example, but only what they receive. In the next section, we further detail the operation perfomed by the veryfing nodes.
 
 \section{Verifying  Node}
-This section presents the implementation of the Verifying nodes CA. It was the main goal of this project and will be the major part of this report. We will first present in details the threat model and the theoretical system model, then the operations supported, and in the following section the way we choose to implement it.\\
+This section presents the implementation of the Verifying nodes CA. It was the main goal of this project and will be the major part of this report. We will first present in details the threat model and the theoretical system model, then the supported operations, and in the following section the chosen implementation strategy.\\
 \subsection{System Model}
-The verifying node CA's goal is to relax the proof verification time of potential client, by doing the computations, and store data related to the proofs inside a block of a distributed ledger. This also ensures correctness as proof verification and proofs are stored in an immutable way, and a way to identify faulty party, i.e. robustness.\\
-To avoid taking a long time to verify all the proofs, several modifications are done.\\
+The verifying nodes CA's goal is to reduce the proof verification time of a querier or any entity wishing to verify the operations for a specific query, by doing the computations, and store data related to the proofs inside a block of a distributed ledger. This also ensures correctness as proof verifications are stored in an immutable way, and we provide a way to retrieve proofs to identify faulty parties, i.e. robustness.\\
+In order to optimize the time overhead of verifying all proofs, several modifications are done.\\
 
-When a query is received by the CA,  the exact number of each type of proof expected from each entity is known. So the CA sends to the VNs this number to initialize a dictionary that will be referred as "\textit{bitmap}" from now on. This bitmap is used to keep track of the proofs received from the CA. It is a way to link proof to its verification without having the to store all proofs' strucuture inside the block. So a proof is referenced as a string and its verification as an integer, inside the \textit{bitmap}.\\
+When a query is received by the CA,  the exact number $P$ of each type of proof expected from each entity is known by the verifying nodes. So the CA sends to the VNs the query, and it computes $P$ to initialize a dictionary that will be referred as "\textit{bitmap}" from now on. This bitmap is used to keep track of the proofs received from the CA and that have been processed. It is a way to link each proof to its verification without having them to store all proofs' strucuture inside the block. So a proof is referenced as a string and its verification as an integer, inside the \textit{bitmap}. Of course, each node of the VNs has its own bitmap.\\
 
-Then, proofs are sent as soon as they are created to all nodes of the VNs CA, to be sure that the proofs are coming from the correct entity, all of them are signed by the server/DP that issued it, and the signature is verified before processing the proof.\\
-Each of the node verifies a set of the proof chosen probabilistically with a fixed threshold $p \in (0,1]$. Each server chose the subset in a uniform way, so the sets are different with high probability, and might intersect.\\
+Then, proofs are sent as soon as they are created to all nodes of the VNs CA, as seen in Section 4.4. To be sure that the proofs are coming from the correct entity, all of them are signed by the server/DP that issued it, and the signature is verified before processing it.\\
+Each node verifies the proof probabilistically with a fixed threshold $p \in (0,1]$. Thus, each server has a different subset (with high probability) of verified proofs, that might intersect. This redundancy is desirable for verification of proof, as it increases the probabilty that the proof is indeed correct/incorrect.\\
 The verification results in a $1$ if the proof is correct, $0$ if incorrect, $2$ if it has not been verified, and 3 if the proof has not been received (set by a timeout).\\
-After verifying these proofs, it stores the result of the verification in bitmap with the query ID, identity of verifier and creator, as well as the type of the proof as key and the verification result as value in a local database. The proofs' structure are also stored in this database.\\
+After verifying these proofs, the node stores the result of the verification in the bitmap with the query ID, identity of verifier and creator, as well as the type of the proof as key and the verification result as value in a local database. The proofs' structure are also stored in this database.\\
 
-To be more precise, when a proof $p$ is send by a server $s$ to a node of the VNs $v$, for a query with ID \textit{queryID} it randomly verifies it, and store $2$ values:\\
-bitmap[\textit{queryID}+$qi$+\textit{"typeOfProof"}+identity($s$)+identity($v$)] = verif($p$), where \textit{"typeOfProof"} can be in this context: \textit{range, aggregation, shuffle} or \textit{keyswitch}.\\
-This bitmap is saved in the local database for each query when all proofs have been processed, and will be stored in the Skipchain. This is done so that the service can access the bitmap stored by itself in another service. The value are deleted as  soon as the block has correctly been inserted.\\
-All proofs are stored at different key, but can be retrieved by given the queryID. (\textit{queryID},$p$) is stored in the local database, but is kept after the query is finished.\\
+To be more precise, when a proof $p$ is sentby a server $s$ to a node of the VNs $v$, for a query with ID \textit{queryID} it randomly verifies it, and stores $2$ values:\\
+\begin{figure}[H]
+\center
+(1) bitmap[\textit{queryID}+\textit{"typeOfProof"}+identity($s$)+identity($v$)] = verif($p$)\\
+(2) (\textit{queryID}+\textit{queryID}+\textit{"typeOfProof"}+identity($s$)+identity($v$),$p$)
+\end{figure}
+Where \textit{"typeOfProof"} can be in this context: \textit{range, aggregation, shuffle} or \textit{keyswitch}.\\
+This bitmap (1) is saved in the local database for each query when all proofs have been processed, and will be stored in the Skipchain. This is done so that the service can access the bitmap stored by itself in another service. The values are deleted as  soon as the block has correctly been inserted.\\
+However, all proofs are stored with the same key, but can be retrieved using the queryID. Each proof (2) is stored in the local database, but is kept after the query is finished.\\
 
-The VNs then wait for other proof of the same query to be received, and do the same for all other types of proofs.\\
-Upon receiving the last proofs, i.e. when the bitmap has been entirely filled, each server gather all results of verification inside a unique bitmap, and a protocol to gather all bitmap to one root server is launched.\\
+The VNs then wait for other proofs of the same query to be received, and do the same for all other types of proofs.\\
+Upon receiving the last proofs, i.e. when the bitmap has been entirely filled, each server gathers all results of verification inside a unique bitmap, and a protocol to transfer all bitmaps to the root server is launched.\\
 At the end of this protocol, the root node launches an insert (or a create chain if there is none yet) block operation given the bitmap aggregated, the query ID, the probability used to select the proof to verify and a timestamp.\\
-If the block is correctly formed, and the automatic verification done by each server pass, then it inserts the block, else it will not insert it. As previously described, the verification done by each server is checking whether its bitmap appears in the data of the new block request. If it does not appear it means the root node tried to falsify information.\\
+A a verification function runs on all nodes to verify that the root node has not tried to insert malicious data, but the one collected from all the nodes in the previous protocol.
+Here we ensure that the data inserted are coherent between the nodes of the VNs CA, meaning that each node will verify that the data it has sent to the root node is inserted in the block.\\
+This is different from the proof verification system, as this check of data inside a block before it is inserted, can contain proofs that are not correct, and would still be inserted. This is to identify the entity from which this proof comes from. It can then be excluded from the system.\\
+If the block is correctly formed, and the automatic verification depticted previously passes, then it inserts the block, otherwise it will be discarded. The verification done by each server is checking whether its bitmap appears in the data of the new block request. If it does not appear it means the root node tried to falsify information.\\
 Any client can fetch the last block of the Skipchain at any time.\\
 
-
-To resume the protocol is presented step by step in chronological order:
+As a summary, the protocol is presented step by step in chronological order:
 \begin{itemize}
-\item{Query is received by the CA, exact number of proof is known and set for this query}
-\item{Query is broadcasted to the DPs, that send their data to the CA, and range proof to the VNs if and only if there is a need for range proof. They are signed by the DPs}
-\item{CA process the data, creating proof at each step, that are signed and sent to the VNs}
-\item{Upon receiving a proof, a node verify the signature, then verify the proof, if it was expecting more proofs of this type,  and store the proof in a local DB}
-\item{When all proof have been processed, each node store its final bitmap in its database and a protocol to insert a block is launched by the root node.}
-\item{The root node gather all the \textit{bitmap} and pass them as data to insert a new block, as well as a timestamp and the queryID.}
-\item{Inside the block insertion service, each node verifies that the data from the final \textit{bitmap} contains its data, by comparing the received data with the one stored inside the local database}
-\item{If the block was well formed and the previous verification was correct, the service return the newly added block, with the bitmap from all server, timestamp, threshold as data}
+\item{The query is received by the CA, the exact number of proofs $P$ is known and set for this query.}
+\item{The query is broadcasted to the DPs, that send their data to the CA, and range proof to the VNs if and only if there is a need for range proof. The proofs are signed by the DPs.}
+\item{The CA servers process the data, creating proofs at each step, that are signed and sent to the VNs.}
+\item{Upon receiving a proof, a node verifies the signature, then verifies the proof with probability $p$, if it was expecting more proofs of this type,  and stores the proof in a local DB.}
+\item{When all proofs have been processed, each node stores its final bitmap in its database and a protocol to insert a block is launched by the root node.}
+\item{The root node gathers all the \textit{bitmaps} and passesthem as data to insert a new block, as well as a timestamp and the queryID.}
+\item{Inside the block insertion service, each node verifies that the data from the final \textit{bitmap} contains its data, by comparing the received data with the one stored inside the local database.}
+\item{If the block was well formed and the previous verification was correct, the service returns the newly added block, containing the bitmap from all servers, timestamp, and threshold as data.}
 \end{itemize}
 \subsection{Threat Model}
-As described previously, the threat model of the VNs CA is Honest-majority. This means that at least half of the servers are honest. This property must hold in order to maintain the Skipchain correctly. Indeed, an adversary must compromise at least half the servers, to violate correctness and to make the insertion of a malicious block possible, without being rejected.
+As described previously, the threat model of the VNs CA is Honest-majority. This means that at least half of the servers are honest. This property must hold in order to maintain the Skipchain correctly. Indeed, an adversary must compromise at least half the servers, to violate correctness and to make the insertion of a forged block possible, without being rejected.
 
 \subsection{Type of Proof}
-As described in section 4.4, the CA server generates a different kind of proofs. This subsection will present in details what they contain and how they are verified. All these proofs come from Unlynx [REF] framework.\\
-\textbf{Range proofs} are computed by each DP. They prove that a commitment $C$ is in a range $[a,b]$. This is used to handle malicious DP input. In a query with range predicate, it is perfect to prove that an encrypted data indeed lies in a given range, without leaking the value in itself. This proof was designed to compare Prio and Unlynx in a previous project [REF]. It is optional, as it is possible that a query does not contain a range predicate.\\
-\textbf{Shuffle proofs} are computed by the CA server to prove privacy. This ensures the privacy of previously verified data, with differential privacy via noise addition. It verifies that the noise added has been randomly chosen.\\
-\textbf{Aggregation proofs} are also computed by the CA server. It ensures correctness of computation, without leaking any information on data, except the information that the operation leaks in itself. For example, a mean operation will leak the number of data that the CA aggregates. It verifies the ciphers before aggregation and the resulting aggregation.\\
-\textbf{Key Switch proofs} are computed by the CA server. These proofs ensure the security of data, and correctness of computations. Its goal is to verify that the protocol to switch encryption key is correct without leaking the data in clear. It verifies that data before and after addition of a value by server are coherent.\\
+As described in section 4.4, the CA servers generate different kinds of proofs. This subsection will present in details what they contain and how they are verified. All these proofs come from a previous project on UnLynx \cite{maxproject} framework.\\
+\textbf{Range proofs} are computed by each DP. They prove that a commitment $C$ is in a range $[a,b]$. These are used to handle malicious DP input. In a query with range predicate, they are perfect to prove that an encrypted value indeed lies in a given range, without leaking the value itself. These proofs were designed to compare Prio and UnLynx in a previous project \cite{maxproject}.
+A modification was done in this project such that each struture of proof contains a list of range proof, if an entity sends multiple range proofs, it can send them in one request. They are \textbf{optional}, as it is possible that a query does not contain range predicates.\\
+\textbf{Shuffle proofs} are computed by the CA servers to prove privacy. They ensure the privacy of previously verified data, with differential privacy via noise addition. They serve the purpose of assesing that the noise added has been randomly chosen.\\
+\textbf{Aggregation proofs} are also computed by the CA servers. They ensure correctness of computation, without leaking any information on data, except the information that the operation leaks itself. For example, a MEAN operation will leak the number of data that the CA aggregates. They are used to verify the ciphers before aggregation and the resulting aggregation.\\
+\textbf{Key Switch proofs} are computed by the CA servers. These proofs ensure the security of data, and correctness of computations. Their goal is to prove that the protocol to switch encryption key is correct without leaking the data in clear. They prove that data before and after addition of a value by a server, are coherent.\\
 
-\subsection{Operations supported}
-Here, the operations supported by the verifying node are presented in details.\\
-There are two services that we can distinguish. The first one is the service that handles the proofs receiving, verification and storage.\\
-The other service handles the communication with the Skipchain, as well as the function and data accepted by the Skipchain. \\ 
+\subsection{Supported operations}
+Here, the operations supported by the verifying nodes are presented in details.\\
+There are two services that we can distinguish. The first one is the service that handles the verification and storage of the proofs.\\
+The second service handles the communication with the Skipchain, as well as the functions and data accepted by the Skipchain.\\ 
 
 \subsubsection{Query and Proof handling}
-The first service handles query receiving as well as proofs.
+The first service handles the reception of queries and proofs.
 Upon receiving the query, it initializes the bitmap and prepares it for a fixed number of proofs.\\
-Then each type of proof described previously in section 5.3 can be handled, verified and store independently, they each have a handler. Each proof must be signed by the entity that issued it to be processed correctly. The storage is done locally at each server using BoltDB [REF].\\
+Then each type of proof described previously in section 5.3 can be handled, verified and stored independently, with each one having its own handler. Each proof must be signed by the entity that issued it to be processed correctly. The storage is done locally at each server using a database (DB).
 
 \subsubsection{Skipchain operations}
-The second service is the link between the first one and the Skipchain. It permits to insert a block or create one if no chain existed. It is automatically launched when the bitmap has been fully filled. It calls the service implemented by DeDiS to create/maintain a Skipchain. It takes a structure containing all the data that a block contains as parameter, and return the block if it has been inserted correctly in the chain.\\
+The second service is the link between the first one and the Skipchain. It permits to insert a block or create one if no chain existed. It is automatically launched when the bitmap has been fully filled. It calls the service implemented by DEDIS to create/maintain a Skipchain. It takes a structure containing all the data that a block contains as parameter, and returns the block if it has been inserted correctly in the chain.\\
+The operations to retrieve blocks are also linked to DEDIS' Service, but are described in the next subsection.
 
-\subsubsection{Fucntion for external clients}
+\subsubsection{Functions for external clients}
 Some functions are available for external clients, to retrieve information from the Skipchain or the VNs.\\
-It is possible to get the last block of the Skipchain, as well as a specific block, given its ID (hash), its index or the query ID. This way anyone can access the data in the block (the \textit{bitmap}), to check the verification of proofs. The servers/DPs that issued the proofs and he nodes of the VNs that verified this proof are known as they are stored in the \textit{bitmap} as key.\\
+It is possible to get the last block of the Skipchain, as well as a specific block, given its ID (hash), its index or the query ID. This way anyone can access the data in the block (the \textit{bitmap}), to check the verification of the proofs. The servers/DPs that issued the proofs and the nodes of the VNs that verified these proofs are known as they are stored in the \textit{bitmap} as key.\\
 
 There is also a way to access all the proofs for the query the block was created for.\\
-Each server of the VNs stores the proofs issued at each query, and a client can ask to any nodes all the proofs for a given query ID.\\
-As they are stored in the same key/value way as verification, it is easy to identify which server verified what proofs, and which issued them.
+Each server of the VNs stores the proofs issued at each query, and a client can ask to any node all or a subset of the proofs for a given query ID.\\
+As they are stored in the same key/value way as verification, it is easy to identify which nodes verified what proofs, and which DP/server issued them.
 
 \section{Implementation}
-In this section, the technical implementation of the VNs CA is detailed. All the implementation was done in Unlynx branch called Lemal [REF].\\
-We first present the service that handles, verify and store the proofs. Then the service that handles the communication with the Skipchain.\\
-Finally, the modification made to the Skipchain service of DeDiS [REF] is addressed in the last part, as well as the possible call that external entities can make to the VNs CA.\\
+In this section, the technical implementation of the VNs CA is detailed. All the implementation was done in an UnLynx branch called Lemal \cite{lemal}.\\
+We first present the service that handles, verifies and stores the proofs. Then the service that handles the communication with the Skipchain.\\
+Finally, the addition made to the Skipchain service of DEDIS \cite{skipchain} is addressed in the last part, as well as the possible call that external entities can make to the VNs CA.\\
 
-To make the implementation easier, each DP and server are considered client of the Verifying nodes. This way, they can send data using API function.\\
+To make the implementation easier, each DP and server are considered as clients by the Verifying nodes. This way, they can send data and request using API functions.\\
 
 \subsection{Handlers}
-This subsection presents the different handler of the client and service, for the proofs.\\
+This subsection presents the different handlers of the client and service side, for the proofs.\\
 
-We define a client of the service as the \textit{API} structure, that contains its ID as well as the private key it uses to sign the data its sends.\\
-On a verifying node, a Service runs and the structure contains several important fields: A concurrent map that stores all information of a query processing, meaning the size, the bitmap and the query itself. The bitmap and the size are also local fields of the service to be used when a proof for this query need to be handled and  both these structure will be updated in consequence.\\
-The threshold to verify proof is set at 0.4, but can be changed. Then, a local database is defined using boltDB.\\
+We define a client of the service as an \textit{API} structure, that contains its ID as well as the private key it uses to sign the data it sends.\\
+On a verifying node, a Service runs and the structure contains several important fields: A concurrent map that stores all information of a query processing, meaning the size, the bitmap and the query itself. When a proof for this query need to be handled, these structures will be updated in consequence.\\
+The threshold to verify a proof is set by the received query. Then, a local database is defined using BoltDB \cite{bolt}.\\
 
-The client can call several function to send data to the service. The first call expected is \textit{SendQuery}, that broadcasts the query to all the nodes of the VNs CA.\\
-These nodes handle the query with the \textit{ReceiveQuery} function, that set the bitmap and the number of proof expected for this query, given its ID.\\
+The client can call several functions to send data to the Service. The first call expected is \textit{SendQuery}, that broadcasts the query to all the nodes of the VNs CA.\\
+These nodes handle the query with the \textit{ReceiveQuery} function, that sets the bitmap and the number of proofs expected for this query, given its ID, and stores these information in a concurrent map.\\
 
-Then all the different type of proofs have they own handler.\\
+Then all the different type of proofs have their own handler.\\
 We will describe precisely how one handler works, and generalize for all of them.\\
-Range proof is sent by the client using \textit{SendRange}. It broadcasts to all nodes of the VNs the proof, as well as the signature, the identity of the client and a potential \textbf{SkipBlock}. If it is the last proof for this query, after being handle, the insertion process is launched throught a function called \textit{checkForInsertion}, appending a new block containing all the previously handled proof for this query to the block passed as argument. If it is not the last proof or there is no skipchain yet, this field can be \textit{nil}.\\
-This \textit{checkForInsertion} is the return value of each handler. It return 2 values, the first one nil if no insertion have been done, or a \textit{SkipBlock} if it has been correctly done. The second one is an error, if it is not nil, the block will be nil.
 
-The service receives this proof with the \textit{HandleRange} function, that verifies first if more proofs of this type where expected thanks to the concurrent map, verifies the signature, and verifiy probabilistically the proof. Then, it updates the bitmap, and the number of proof expected, and store them back inside the concurrent map. It also stores in its local database the proof.\\
+A range proof is sent by the client using \textit{SendRange}. This function broadcasts to all nodes of the VNs the proof, as well as the signature, the identity of the client and a potential \textbf{SkipBlock}. If it is the last proof for this query, after being handled, the insertion process is launched through a function called \textit{checkForInsertion}, appending a new block containing all the previously handled proof for this query, to the block passed as argument. If it is not the last proof or there is no skipchain yet, this field can be \textit{nil}.\\
+This \textit{checkForInsertion} is the returns value of each handler. It returns 2 values, the first one \textit{nil} if no insertion has been done, or a \textit{SkipBlock} if it has been correctly done. The second one is an error, if it is not \textit{nil}, the block will be \textit{nil}.\\
 
-To extend about how the proof verification and proof itself are stored, we explain here how we defined the structure to do so efficiently.\\
-The verification of proofs are stored inside a map of (string,integer), as long as the whole query has not been processed. Then it is deleted, as it is stored inside a block of the ledger, and can thus be retrieved. The \textbf{key} of this map is a string of the form : \textit{queryID+"typeOfProof"+clientID+deterministicInfo+nodeID}. The deterministic info is used if the sender of proof need to send several profo of the same type (for example the DPs can send more than 1 range proof) while keeping the unicity of the key. The value is 0,1,2 or 3 in function of the value of return of the verification.\\
+The Service receives this proof with the \textit{HandleRange} function, that verifies first if more proofs of this type where expected thanks to the concurrent map, verifies the signature, and verifiy probabilistically the proof. Then, it updates the bitmap, and the number of proof expected, and store them back inside the concurrent map. It also stores in its local database the proof.\\
+
+To extends about how the proof verification and proof itself are stored, we explain here how we defined the structure to do so efficiently.\\
+The verification of proofs are stored inside a map of (string,integer), as long as the whole query has not been processed. When the block is inserted, it is deleted, as it is stored inside  the ledger, and can thus be retrieved. The \textbf{key} of this map is a string of the form : \textit{queryID+"typeOfProof"+clientID+deterministicInfo+nodeID}. The deterministic info is used if the sender of proof need to send several proofs of the same type (for example the DPs can send more than 1 range proof) while keeping the uniqueness of the key. The value is 0,1,2 or 3 in function of the returning value of the verification.\\
 For the storage of the proof in boltDB, the same system of key/value is used. The only difference is that the database is split in buckets, that  have maximal capacity. So upon receiving a proof, a bucket is created/loaded with key \textit{queryID+"typeOfProof"}, and the proof is stored with the same key as the bitmap, and the value is the proof in bytes.\\
 
 The same implementation is used throught all handlers. \textit{SendAggregation} and \textit{HandleAggregation}, \textit{SendShuffle} and \textit{HandleShuffle}, \textit{SendKeySwitch} and \textit{HandleKeySwitch}.
 
 \subsection{Skipchain Operations}
-There are 2 type of operations on the Skipchain. The insertion of a block, or getting one from the chain.\\
-The first one is done via the handler, as if all proof has been received, the insertion will begin inside \textit{checkForInsertion} function. If no block were passed as argument a new chain is created, else it is happened at the end of the chain. This is done by calling the \textit{skipchain} service implemented by DeDiS. It handles all the technical features of the chain itself, and is not the aim of this project and will not be discussed in details.\\
-In addition to this function, anyone can ask for the last block known by the VNs CA given a block as argument. The client can call \textit{GetLatestBlock} giving the roster (the set of node) that handle the skipchain and a SkipBlock. The service will  receive the request with \textit{GetLatestBlockRequest} and send back the last block it knows. 
+There are 2 type of operations on the Skipchain. Inserting a block, or getting one that is already in the chain.\\
+The first one is done via the handler, the insertion will begin inside the \textit{checkForInsertion} function when all proofs has been received. If no block was passed as argument a new chain is created, else it is appended at the end of the chain. This is done by calling the \textit{skipchain} Service implemented by DEDIS. It handles all the technical features of the chain itself, and is not the aim of this project and will not be discussed in details.\\
+In addition to these functiosn, anyone can ask for the last block known by the VNs CA given a block as argument. The client can call \textit{GetLatestBlock} giving the roster (the set of verifying nodes represented as a structure) that handles the skipchain, and a SkipBlock. The service receives the request with \textit{GetLatestBlockRequest} and sends back the last block it knows.
 
-\subsection{Modification of the Skipchain}
-Some modification have been done to the service implemented by DeDis to fit the scenario described in the report. The only  modification is basically the addition of a  verification function that run on all nodes when a block is received to verify if its structure and data are correct.\\
-This is done by adding a registration for this function in \textit{skipchain.go}, and by writting this function inside the \textit{verification.go} file.
+\subsection{Addition to the Skipchain Service}
+A modification has been done to the \textit{skipchain} Service implemented by DEDIS to fit the scenario described in the report. The Service from DEDIS provides a way to register a  verification function that run on all nodes when a block is received to verify if its structure and data are correct.\\
+This is done by adding a registration for this function in our Service. The function is called \textit{verifySkipBlock} and does the following on each node:
+\begin{itemize}
+\item{It loads the local database, as the service runs on the same node that the one that handled the proof.}
+\item{It gets the bitmap saved before launching the insertion}
+\item{It verifies that all data from the loaded bitmap are also in the bitmap of the block data request}
+\end{itemize}
+
+This way all nodes verify that their data is present in the block and that no malicious party tried to falsify information.\\
 
 \subsection{API for external Clients}
+The following functions are useful for parties that are external to the Lemal Framework.\\
+First, anyone can get all the proofs for a given query. A client can call \textit{GetProofsFrom} with an ID and the node from which it wants to retrieve the proofs. The node returns the map of string to proof in bytes that was stored in its local DB.\\
+It can then be transformed from bytes to proof structures (the key contains which type of proof it is) by doing it itself, or can call \textit{TranformToAllProofs} that will return a structure called \textbf{DataToVerify} containing 4 arrays of proofs, 1 of each type.\\
 
+Of course, one might also want to retrieve a block for a given query. The \textit{GetBlockForQuery} return the block that corresponds to the given queryID.\\
+
+Eventually, if a client has no block, it can ask for the genesis one that is stored in the local database of all nodes. This way it can retrieve the last block and explore the chain. The client call \textit{GetGenesis}, with a node identity, that will fetch in its DB the block and returns it.
 
 \section{Performance Evaluation}
+This section presents the performances of the VNs CA with different parameters. All simulations were done on the iccluster of EPFL, with 5 servers \cite{cluster}.\\
+We evaluate the computation time in function of the number of servers, the number of DPs and the number of VNs. In addition, a graph presenting the verification time in function of the threshold set in the query, is shown at the end.\\
+A request is defined as a server/DP sending one of its proof to all the VNs.\\
+The simulations are done with 2 queries. Every requests (proofs coming from an entity) are sequential, but the sendings to each VN inside a request sending are parallelized. This means that each node verifies a proof in parallel.\\
+As each of the node runs the verifications in parallel, the measurements taken are the maximum of the computation time of all the VNs, i.e. the bottleneck.\\
+
+
+Note that the test data generated use the following specifications for the inputs:\\
+Aggregation does the aggregation of $1,2,3,4,5$ encrypted with EC Elgamal, with 2 grouping attributes.\\
+The shuffle uses 2 arrays of ciphertexts containing respectively the following value encrypted $1,2,3,6,$ and $2,4,8,6$. \\
+The key switch is made on 2 random ciphers.\\
+Range proof are made using the range $[0,16^{16}]$, 5 servers and the value $25$ encrypted.
+\subsection{Scaling in number of Data Providers}
+We first present Figure 3, that shows the verification time of Range proofs for a varying number of DPs (from 1 to 200) and fixed parameters.
+\begin{figure}[H]
+\includegraphics[scale=0.5]{variationInDPRange}
+\caption{Variation of the number of DPs by Server, for 5 Servers, 5 Verifying Nodes and Threshold = 1.0}
+\end{figure}
+This graph only presents the variation of range proofs verifications, as all the other proofs verifications are constant (they vary with the number of servers). 3 bars are shown, one with a proof containing no range predicate, a second one with 1 range in the request, and the last one with 3 range predicates inside the request. This is still one proof as the structure contains a rangeList.\\
+Note that 100 DPs by server means that each  DP sends its proof to each VN, and as we have 5 servers in this context, there are $100*5 = 500$ range proofs to verify.\\
+First, all verifications grow linearly, with a value of 17 seconds for 3 ranges at 100 DPS and around 33 seconds for 200 DPs.\\
+The difference between the bars (number of range proofs) for a same number of DPs is the interesting difference to look at. There is not much difference between the no range and 1 range (13 seconds versus 17 seconds for 100 DPs by server), because of 3 main reasons. First, the verification phase contains a signature verification, that is around the same time for every structure, even with no range. This signature verification is done even if the proof is not verified by the VN because of the threshold.\\
+The second reason is that the proof verification is efficiently parallelized, explaining the low difference between 1 range and 3 range proofs, i.e. it does not grow by a factor of 3.\\
+Moreover, in the simulation done, the proofs were always not correct due to some compatibilty problems. This is still a good approximation of the execution time, as every sending will later be perfectly parralelized in addition of the 
+parrallel verifications.
+
+\subsection{Scaling in number of Servers}
+Figure 4 presents the verification time of proofs for a varying number of Servers (from 3 to 50) and fixed parameters.
+
+\begin{figure}[H]
+\includegraphics[scale=0.5]{variationInServ}
+\caption{Variation with the number of Servers}
+\end{figure}
+
+Here we present the variation of proofs verification, the range proofs are shown but will not be addressed as they are constant with the number of DPs that is fixed to 10 here (10 total and not 10 by server).\\
+So 10 servers means that there is 10 verifications of shuffle, keyswitch and aggregation proofs.\\
+The \textbf{Util handling} is the sum of the time to insert a genesis block, then insert another block, but also the time to collect the bitmap for both this block, and the time to return a block after asking for the last block of the chain.\\
+This corresponds to the creation of a skipchain (genesis block) by a first query, the the insertion of a second block (second query), the time that the VNs take to gather the data before inserting both blocks, and finally the time it takes to return the last block of the skipchain when asked. All these times are gathered as they are really small compared to the proofs verifications, i.e. it is around 0.1 seconds.\\
+The lowest verification time is the aggregation proof. It grows linearly with the number of server.\\
+It is the same for shuffle and key switch proofs, that grow linearly with the number of server, and take more time than the aggregation. From 2 seconds to 4 seconds for 30 and 50 servers for the shuffle, and 1 second to 2 seconds for 30 and 50 servers for the key switch.\\
+The Util Handling time also grows but is really low compared to the verifications. Thus, the operations linked to the Skipchain are not a bottleneck for the system, when the number of server increases.
+
+\subsection{Scaling in number of Verifying Nodes}
+Figure 4 deals with the operations linked to the skipchain for a varying number of VNs (from 3 to 20) and fixed parameters.
+
+\begin{figure}[H]
+\includegraphics[scale=0.5]{variationVN}
+\caption{Variation with the number of Verifying Nodes}
+\end{figure}
+
+
+This  graph shows the variation of Skipchain's operations with the number of VNs. The proofs stays constant, as the number of servers is fixed to 5 and the number of DPs to 10.\\
+First, we can notice that the time to insert the genesis block is growing linearly with the number of VNs. It goes from $0.005$ second for $3$ VNs to $0.015$ for $6$ of them.\\
+The time to insert a block does not seem to follow a linear growth, as the insertion might depends on the propagation, and verification of the block on each node.\\
+The time to get a block is almost constant, as if there is less than $10$ nodes, the node receiving the request will ask all the nodes, and will return the block with low latency time (around $0.1$ second). The propagation of message is optimized and of a really small order (around $0.01$ second). If there are more than $10$ nodes, the node receiving the request will ask half the nodes. The value for getting a block is $0.0112$ second for $6$ nodes, and $0.0125$ second for $10$ nodes.\\
+Eventually, the time to collect the bitmaps from all the nodes grows linearly with the number of VNs, which makes sense as the more VNs there are, the more bitmaps and data the root needs to collect.
+
+\subsection{Threshold variation}
+The last variation is depicted in Figure 6. It shows the proof verifications time with the threshold variation. The number of servers is fixed to 10, the VNs to 6, and the number of DPs to 10.\\
+
+\begin{figure}[H]
+\includegraphics[scale=0.5]{variationWithThreshold}
+\caption{Variation in function of the query Threshold}
+\end{figure}
+
+First, the execution time of Range proofs has a really small growth (0.704 second for 0.2 and 0.752 second for 0.8). This is mostly due to the fact that the proof fails really soon when its verified, and the difference between a verification and none is of order 0.01 second. It is the same for the aggregation with even smaller value (0.346 for 0.2 and 0.357 for 0.8). This is due to the fact that aggregation verificatio are really efficient and quick . The differences are not be visible or too small to be noticed.\\
+However, for shuffle and key switch, the execution time grows linearly with the threshold.\\
+The Util Handling is constant for vaying threshold, which makes sense as it does not affect any skipchain operation.\\
+Note that the verifications times are really low, and even if they are not verified, proofs' signature are still checked.
+
+\subsection{Bandwidth}
+This section present the size of the proof and request sent from DPs/Servers to VNs.\\
+
+
+Each request contains the same fields. An ID referencing the query, the senderID referencing which entity sent the proof, and a potential deterministic information, which is used to keep the key unique for different proofs from one same entity. Each of these fields are \textit{string} type.\\
+Then the signature and the data of the proof are both array of bytes. The signatures are of constant size, but the data of proofs will vary in function of which type of proof is handled.\\
+Finally a roster and a skipblock are also in the requests, even if the block is often \textit{nil}.\\
+The roster is used in each request to specify the VNs CA that will handle the request. It also permits to avoid sending the request to a subset of servers, as it verifies if the block previously inserted had the same roster than the current one.\\
+The skipblock is specified if and only of a request is the last one for a given query, and that the block created should be appended to the block passed. If it is not the last one, the VNs will fetch it from the one given.\\
+
+
+Table 1 presents the size of the proof structure as well as the size of the entire request containing the previously stated elements. The signature is always 96 bytes, and strings are really small, and a mean size of 20 bytes is taken.\\
+
+\begin{table}[H]
+\centering
+\caption{Size of proof for the simulations ran}
+\label{my-label}
+\begin{tabular}{|
+>{\columncolor[HTML]{656565}}c |c|c|}
+\hline
+{\color[HTML]{FFFFFF} Type of Proof} & \cellcolor[HTML]{656565}{\color[HTML]{FFFFFF} Size of Proof} & \cellcolor[HTML]{656565}{\color[HTML]{FFFFFF} Size of Request} \\ \hline
+{\color[HTML]{FFFFFF} Range}         & 45568 bytes                                                  & 45976 bytes                                                    \\ \hline
+{\color[HTML]{FFFFFF} Shuffling}     & 8518 bytes                                                   & 8926 bytes                                                     \\ \hline
+{\color[HTML]{FFFFFF} Aggregation}   & 3934 bytes                                                   & 4386 bytes                                                     \\ \hline
+{\color[HTML]{FFFFFF} Key Switch}    & 1331 bytes                                                   & 1739 bytes                                                     \\ \hline
+\end{tabular}
+\end{table}
+
+We can see that the bottleneck is clearly the range proof which is a lot bigger than all the other proofs. This is due to pairing point that are of size $384$ bytes, while a classic point is $64$ bytes.
 
 \section{Conclusion and Future Work}
+This project achieves an implementation of a Distributed Ledger for Lemal system, based on the Skipchain framework. The threat model is stronger than previous systems such as Prio or UnLynx, and has more operations available. Moreover, as the proofs verifications are done in parallel of the CA server computations, the system achieves a better running time than the framework it was based on, UnLynx.
+
+Providing both \textbf{correctness} of results and \textbf{robustness} of computation, the Distributed Ledger allow universal proofs verifications, as well as an entity that computes the proofs verifications instead of the CA server. Moreover, it introduces a threshold of verification, permitting the VNs CA to compute only a part of the proof, trading correctness for computation time. This trade-off does not make the correctness obsolete, as each VN will verify a different subset of proofs, and there is a high probability that all the proofs are verified and instersect between several verifying nodes.\\
+
+However, some improvements could be made to the system to improve the performances.  We state some guidelines to implement some optimizations that could be done to improve the system further.\\
+
+One of them would be the parrallelization of the requests sending by different servers/DPs, that should improve the system computation time.\\
+For the bandwidth, modfications could be made to the proofs' structure and verifications. Indeed, there is a redundancy of information that could be removed. For example, the output of a keyswitch proof of a server, is the input for the next server's key switch proof. Such modifications could also be be applied to shuffle proofs.\\
+We saw that the range proof is also a really big part of the bandwidth, we could look for another pairing that may be smaller in term of size.
+
+The system is still in development and need some changes to make everything work perfectly as theorically planned. An example would be the range proofs that always fail due to versioning of cryptographic library.\\
+
+Eventually, such a system as a whole should be subjected to a security analysis, as well as performance to be sure that it outperforms previously developped data sharing systems.
+
+\newpage
 \begin{thebibliography}{9}
 \bibitem{prioimple}
 Henry Corrigan-Gibbs, Prio prototype implementation\\
@@ -343,10 +489,16 @@ Henry Corrigan-Gibbs, Prio prototype implementation\\
 Kirill Nikitin, Eleftherios Kokoris-Kogias, Philipp Jovanovic, Linus Gasser, Nicolas Gailly, \textit{CHAINAC: Proactive Software-Update Transparency via Collectively Signed Skipchains and Verified Builds}\\
 \texttt{https://www.usenix.org/system/files/conference/usenixsecurity17/sec17-nikitin.pdf}
 
+\bibitem{anytrust}
+David Wolinsky, Henry Corrigan-Gibbs, Bryan Ford and Aarong Jonhson, \textit{Scalable anonymous group communication in the anytrust model. In 5th European Workshop on System Security. 2012}
 
 \bibitem{bitcoin}
 Satoshi Nakamoto, \textit{Bitcoin: A Peer-to-Peer Electronic Cash System}\\
 \texttt{https://bitcoin.org/bitcoin.pdf}
+
+\bibitem{lemal}
+\textit{Lemal repository}
+\texttt{https://github.com/lca1/unlynx/tree/lemal}
 
 \bibitem{unlynx}
 David Froelicher, Patricia Egger, Joao Sa\' Sousa, Jean Louis Raisaro, Zhicong Huang, Christian Mouchet, Bryan Ford and Jean-Pierre Hubaux, \textit{UnLynx: A Decentralized System for Privacy-Conscious Data Sharing}\\
@@ -366,11 +518,31 @@ Heather Fraser, \textit{How Blockchains can provide new benefits for Healthcare}
 
 \bibitem{coinmarket}
 \textit{Diverse Information about Crpyptocurrencies}\\
-\\texttt{https://coinmarketcap.com/}
+\texttt{https://coinmarketcap.com/}
 
 \bibitem{skipchain}
 \textit{Skipchain implementation repository}\\
 \texttt{https://github.com/dedis/cothority/tree/master/skipchain}
+
+\bibitem{maxproject}
+Max Premi, David Froelicher, Juan Troncoso-Pastoriza, \textit{Decentalized Data Sharing System based on Secure Multi-Party Computation}
+
+\bibitem{bft}
+\textit{Byzantine-Fault Tolerance}\\
+\texttt{https://en.wikipedia.org/wiki/Byzantine\_fault\_tolerance}
+
+\bibitem{skiplist}
+William Pugh. \textit{Skip Lists: A probabilistic Alternative to Balanced Trees.}\\
+\texttt{http://courses.cs.vt.edu/cs2604/fall05/wmcquain/Notes/Supplemental/PughSkiplistPaper.pdf}
+
+
+\bibitem{bolt}
+\textit{Bolt DB documentation}
+\texttt{https://github.com/boltdb/bolt}
+
+\bibitem{cluster}
+\textit{ICcluster specifications}\\
+\texttt{https://install.iccluster.epfl.ch/Portal/}
 
 \end{thebibliography}
 \end{document}

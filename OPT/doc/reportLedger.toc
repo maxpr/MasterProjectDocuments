@@ -5,23 +5,30 @@
 \contentsline {subsection}{\numberline {3.1}Collective Authority}{5}
 \contentsline {subsection}{\numberline {3.2}ElGamal Encryption}{5}
 \contentsline {subsection}{\numberline {3.3}Skipchain and Blockchain}{5}
-\contentsline {section}{\numberline {4}Lemal System}{5}
+\contentsline {section}{\numberline {4}Lemal System}{6}
 \contentsline {subsection}{\numberline {4.1}System Model}{6}
 \contentsline {subsection}{\numberline {4.2}Threat Model}{7}
 \contentsline {subsection}{\numberline {4.3}Properties}{7}
+\contentsline {subsubsection}{\numberline {4.3.1}Properties guaranteed by UnLynx}{7}
+\contentsline {subsubsection}{\numberline {4.3.2}Properties guaranteed by Lemal}{8}
 \contentsline {subsection}{\numberline {4.4}Query example}{8}
-\contentsline {section}{\numberline {5}Verifying Node}{8}
-\contentsline {subsection}{\numberline {5.1}System Model}{8}
+\contentsline {section}{\numberline {5}Verifying Node}{9}
+\contentsline {subsection}{\numberline {5.1}System Model}{9}
 \contentsline {subsection}{\numberline {5.2}Threat Model}{10}
-\contentsline {subsection}{\numberline {5.3}Type of Proof}{10}
-\contentsline {subsection}{\numberline {5.4}Operations supported}{10}
+\contentsline {subsection}{\numberline {5.3}Type of Proof}{11}
+\contentsline {subsection}{\numberline {5.4}Supported operations}{11}
 \contentsline {subsubsection}{\numberline {5.4.1}Query and Proof handling}{11}
 \contentsline {subsubsection}{\numberline {5.4.2}Skipchain operations}{11}
-\contentsline {subsubsection}{\numberline {5.4.3}Fucntion for external clients}{11}
-\contentsline {section}{\numberline {6}Implementation}{11}
-\contentsline {subsection}{\numberline {6.1}Handlers}{11}
-\contentsline {subsection}{\numberline {6.2}Skipchain Operations}{12}
-\contentsline {subsection}{\numberline {6.3}Modification of the Skipchain}{13}
-\contentsline {subsection}{\numberline {6.4}API for external Clients}{13}
-\contentsline {section}{\numberline {7}Performance Evaluation}{13}
-\contentsline {section}{\numberline {8}Conclusion and Future Work}{13}
+\contentsline {subsubsection}{\numberline {5.4.3}Functions for external clients}{12}
+\contentsline {section}{\numberline {6}Implementation}{12}
+\contentsline {subsection}{\numberline {6.1}Handlers}{12}
+\contentsline {subsection}{\numberline {6.2}Skipchain Operations}{13}
+\contentsline {subsection}{\numberline {6.3}Addition to the Skipchain Service}{13}
+\contentsline {subsection}{\numberline {6.4}API for external Clients}{14}
+\contentsline {section}{\numberline {7}Performance Evaluation}{14}
+\contentsline {subsection}{\numberline {7.1}Scaling in number of Data Providers}{14}
+\contentsline {subsection}{\numberline {7.2}Scaling in number of Servers}{16}
+\contentsline {subsection}{\numberline {7.3}Scaling in number of Verifying Nodes}{17}
+\contentsline {subsection}{\numberline {7.4}Threshold variation}{19}
+\contentsline {subsection}{\numberline {7.5}Bandwidth}{20}
+\contentsline {section}{\numberline {8}Conclusion and Future Work}{20}
