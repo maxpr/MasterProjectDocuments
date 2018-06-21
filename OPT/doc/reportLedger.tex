@@ -369,7 +369,8 @@ Of course, one might also want to retrieve a block for a given query. The \texti
 Eventually, if a client has no block, it can ask for the genesis one that is stored in the local database of all nodes. This way it can retrieve the last block and explore the chain. The client call \textit{GetGenesis}, give a verifying node identity, that will fetch in its DB the block and returns it.
 
 \section{Performance Evaluation}
-This section presents the performances of the VNs CA with different parameters. All simulations were done on the iccluster of EPFL, with 5 servers \cite{cluster}, using Mininet. For each of our servers, we used machines with two Intel Xeon E5-2680 v3 CPUs with a 2.5GHz frequency, 256GB RAM that supports 24 threads on 12 cores.\\
+This section presents the performances of the VNs CA with different parameters. All simulations were done on the iccluster of EPFL, with 5 servers \cite{cluster}. We used Mininet \cite{mininet} to simulate a realistic virtual network between servers. Each of the servers was connected to the others by a 1Gbps link with a communication delay of 10ms. We used 5 machines with two Intel Xeon E5-2680 v3 CPUs with a 2.5GHz frequency, 256GB RAM that supports 24 threads on 12 cores.\\
+
 We evaluate the computation time in function of the number of servers, the number of DPs and the number of VNs. In addition, a graph presenting the verifications times in function of the threshold set in the query is shown at the end.\\
 A request is defined as a server/DP sending one of its proof to all the VNs.\\
 The simulations are done with 2 queries. All requests (proofs coming from an entity) are sequential, but the sendings to each VN inside a request are parallelized. This means that each node verifies a proof in parallel.\\
@@ -548,5 +549,8 @@ William Pugh. \textit{Skip Lists: A probabilistic Alternative to Balanced Trees.
 \textit{ICcluster specifications}\\
 \texttt{https://install.iccluster.epfl.ch/Portal/}
 
+\bibitem{mininet}
+\textit{Mininet, An Instant Virtual Network.}\\
+\texttt{http://mininet.org}
 \end{thebibliography}
 \end{document}

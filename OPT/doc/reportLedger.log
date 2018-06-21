@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.2.26)  17 JUN 2018 17:07
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.2.26)  17 JUN 2018 17:23
 entering extended mode
 **./reportLedger.tex
 (reportLedger.tex
@@ -577,17 +577,22 @@ Underfull \hbox (badness 10000) in paragraph at lines 367--368
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 372--377
+Underfull \hbox (badness 10000) in paragraph at lines 372--373
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 374--378
 
  []
 
 <variationInDPRange.pdf, id=62, 1011.78pt x 867.24pt>
 File: variationInDPRange.pdf Graphic file (type pdf)
 <use variationInDPRange.pdf>
-Package pdftex.def Info: variationInDPRange.pdf  used on input line 387.
+Package pdftex.def Info: variationInDPRange.pdf  used on input line 388.
 (pdftex.def)             Requested size: 505.88876pt x 433.61894pt.
 
-Overfull \hbox (36.13377pt too wide) in paragraph at lines 387--388
+Overfull \hbox (36.13377pt too wide) in paragraph at lines 388--389
 [][] 
  []
 
@@ -595,10 +600,10 @@ Overfull \hbox (36.13377pt too wide) in paragraph at lines 387--388
 <variationInServ.pdf, id=107, 1011.78pt x 867.24pt>
 File: variationInServ.pdf Graphic file (type pdf)
 <use variationInServ.pdf>
-Package pdftex.def Info: variationInServ.pdf  used on input line 401.
+Package pdftex.def Info: variationInServ.pdf  used on input line 402.
 (pdftex.def)             Requested size: 505.88876pt x 433.61894pt.
 
-Overfull \hbox (36.13377pt too wide) in paragraph at lines 401--402
+Overfull \hbox (36.13377pt too wide) in paragraph at lines 402--403
 [][] 
  []
 
@@ -606,65 +611,65 @@ Overfull \hbox (36.13377pt too wide) in paragraph at lines 401--402
 <variationVN.pdf, id=168, 1011.78pt x 867.24pt>
 File: variationVN.pdf Graphic file (type pdf)
 <use variationVN.pdf>
-Package pdftex.def Info: variationVN.pdf  used on input line 417.
+Package pdftex.def Info: variationVN.pdf  used on input line 418.
 (pdftex.def)             Requested size: 505.88876pt x 433.61894pt.
 
-Overfull \hbox (36.13377pt too wide) in paragraph at lines 417--418
+Overfull \hbox (36.13377pt too wide) in paragraph at lines 418--419
 [][] 
  []
 
 [18 <./variationVN.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 429--430
+Underfull \hbox (badness 10000) in paragraph at lines 430--431
 
  []
 
 <variationWithThreshold.pdf, id=227, 1011.78pt x 867.24pt>
 File: variationWithThreshold.pdf Graphic file (type pdf)
 <use variationWithThreshold.pdf>
-Package pdftex.def Info: variationWithThreshold.pdf  used on input line 432.
+Package pdftex.def Info: variationWithThreshold.pdf  used on input line 433.
 (pdftex.def)             Requested size: 505.88876pt x 433.61894pt.
 
-Overfull \hbox (36.13377pt too wide) in paragraph at lines 432--433
+Overfull \hbox (36.13377pt too wide) in paragraph at lines 433--434
 [][] 
  []
 
 [19 <./variationWithThreshold.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 442--443
+Underfull \hbox (badness 10000) in paragraph at lines 443--444
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 445--450
+Underfull \hbox (badness 10000) in paragraph at lines 446--451
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 452--453
+Underfull \hbox (badness 10000) in paragraph at lines 453--454
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 472--473
+Underfull \hbox (badness 10000) in paragraph at lines 473--474
 
  []
 
 [20]
-Underfull \hbox (badness 10000) in paragraph at lines 474--475
+Underfull \hbox (badness 10000) in paragraph at lines 475--476
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 476--477
+Underfull \hbox (badness 10000) in paragraph at lines 477--478
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 482--483
+Underfull \hbox (badness 10000) in paragraph at lines 483--484
 
  []
 
 [21]
-Overfull \hbox (7.79657pt too wide) in paragraph at lines 539--541
+Overfull \hbox (7.79657pt too wide) in paragraph at lines 540--542
 \OT1/cmtt/m/n/10 http://courses.cs.vt.edu/cs2604/fall05/wmcquain/Notes/Suppleme
 ntal/PughSkiplistPaper.pdf 
  []
@@ -673,10 +678,10 @@ ntal/PughSkiplistPaper.pdf
 AED: lastpage setting LastPage
 [22] (reportLedger.aux) ) 
 Here is how much of TeX's memory you used:
- 4486 strings out of 493303
- 63727 string characters out of 3129784
- 135923 words of memory out of 3000000
- 7920 multiletter control sequences out of 15000+200000
+ 4487 strings out of 493303
+ 63736 string characters out of 3129784
+ 135927 words of memory out of 3000000
+ 7921 multiletter control sequences out of 15000+200000
  17881 words of font info for 66 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  41i,11n,43p,690b,270s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -697,7 +702,7 @@ fb><C:/Users/maxpr/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfont
 s/cm/cmti12.pfb><C:/Users/maxpr/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/p
 ublic/amsfonts/cm/cmtt10.pfb><C:/Users/maxpr/AppData/Local/Programs/MiKTeX 2.9/
 fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on reportLedger.pdf (22 pages, 387269 bytes).
+Output written on reportLedger.pdf (22 pages, 387440 bytes).
 PDF statistics:
  337 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
